@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
 
 import Home from './screens/Home/Home'
+import New from './screens/New/New'
+import Saved from './screens/Saved/Saved'
 
 
 function App() {
@@ -13,6 +15,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />}/>
+        <Route path="/new" element={<New />}/>
+        <Route path="/saved" element={<Saved />}/>
       </Routes>
     </BrowserRouter>
   )
