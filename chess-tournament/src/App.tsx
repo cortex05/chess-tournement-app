@@ -1,14 +1,20 @@
 import { useState } from 'react'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
+import './App.css'
+
+import Home from './screens/Home/Home'
 
 
 function App() {
-
   return (
-    <>
-      <h1>Chess Tournament!</h1>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />}/>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
