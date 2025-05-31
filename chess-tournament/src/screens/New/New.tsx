@@ -1,8 +1,12 @@
 import React from 'react'
+import { Header } from '../../components/Header/Header'
 
 const New = () => {
   return (
-    <div>New Tournament</div>
+    <div>
+      <Header lossCheck={true}/>
+      New Tournament
+    </div>
   )
 }
 

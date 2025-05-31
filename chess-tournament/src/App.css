@@ -3,3 +3,7 @@
   --main-text: #f5f5f5;
   --card-body: #62aef9;
 }
+
+*  {
+  margin: 0px
+}

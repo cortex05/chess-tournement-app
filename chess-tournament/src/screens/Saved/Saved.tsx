@@ -1,8 +1,14 @@
 import React from 'react'
+import { Header } from '../../components/Header/Header'
 
 const Saved = () => {
   return (
-    <div>Saved</div>
+    <>
+      <Header lossCheck={false}/>
+      <section>
+        Main saved content
+      </section>
+    </>
   )
 }
 
