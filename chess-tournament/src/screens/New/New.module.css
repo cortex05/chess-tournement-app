@@ -1,0 +1,10 @@
+.main {
+  margin: 15px 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mainButtons {
+  background-color: var(--dark-body);
+}
