@@ -1,8 +1,18 @@
 import { useActionState, useState } from "react";
-import { Stack, Button, Box, TextField, Input } from "@mui/material";
+import { Stack, Button, Box, TextField, Input, List } from "@mui/material";
 import styles from "./New.module.css";
 import { PersonAddAltSharp } from "@mui/icons-material";
-import Modal from './NewModal'
+import Modal from "./NewModal";
+
+import {
+  ListItemAvatar,
+  Avatar,
+  ListItemText,
+  ListItemSecondaryAction,
+  IconButton,
+} from "@mui/material";
+import ListItem from "@mui/material/ListItem";
+import { FolderCopySharp, DeleteSharp } from "@mui/icons-material";
 
 import { Header } from "../../components/Header/Header";
 
@@ -34,7 +44,7 @@ const New = () => {
   const [roster, setRoster] = useState<string[]>([]);
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [playerName, setPlayerName] = useState<string>("")
+  const [playerName, setPlayerName] = useState<string>("");
 
   const handleAdd = () => {
     setIsModalOpen(false);
@@ -43,21 +53,18 @@ const New = () => {
   return (
     <>
       <Header lossCheck={true} />
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      >
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <div className={styles.modal}>
-          <Input 
+          <Input
             placeholder="Placeholder"
             onChange={(e) => setPlayerName(e.target.value)}
             autoFocus
-            sx={{color: "white"}}
-            />
-          <Button 
-            onClick={() => handleAdd()}
-            variant='outlined'
-            size="large">Add Player</Button>
+            value={playerName}
+            sx={{ color: "white" }}
+          />
+          <Button onClick={() => handleAdd()} variant="outlined" size="large">
+            Add Player
+          </Button>
         </div>
       </Modal>
       <section className={styles.main}>
@@ -68,16 +75,36 @@ const New = () => {
         </h4>
         <div className={styles.mainButtons}>
           <Stack spacing={2} direction="row">
-            <Button
-              variant="outlined"
-              startIcon={<PersonAddAltSharp />}
-              size="large"
-              onClick={() => setIsModalOpen(true)}
-            >
-              Add Player
-            </Button>
+            {!isModalOpen && (
+              <Button
+                variant="outlined"
+                startIcon={<PersonAddAltSharp />}
+                size="large"
+                onClick={() => setIsModalOpen(true)}
+              >
+                Add Player
+              </Button>
+            )}
             {playerCount > 1 && <Button>Finished</Button>}
           </Stack>
+        </div>
+        <div>
+          <List component="div" disablePadding>
+            <ListItem alignItems={"center"}>
+              <ListItemAvatar>
+                <Avatar>
+                  <FolderCopySharp />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary="GFG Self-Paced Course" />
+              <ListItemSecondaryAction>
+                {/*Inside the IconButton, we can render various icons*/}
+                <IconButton edge="end" aria-label="delete">
+                  <DeleteSharp />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          </List>
         </div>
       </section>
     </>
