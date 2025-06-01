@@ -2,13 +2,11 @@ import { useActionState, useState } from "react";
 import { Stack, Button, Box, TextField, Input, List } from "@mui/material";
 import styles from "./New.module.css";
 import { PersonAddAltSharp } from "@mui/icons-material";
-import Modal from "./NewModal";
 
 import {
   ListItemAvatar,
   Avatar,
   ListItemText,
-  ListItemSecondaryAction,
   IconButton,
 } from "@mui/material";
 import ListItem from "@mui/material/ListItem";
@@ -17,29 +15,7 @@ import { FolderCopySharp, DeleteSharp } from "@mui/icons-material";
 import { Header } from "../../components/Header/Header";
 import { Player } from "../../utilities";
 import type { IPlayer } from "../../types/types";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
-
-// const style = {
-//   position: 'absolute',
-//   top: '50%',
-//   left: '50%',
-//   transform: 'translate(-50%, -50%',
-//   width: 600,
-//   bgcolor: 'black',
-//   boxShadow: 24,
-//   border: '2px solid #000'
-// }
+import AddPlayerModal from "../../components/Modals/AddPlayerModal";
 
 const New = () => {
   const [roster, setRoster] = useState<IPlayer[]>([]);
@@ -61,20 +37,6 @@ const New = () => {
   return (
     <>
       <Header lossCheck={true} />
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <div className={styles.modal}>
-          <Input
-            placeholder="Placeholder"
-            onChange={(e) => setPlayerName(e.target.value)}
-            autoFocus
-            value={playerName}
-            sx={{ color: "white" }}
-          />
-          <Button onClick={() => handleAdd()} variant="outlined" size="large">
-            Add Player
-          </Button>
-        </div>
-      </Modal>
       <section className={styles.main}>
         <h1>New Tournament</h1>
         <h4>
@@ -120,6 +82,20 @@ const New = () => {
           </List>
         </div>
       </section>
+      <AddPlayerModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <div className={styles.modal}>
+          <Input
+            placeholder="Placeholder"
+            onChange={(e) => setPlayerName(e.target.value)}
+            autoFocus
+            value={playerName}
+            sx={{ color: "white" }}
+          />
+          <Button onClick={() => handleAdd()} variant="outlined" size="large">
+            Add Player
+          </Button>
+        </div>
+      </AddPlayerModal>
     </>
   );
 };
