@@ -42,21 +42,20 @@ const style = {
 // }
 
 const New = () => {
-  const [playerCount, setPlayerCount] = useState<number>(0);
   const [roster, setRoster] = useState<IPlayer[]>([]);
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [playerName, setPlayerName] = useState<string>("");
 
   const handleAdd = () => {
-    const newPlayer = new Player(playerName, roster.length + 1)
-    console.log(newPlayer.name)
-    const newArray = roster
-    newArray.push(newPlayer)
-    setRoster(newArray)
-    setPlayerName("")
+    const newPlayer = new Player(playerName, roster.length + 1);
+    console.log(newPlayer.name);
+    const newArray = roster;
+    newArray.push(newPlayer);
+    setRoster(newArray);
+    setPlayerName("");
     setIsModalOpen(false);
-    console.log(roster)
+    console.log(roster);
   };
 
   return (
@@ -83,36 +82,41 @@ const New = () => {
           are entered.
         </h4>
         <div className={styles.mainButtons}>
+          {!isModalOpen && (
           <Stack spacing={2} direction="row">
-            {!isModalOpen && (
-              <Button
-                variant="outlined"
-                startIcon={<PersonAddAltSharp />}
-                size="large"
-                onClick={() => setIsModalOpen(true)}
-              >
-                Add Player
-              </Button>
-            )}
-            {playerCount > 1 && <Button>Finished</Button>}
+            <Button
+              variant="outlined"
+              startIcon={<PersonAddAltSharp />}
+              size="large"
+              onClick={() => setIsModalOpen(true)}
+            >
+              Add Player
+            </Button>
+
+            {roster.length > 1 && <Button variant="outlined"
+              startIcon={<PersonAddAltSharp />}
+              size="large">Finished</Button>}
           </Stack>
+          )}
         </div>
         <div>
           <List component="div" disablePadding>
-            <ListItem alignItems={"center"}>
-              <ListItemAvatar>
-                <Avatar>
-                  <FolderCopySharp />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary="GFG Self-Paced Course" />
-              <ListItemSecondaryAction>
-                {/*Inside the IconButton, we can render various icons*/}
-                <IconButton edge="end" aria-label="delete">
-                  <DeleteSharp />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
+            {roster.map((player, index) => {
+              return (
+                <ListItem alignItems={"center"} key={index}>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <FolderCopySharp />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary={player.name} />
+
+                  <IconButton edge="end" aria-label="delete">
+                    <DeleteSharp />
+                  </IconButton>
+                </ListItem>
+              );
+            })}
           </List>
         </div>
       </section>
