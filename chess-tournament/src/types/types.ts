@@ -1,8 +1,10 @@
+import type { Player } from "../utilities"
+
 export interface IPlayer {
   id: number
   name: string
   score: number
-  playersMatched: string[]
+  playersMatched: Player[]
   wins: number
   draws: number
   losses: number

@@ -15,6 +15,8 @@ import ListItem from "@mui/material/ListItem";
 import { FolderCopySharp, DeleteSharp } from "@mui/icons-material";
 
 import { Header } from "../../components/Header/Header";
+import { Player } from "../../utilities";
+import type { IPlayer } from "../../types/types";
 
 const style = {
   position: "absolute",
@@ -41,13 +43,20 @@ const style = {
 
 const New = () => {
   const [playerCount, setPlayerCount] = useState<number>(0);
-  const [roster, setRoster] = useState<string[]>([]);
+  const [roster, setRoster] = useState<IPlayer[]>([]);
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [playerName, setPlayerName] = useState<string>("");
 
   const handleAdd = () => {
+    const newPlayer = new Player(playerName, roster.length + 1)
+    console.log(newPlayer.name)
+    const newArray = roster
+    newArray.push(newPlayer)
+    setRoster(newArray)
+    setPlayerName("")
     setIsModalOpen(false);
+    console.log(roster)
   };
 
   return (
