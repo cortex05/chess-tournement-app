@@ -31,8 +31,14 @@ const New = () => {
     setRoster(newArray);
     setPlayerName("");
     setIsModalOpen(false);
-    console.log(roster);
+    // console.log(roster);
   };
+
+  const removePlayer = (playerId: number) => {
+    const newRoster = roster.filter((player) => player.id !== playerId)
+    console.log("fire")
+    setRoster(newRoster)
+  }
 
   return (
     <>
@@ -73,7 +79,7 @@ const New = () => {
                   </ListItemAvatar>
                   <ListItemText primary={player.name} />
 
-                  <IconButton edge="end" aria-label="delete">
+                  <IconButton edge="end" aria-label="delete" onClick={() => removePlayer(player.id)}>
                     <DeleteSharp />
                   </IconButton>
                 </ListItem>
