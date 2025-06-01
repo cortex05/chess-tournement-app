@@ -1,19 +1,19 @@
 import { useActionState, useState } from "react";
-import { Stack, Button, Box } from "@mui/material";
+import { Stack, Button, Box, TextField, Input } from "@mui/material";
 import styles from "./New.module.css";
 import { PersonAddAltSharp } from "@mui/icons-material";
-import Modal from '@mui/material/Modal';
+import Modal from './NewModal'
 
 import { Header } from "../../components/Header/Header";
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  bgcolor: "background.paper",
+  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
@@ -32,28 +32,33 @@ const style = {
 const New = () => {
   const [playerCount, setPlayerCount] = useState<number>(0);
   const [roster, setRoster] = useState<string[]>([]);
-  const [isFinished, setIsFinished] = useState<boolean>(false)
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const [isFinished, setIsFinished] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [playerName, setPlayerName] = useState<string>("")
 
   const handleAdd = () => {
-    setIsModalOpen(false)
-  }
+    setIsModalOpen(false);
+  };
 
   return (
     <>
       <Header lossCheck={true} />
-      <Modal 
-        open={isModalOpen}
+      <Modal
+        isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        className={styles.modal}>
-          <div className={styles.modal}>
-          {/* <Box sx={style}> */}
-            <h3>Add player</h3>
-            <Button onClick={() => handleAdd()}>Add Player</Button>
-          {/* </Box> */}
-          </div>
+      >
+        <div className={styles.modal}>
+          <Input 
+            placeholder="Placeholder"
+            onChange={(e) => setPlayerName(e.target.value)}
+            autoFocus
+            sx={{color: "white"}}
+            />
+          <Button 
+            onClick={() => handleAdd()}
+            variant='outlined'
+            size="large">Add Player</Button>
+        </div>
       </Modal>
       <section className={styles.main}>
         <h1>New Tournament</h1>
