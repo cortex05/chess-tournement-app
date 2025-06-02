@@ -1,6 +1,10 @@
 import { Stack, Button, List, Input } from "@mui/material";
 import styles from "../New.module.css";
-import { PersonAddAltSharp } from "@mui/icons-material";
+import {
+  ArrowBackSharp,
+  ArrowForwardSharp,
+  PersonAddAltSharp,
+} from "@mui/icons-material";
 
 import {
   ListItemAvatar,
@@ -27,39 +31,46 @@ const PhaseTwo = (props: Props) => {
   const { roster, gameType, setRoster, teams } = props;
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [playerName, setPlayerName] = useState<string>("");
-  const [centerPlayers, setCenterPlayers] = useState<IPlayer[]>(roster);
+  const [centerPlayers, setCenterPlayers] = useState<IPlayer[]>([]);
 
   // FFA logic
   const handleAdd = () => {
     const newPlayer = new Player(playerName, roster.length + 1);
-    const newArray = roster;
-    newArray.push(newPlayer);
 
-    setRoster(newArray);
-    setCenterPlayers(newArray);
+    const newRoster = roster;
+    newRoster.push(newPlayer);
+    setRoster(newRoster);
+
+    const newCenterArray = centerPlayers;
+    newCenterArray.push(newPlayer);
+    setCenterPlayers(newCenterArray);
+
     setPlayerName("");
     setIsModalOpen(false);
   };
 
   const removePlayer = (playerId: number) => {
     const newRoster = roster.filter((player) => player.id !== playerId);
-    
+
     setRoster(newRoster);
     setCenterPlayers(newRoster);
   };
 
   const switchTeam = (playerMoving: IPlayer, side: string) => {
-    if(side === "LEFT"){
-        teams[0].teamRoster.push(playerMoving);
-        const newRoster = centerPlayers.filter((player) => player.id !== playerMoving.id); 
-        console.log(newRoster);           
-        setCenterPlayers(newRoster);
-    } else if(side === "RIGHT"){
-        teams[1].teamRoster.push(playerMoving);
-        const newRoster = centerPlayers.filter((player) => player.id !== playerMoving.id);  
-        console.log(newRoster);      
-        setCenterPlayers(newRoster); 
-    
+    if (side === "LEFT") {
+      teams[0].teamRoster.push(playerMoving);
+      const newRoster = centerPlayers.filter(
+        (player) => player.id !== playerMoving.id
+      );
+      console.log(newRoster);
+      setCenterPlayers(newRoster);
+    } else if (side === "RIGHT") {
+      teams[1].teamRoster.push(playerMoving);
+      const newRoster = centerPlayers.filter(
+        (player) => player.id !== playerMoving.id
+      );
+      console.log(newRoster);
+      setCenterPlayers(newRoster);
     }
   };
 
@@ -140,7 +151,7 @@ const PhaseTwo = (props: Props) => {
                   Add Player
                 </Button>
 
-                {roster.length > 1 && (
+                {centerPlayers.length === 0 && teams[0].teamRoster.length > 0 && teams[1].teamRoster.length > 0 && (
                   <Button
                     variant="outlined"
                     startIcon={<PersonAddAltSharp />}
@@ -159,20 +170,19 @@ const PhaseTwo = (props: Props) => {
                 teams[0].teamRoster.map((player, index) => {
                   return (
                     <ListItem alignItems={"center"} key={index}>
-                      <ListItemAvatar>
-                        <Avatar>
-                          <FolderCopySharp />
-                        </Avatar>
-                      </ListItemAvatar>
                       <ListItemText primary={player.name} />
 
-                      <IconButton
-                        edge="end"
-                        aria-label="delete"
-                        onClick={() => removePlayer(player.id)}
-                      >
-                        <DeleteSharp />
-                      </IconButton>
+                      <div>
+                        {/* <Avatar> */}
+                        <IconButton
+                          color="primary"
+                          onClick={() => console.log("yes")}
+                        >
+                          <ArrowForwardSharp />
+                        </IconButton>
+
+                        {/* </Avatar> */}
+                      </div>
                     </ListItem>
                   );
                 })}
@@ -194,20 +204,17 @@ const PhaseTwo = (props: Props) => {
                 teams[1].teamRoster.map((player, index) => {
                   return (
                     <ListItem alignItems={"center"} key={index}>
-                      <ListItemAvatar>
-                        <Avatar>
-                          <FolderCopySharp />
-                        </Avatar>
-                      </ListItemAvatar>
+                      <div>
+                        <IconButton
+                          color={"primary"}
+                          onClick={() => console.log("left")}
+                        >
+                          {/* <Avatar> */}
+                          <ArrowBackSharp />
+                          {/* </Avatar> */}
+                        </IconButton>
+                      </div>
                       <ListItemText primary={player.name} />
-
-                      <IconButton
-                        edge="end"
-                        aria-label="delete"
-                        onClick={() => removePlayer(player.id)}
-                      >
-                        <DeleteSharp />
-                      </IconButton>
                     </ListItem>
                   );
                 })}
