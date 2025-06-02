@@ -11,18 +11,20 @@ import {
 import ListItem from "@mui/material/ListItem";
 import { FolderCopySharp, DeleteSharp } from "@mui/icons-material";
 import { useState } from "react";
-import type { IPlayer } from "../../../types/types";
+import type { IPlayer, ITeam } from "../../../types/types";
 import Modal from "../NewModal";
 import { Player } from "../../../utilities";
+import TeamListItem from "./TeamListItem";
 
 type Props = {
   roster: IPlayer[];
   gameType: string;
   setRoster: Function;
+  teams?: ITeam[] | null
 };
 
 const PhaseTwo = (props: Props) => {
-  const { roster, gameType, setRoster } = props;
+  const { roster, gameType, setRoster, teams } = props;
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [playerName, setPlayerName] = useState<string>("");
 
@@ -135,7 +137,7 @@ const PhaseTwo = (props: Props) => {
           </div>
           <div className={styles.teamList}>
             <List component="div" disablePadding>
-              {roster.map((player, index) => {
+              {teams && teams[0].teamRoster.map((player, index) => {
                 return (
                   <ListItem alignItems={"center"} key={index}>
                     <ListItemAvatar>
@@ -159,27 +161,13 @@ const PhaseTwo = (props: Props) => {
             <List component="div" disablePadding>
               {roster.map((player, index) => {
                 return (
-                  <ListItem alignItems={"center"} key={index}>
-                    <ListItemAvatar>
-                      <Avatar>
-                        <FolderCopySharp />
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary={player.name} />
-
-                    <IconButton
-                      edge="end"
-                      aria-label="delete"
-                      onClick={() => removePlayer(player.id)}
-                    >
-                      <DeleteSharp />
-                    </IconButton>
-                  </ListItem>
+                  <TeamListItem key={index} removePlayer={removePlayer} player={player} />
+                   
                 );
               })}
             </List>
             <List component="div" disablePadding>
-              {roster.map((player, index) => {
+              {teams && teams[1].teamRoster.map((player, index) => {
                 return (
                   <ListItem alignItems={"center"} key={index}>
                     <ListItemAvatar>

@@ -42,7 +42,7 @@ const New = () => {
         )}
         {/* second */}
         {phase === "SECOND" && (
-          <PhaseTwo roster={roster} gameType={gameType} setRoster={setRoster}/>
+          <PhaseTwo roster={roster} gameType={gameType} setRoster={setRoster} teams={teams}/>
         )}
         {/* third */}
         {phase === "THIRD" && <div></div>}

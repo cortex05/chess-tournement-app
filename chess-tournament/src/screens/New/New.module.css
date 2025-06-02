@@ -18,6 +18,36 @@
   justify-content: space-between;
 }
 
-.teamList div {
-  background-color: black;
+.teamList > div {
+  background-color: var(--dark-body);
+  width: 200px;
+  height: 400px;
+  color: white;
+}
+
+.centerItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.centerItemActive {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  
+}
+
+.centerItemActive > div {
+  color: white;
+}
+
+.centerItem > div {
+  display: flex;
+  flex-direction: row;
+  padding: 0px 10px;
 }
