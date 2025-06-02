@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Stack, Button } from "@mui/material";
-import { AddCircleOutlineSharp, StorageSharp } from "@mui/icons-material";
+import { useState } from "react";
+import { Button } from "@mui/material";
+import { AddCircleOutlineSharp } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
-import AddPlayerModal from "../Modals/AddPlayerModal";
+import AddPlayerModal from "../Modals/Modal";
 
 type Props = {
   lossCheck: Boolean;

@@ -1,7 +1,11 @@
-import { useActionState, useState } from "react";
-import { Stack, Button, Box, TextField, Input, List } from "@mui/material";
+import { useState } from "react";
+import { Stack, Button, Input, List, Grid, Switch } from "@mui/material";
 import styles from "./New.module.css";
-import { PersonAddAltSharp } from "@mui/icons-material";
+import {
+  PersonAddAltSharp,
+  Person2Sharp,
+  GroupSharp,
+} from "@mui/icons-material";
 
 import {
   ListItemAvatar,
@@ -15,13 +19,29 @@ import { FolderCopySharp, DeleteSharp } from "@mui/icons-material";
 import { Header } from "../../components/Header/Header";
 import { Player } from "../../utilities";
 import type { IPlayer } from "../../types/types";
-import AddPlayerModal from "../../components/Modals/AddPlayerModal";
+import Modal from "../../components/Modals/Modal";
+import { useNavigate } from "react-router-dom";
+import PhaseOne from "./PhaseOne/PhaseOne";
 
-const New = () => {
+type Props = {
+  // saveRoster: () => void()
+};
+
+const New = (props: Props) => {
+  const navigate = useNavigate();
   const [roster, setRoster] = useState<IPlayer[]>([]);
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [playerName, setPlayerName] = useState<string>("");
+  const [tournamentCheck, setTournamentCheck] = useState<boolean>(false);
+
+  // Tournament object variables
+  const [gameType, setGameType]  = useState<string>("")
+
+  // Phase
+  const [phase, setPhase] = useState<string>("FIRST");
+
+  const handleTournament = () => {};
 
   const handleAdd = () => {
     const newPlayer = new Player(playerName, roster.length + 1);
@@ -35,60 +55,82 @@ const New = () => {
   };
 
   const removePlayer = (playerId: number) => {
-    const newRoster = roster.filter((player) => player.id !== playerId)
-    console.log("fire")
-    setRoster(newRoster)
-  }
+    const newRoster = roster.filter((player) => player.id !== playerId);
+    console.log("fire");
+    setRoster(newRoster);
+  };
 
   return (
     <>
       <Header lossCheck={true} />
       <section className={styles.main}>
         <h1>New Tournament</h1>
-        <h4>
-          Add players for your tournament and click finished when all players
-          are entered.
-        </h4>
-        <div className={styles.mainButtons}>
-          {!isModalOpen && (
-          <Stack spacing={2} direction="row">
-            <Button
-              variant="outlined"
-              startIcon={<PersonAddAltSharp />}
-              size="large"
-              onClick={() => setIsModalOpen(true)}
-            >
-              Add Player
-            </Button>
+        {/* first */}
+        {phase === "FIRST" && (
+          <PhaseOne setGame={setGameType} setPhase={setPhase}/>
+        )}
+        {/* second */}
+        {phase === "SECOND" && (
+          <div>
+            <h4>
+              Add players for your tournament and click finished when all
+              players are entered.
+            </h4>
+            <div className={styles.mainButtons}>
+              {!isModalOpen && (
+                <Stack spacing={2} direction="row">
+                  <Button
+                    variant="outlined"
+                    startIcon={<PersonAddAltSharp />}
+                    size="large"
+                    onClick={() => setIsModalOpen(true)}
+                  >
+                    Add Player
+                  </Button>
 
-            {roster.length > 1 && <Button variant="outlined"
-              startIcon={<PersonAddAltSharp />}
-              size="large">Finished</Button>}
-          </Stack>
-          )}
-        </div>
-        <div>
-          <List component="div" disablePadding>
-            {roster.map((player, index) => {
-              return (
-                <ListItem alignItems={"center"} key={index}>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <FolderCopySharp />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary={player.name} />
+                  {roster.length > 1 && (
+                    <Button
+                      variant="outlined"
+                      startIcon={<PersonAddAltSharp />}
+                      size="large"
+                      onClick={() => setTournamentCheck(true)}
+                    >
+                      Finished
+                    </Button>
+                  )}
+                </Stack>
+              )}
+            </div>
+            <div>
+              <List component="div" disablePadding>
+                {roster.map((player, index) => {
+                  return (
+                    <ListItem alignItems={"center"} key={index}>
+                      <ListItemAvatar>
+                        <Avatar>
+                          <FolderCopySharp />
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText primary={player.name} />
 
-                  <IconButton edge="end" aria-label="delete" onClick={() => removePlayer(player.id)}>
-                    <DeleteSharp />
-                  </IconButton>
-                </ListItem>
-              );
-            })}
-          </List>
-        </div>
+                      <IconButton
+                        edge="end"
+                        aria-label="delete"
+                        onClick={() => removePlayer(player.id)}
+                      >
+                        <DeleteSharp />
+                      </IconButton>
+                    </ListItem>
+                  );
+                })}
+              </List>
+            </div>
+          </div>
+        )}
+        {/* third */}
+        {phase === "THIRD" && <div></div>}
       </section>
-      <AddPlayerModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <div className={styles.modal}>
           <Input
             placeholder="Placeholder"
@@ -101,7 +143,37 @@ const New = () => {
             Add Player
           </Button>
         </div>
-      </AddPlayerModal>
+      </Modal>
+      <Modal isOpen={tournamentCheck} onClose={() => setTournamentCheck(false)}>
+        <div className={styles.modal}>
+          <div>
+            <h5>What kind of tournament do you want?</h5>
+            <div>
+              <Button
+                variant="outlined"
+                startIcon={<Person2Sharp />}
+                size="large"
+                onClick={() => setIsModalOpen(false)}
+              >
+                Free-For-All
+              </Button>
+              <Button
+                variant="outlined"
+                startIcon={<GroupSharp />}
+                size="large"
+                onClick={() => navigate("/tournament")}
+              >
+                Team
+              </Button>
+            </div>
+            <List component="div" disablePadding>
+              {roster.map((player, index) => {
+                return <div key={index}>{player.name}</div>;
+              })}
+            </List>
+          </div>
+        </div>
+      </Modal>
     </>
   );
 };

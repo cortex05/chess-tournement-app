@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 
 type Props = {
   isOpen: boolean;
@@ -6,7 +6,7 @@ type Props = {
   children?: any;
 };
 
-const AddPlayerModal = (props: Props) => {
+const Modal = (props: Props) => {
   const { isOpen, onClose, children } = props;
   if (!isOpen) return null;
 
@@ -43,4 +43,4 @@ const AddPlayerModal = (props: Props) => {
   );
 };
 
-export default AddPlayerModal;
+export default Modal;
