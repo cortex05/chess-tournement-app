@@ -1,22 +1,35 @@
 import { Button, Switch } from "@mui/material";
 import React, { useState } from "react";
+import type { ITeam } from "../../../types/types";
+import { Team } from "../../../utilities";
 
 type Props = {
-  setGame: Function
-  setPhase: Function
+  setGame: Function;
+  setPhase: Function;
+  setTeams: Function;
 };
 
 const PhaseOne = (props: Props) => {
-  const { setGame, setPhase } = props;
+  const { setGame, setPhase, setTeams } = props;
 
-  const [tournamentSelection, setTournamentSelection] = useState<boolean>(false);
+  const [tournamentSelection, setTournamentSelection] =
+    useState<boolean>(false);
   const handleChange = () => {
     setTournamentSelection(!tournamentSelection);
   };
   const handleSubmit = () => {
-    let gameType = tournamentSelection === true ? "TEAM" : "FFA"
-    setGame(gameType)
-    setPhase("SECOND")
+    const gameType = tournamentSelection === true ? "TEAM" : "FFA";
+
+    if (gameType === "TEAM") {
+      const teamOne = new Team("TeamOne", 1);
+      const teamTwo = new Team("TeamTwo", 2);
+      const teamsArray: ITeam[] = [teamOne, teamTwo];
+      console.log("TEAMS: ARRAY:  ", teamsArray);
+      setTeams(teamsArray);
+    }
+
+    setGame(gameType);
+    setPhase("SECOND");
   };
 
   return (
@@ -32,7 +45,9 @@ const PhaseOne = (props: Props) => {
         // startIcon={<PersonAddAltSharp />}
         size="large"
         onClick={() => handleSubmit()}
-      >Submit</Button>
+      >
+        Submit
+      </Button>
       <div>
         <p>Win = 1 point</p>
         <p>Draw = .5 point</p>

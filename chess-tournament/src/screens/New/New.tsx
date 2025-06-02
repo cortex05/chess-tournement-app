@@ -7,7 +7,7 @@ import {
 } from "@mui/icons-material";
 
 import { Header } from "../../components/Header/Header";
-import type { IPlayer } from "../../types/types";
+import type { IPlayer, ITeam } from "../../types/types";
 import Modal from "../../components/Modals/Modal";
 import { useNavigate } from "react-router-dom";
 import PhaseOne from "./PhaseOne/PhaseOne";
@@ -21,17 +21,15 @@ const New = () => {
   const navigate = useNavigate();
   // const [isFinished, setIsFinished] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [playerName, setPlayerName] = useState<string>("");
   const [tournamentCheck, setTournamentCheck] = useState<boolean>(false);
 
   // Tournament object variables
   const [gameType, setGameType]  = useState<string>("")
   const [roster, setRoster] = useState<IPlayer[]>([]);
+  const [teams, setTeams] = useState<ITeam[]>([])
 
   // Phase
   const [phase, setPhase] = useState<string>("FIRST");
-
-  // const handleTournament = () => {};
 
   return (
     <>
@@ -40,7 +38,7 @@ const New = () => {
         <h1>New Tournament</h1>
         {/* first */}
         {phase === "FIRST" && (
-          <PhaseOne setGame={setGameType} setPhase={setPhase}/>
+          <PhaseOne setGame={setGameType} setPhase={setPhase} setTeams={setTeams}/>
         )}
         {/* second */}
         {phase === "SECOND" && (

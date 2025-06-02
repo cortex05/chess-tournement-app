@@ -18,7 +18,7 @@ import { Player } from "../../../utilities";
 type Props = {
   roster: IPlayer[];
   gameType: string;
-  setRoster: Function
+  setRoster: Function;
 };
 
 const PhaseTwo = (props: Props) => {
@@ -26,22 +26,22 @@ const PhaseTwo = (props: Props) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [playerName, setPlayerName] = useState<string>("");
 
+  // FFA logic
   const handleAdd = () => {
-      const newPlayer = new Player(playerName, roster.length + 1);
-      console.log(newPlayer.name);
-      const newArray = roster;
-      newArray.push(newPlayer);
-      setRoster(newArray);
-      setPlayerName("");
-      setIsModalOpen(false);
-      // console.log(roster);
-    };
-  
-    const removePlayer = (playerId: number) => {
-      const newRoster = roster.filter((player) => player.id !== playerId);
-      console.log("fire");
-      setRoster(newRoster);
-    };
+    const newPlayer = new Player(playerName, roster.length + 1);
+    const newArray = roster;
+    newArray.push(newPlayer);
+
+    setRoster(newArray);
+    setPlayerName("");
+    setIsModalOpen(false);
+  };
+
+  const removePlayer = (playerId: number) => {
+    const newRoster = roster.filter((player) => player.id !== playerId);
+    console.log("fire");
+    setRoster(newRoster);
+  };
 
   return (
     <div>
@@ -101,9 +101,108 @@ const PhaseTwo = (props: Props) => {
             </List>
           </div>
         </div>
-        
       )}
-      {gameType === "TEAM" && <div>The team flow</div>}
+      {gameType === "TEAM" && (
+        <div>
+          <h4>
+            Add players for your tournament, add them to a team and click finished when all players
+            are entered.
+          </h4>
+          <div className={styles.mainButtons}>
+            {!isModalOpen && (
+              <Stack spacing={2} direction="row">
+                <Button
+                  variant="outlined"
+                  startIcon={<PersonAddAltSharp />}
+                  size="large"
+                  onClick={() => setIsModalOpen(true)}
+                >
+                  Add Player
+                </Button>
+
+                {roster.length > 1 && (
+                  <Button
+                    variant="outlined"
+                    startIcon={<PersonAddAltSharp />}
+                    size="large"
+                    onClick={() => console.log("wait")}
+                  >
+                    Finished
+                  </Button>
+                )}
+              </Stack>
+            )}
+          </div>
+          <div className={styles.teamList}>
+            <List component="div" disablePadding>
+              {roster.map((player, index) => {
+                return (
+                  <ListItem alignItems={"center"} key={index}>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <FolderCopySharp />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary={player.name} />
+
+                    <IconButton
+                      edge="end"
+                      aria-label="delete"
+                      onClick={() => removePlayer(player.id)}
+                    >
+                      <DeleteSharp />
+                    </IconButton>
+                  </ListItem>
+                );
+              })}
+            </List>
+            <List component="div" disablePadding>
+              {roster.map((player, index) => {
+                return (
+                  <ListItem alignItems={"center"} key={index}>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <FolderCopySharp />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary={player.name} />
+
+                    <IconButton
+                      edge="end"
+                      aria-label="delete"
+                      onClick={() => removePlayer(player.id)}
+                    >
+                      <DeleteSharp />
+                    </IconButton>
+                  </ListItem>
+                );
+              })}
+            </List>
+            <List component="div" disablePadding>
+              {roster.map((player, index) => {
+                return (
+                  <ListItem alignItems={"center"} key={index}>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <FolderCopySharp />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary={player.name} />
+
+                    <IconButton
+                      edge="end"
+                      aria-label="delete"
+                      onClick={() => removePlayer(player.id)}
+                    >
+                      <DeleteSharp />
+                    </IconButton>
+                  </ListItem>
+                );
+              })}
+            </List>
+          </div>
+        </div>
+      )}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <div className={styles.modal}>
           <Input

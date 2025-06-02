@@ -12,3 +12,12 @@
 .modal {
   color: white;
 }
+
+.teamList {
+  display: flex;
+  justify-content: space-between;
+}
+
+.teamList div {
+  background-color: black;
+}

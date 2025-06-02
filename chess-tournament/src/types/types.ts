@@ -10,3 +10,9 @@ export interface IPlayer {
   losses: number
   totalMatches: number 
 }
+
+export interface ITeam {
+  id: number
+  teamRoster: IPlayer[]
+  name: string
+}
