@@ -18,17 +18,20 @@ import type { IPlayer } from "../../../types/types";
 import styles from "../New.module.css";
 
 type Props = {
-  key: number;
+  keyValue: number;
   removePlayer: Function;
   player: IPlayer;
+  switchTeam: Function
 };
 
 const TeamListItem = (props: Props) => {
-  const { key, removePlayer, player } = props;
+  const { keyValue, removePlayer, player, switchTeam } = props;
   const [assigner, setAssigner] = useState<boolean>(false);
 
+  
+
   return (
-    <div key={key}>
+    <div key={keyValue}>
       {!assigner && (
         <div className={styles.centerItem}>
           <div>
@@ -51,9 +54,9 @@ const TeamListItem = (props: Props) => {
         </div>
       )}
       {assigner && (
-        <div className={styles.centerItemActive}>
+        <div className={styles.centerItemActive} key={keyValue}>
           <div>
-            <IconButton color={"success"} onClick={() => setAssigner(false)}>
+            <IconButton color={"success"} onClick={() => switchTeam(player, 'LEFT')}>
               {/* <Avatar> */}
               <ArrowBackSharp />
               {/* </Avatar> */}
@@ -71,7 +74,7 @@ const TeamListItem = (props: Props) => {
           </IconButton>
           <div>
             {/* <Avatar> */}
-            <IconButton color="warning" onClick={() => setAssigner(false)}>
+            <IconButton color="warning" onClick={() => switchTeam(player, 'RIGHT')}>
               <ArrowForwardSharp />
             </IconButton>
 

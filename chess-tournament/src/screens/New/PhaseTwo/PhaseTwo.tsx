@@ -20,13 +20,14 @@ type Props = {
   roster: IPlayer[];
   gameType: string;
   setRoster: Function;
-  teams?: ITeam[] | null
+  teams: ITeam[];
 };
 
 const PhaseTwo = (props: Props) => {
   const { roster, gameType, setRoster, teams } = props;
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [playerName, setPlayerName] = useState<string>("");
+  const [centerPlayers, setCenterPlayers] = useState<IPlayer[]>(roster);
 
   // FFA logic
   const handleAdd = () => {
@@ -35,14 +36,31 @@ const PhaseTwo = (props: Props) => {
     newArray.push(newPlayer);
 
     setRoster(newArray);
+    setCenterPlayers(newArray);
     setPlayerName("");
     setIsModalOpen(false);
   };
 
   const removePlayer = (playerId: number) => {
     const newRoster = roster.filter((player) => player.id !== playerId);
-    console.log("fire");
+    
     setRoster(newRoster);
+    setCenterPlayers(newRoster);
+  };
+
+  const switchTeam = (playerMoving: IPlayer, side: string) => {
+    if(side === "LEFT"){
+        teams[0].teamRoster.push(playerMoving);
+        const newRoster = centerPlayers.filter((player) => player.id !== playerMoving.id); 
+        console.log(newRoster);           
+        setCenterPlayers(newRoster);
+    } else if(side === "RIGHT"){
+        teams[1].teamRoster.push(playerMoving);
+        const newRoster = centerPlayers.filter((player) => player.id !== playerMoving.id);  
+        console.log(newRoster);      
+        setCenterPlayers(newRoster); 
+    
+    }
   };
 
   return (
@@ -107,8 +125,8 @@ const PhaseTwo = (props: Props) => {
       {gameType === "TEAM" && (
         <div>
           <h4>
-            Add players for your tournament, add them to a team and click finished when all players
-            are entered.
+            Add players for your tournament, add them to a team and click
+            finished when all players are entered.
           </h4>
           <div className={styles.mainButtons}>
             {!isModalOpen && (
@@ -137,56 +155,62 @@ const PhaseTwo = (props: Props) => {
           </div>
           <div className={styles.teamList}>
             <List component="div" disablePadding>
-              {teams && teams[0].teamRoster.map((player, index) => {
-                return (
-                  <ListItem alignItems={"center"} key={index}>
-                    <ListItemAvatar>
-                      <Avatar>
-                        <FolderCopySharp />
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary={player.name} />
+              {teams &&
+                teams[0].teamRoster.map((player, index) => {
+                  return (
+                    <ListItem alignItems={"center"} key={index}>
+                      <ListItemAvatar>
+                        <Avatar>
+                          <FolderCopySharp />
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText primary={player.name} />
 
-                    <IconButton
-                      edge="end"
-                      aria-label="delete"
-                      onClick={() => removePlayer(player.id)}
-                    >
-                      <DeleteSharp />
-                    </IconButton>
-                  </ListItem>
+                      <IconButton
+                        edge="end"
+                        aria-label="delete"
+                        onClick={() => removePlayer(player.id)}
+                      >
+                        <DeleteSharp />
+                      </IconButton>
+                    </ListItem>
+                  );
+                })}
+            </List>
+            <List component="div" disablePadding>
+              {centerPlayers.map((player, index) => {
+                return (
+                  <TeamListItem
+                    keyValue={index}
+                    removePlayer={removePlayer}
+                    player={player}
+                    switchTeam={switchTeam}
+                  />
                 );
               })}
             </List>
             <List component="div" disablePadding>
-              {roster.map((player, index) => {
-                return (
-                  <TeamListItem key={index} removePlayer={removePlayer} player={player} />
-                   
-                );
-              })}
-            </List>
-            <List component="div" disablePadding>
-              {teams && teams[1].teamRoster.map((player, index) => {
-                return (
-                  <ListItem alignItems={"center"} key={index}>
-                    <ListItemAvatar>
-                      <Avatar>
-                        <FolderCopySharp />
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary={player.name} />
+              {teams &&
+                teams[1].teamRoster.map((player, index) => {
+                  return (
+                    <ListItem alignItems={"center"} key={index}>
+                      <ListItemAvatar>
+                        <Avatar>
+                          <FolderCopySharp />
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText primary={player.name} />
 
-                    <IconButton
-                      edge="end"
-                      aria-label="delete"
-                      onClick={() => removePlayer(player.id)}
-                    >
-                      <DeleteSharp />
-                    </IconButton>
-                  </ListItem>
-                );
-              })}
+                      <IconButton
+                        edge="end"
+                        aria-label="delete"
+                        onClick={() => removePlayer(player.id)}
+                      >
+                        <DeleteSharp />
+                      </IconButton>
+                    </ListItem>
+                  );
+                })}
             </List>
           </div>
         </div>
