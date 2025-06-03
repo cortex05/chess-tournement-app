@@ -21,19 +21,19 @@ import { Player } from "../../../utilities";
 import TeamListItem from "./TeamListItem";
 
 type Props = {
-  roster: IPlayer[];
-  gameType: string;
-  setRoster: Function;
-  teams: ITeam[];
+  roster: IPlayer[]
+  gameType: string
+  setRoster: Function
+  teams: ITeam[]
+  setPhase: Function
 };
 
 const PhaseTwo = (props: Props) => {
-  const { roster, gameType, setRoster, teams } = props;
+  const { roster, gameType, setRoster, teams, setPhase } = props;
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [playerName, setPlayerName] = useState<string>("");
   const [centerPlayers, setCenterPlayers] = useState<IPlayer[]>([]);
 
-  // FFA logic
   const handleAdd = () => {
     const newPlayer = new Player(playerName, roster.length + 1);
 
@@ -56,6 +56,12 @@ const PhaseTwo = (props: Props) => {
     setCenterPlayers(newRoster);
   };
 
+  // FFA logic
+  const handleFinished = () => {
+    setPhase("THIRD")
+  }
+
+  // TEAM LOGIC
   const switchTeam = (playerMoving: IPlayer, side: string) => {
     if (side === "LEFT") {
       teams[0].teamRoster.push(playerMoving);
@@ -99,7 +105,7 @@ const PhaseTwo = (props: Props) => {
                     variant="outlined"
                     startIcon={<PersonAddAltSharp />}
                     size="large"
-                    onClick={() => console.log("wait")}
+                    onClick={() => handleFinished()}
                   >
                     Finished
                   </Button>
@@ -151,16 +157,18 @@ const PhaseTwo = (props: Props) => {
                   Add Player
                 </Button>
 
-                {centerPlayers.length === 0 && teams[0].teamRoster.length > 0 && teams[1].teamRoster.length > 0 && (
-                  <Button
-                    variant="outlined"
-                    startIcon={<PersonAddAltSharp />}
-                    size="large"
-                    onClick={() => console.log("wait")}
-                  >
-                    Finished
-                  </Button>
-                )}
+                {centerPlayers.length === 0 &&
+                  teams[0].teamRoster.length > 0 &&
+                  teams[1].teamRoster.length > 0 && (
+                    <Button
+                      variant="outlined"
+                      startIcon={<PersonAddAltSharp />}
+                      size="large"
+                      onClick={() => handleFinished()}
+                    >
+                      Finished
+                    </Button>
+                  )}
               </Stack>
             )}
           </div>

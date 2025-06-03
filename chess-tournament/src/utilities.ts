@@ -1,4 +1,4 @@
-import type { IPlayer } from "./types/types"
+import type { IPlayer, ITeam } from "./types/types"
 
 // const dummyPlayer: IPlayer = {
 //   id: 1,
@@ -38,5 +38,19 @@ export class Team {
   constructor(name: string, id: number){
     this.name = name
     this.id = id
+  }
+}
+
+export class Tournament {
+  tournamentType: string
+  playerRoster: IPlayer[]
+  teams: ITeam[]
+
+  round: number = 1
+
+  constructor(tournamentType: string, playerRoster: IPlayer[], teams: ITeam[]){
+    this.tournamentType = tournamentType
+    this.playerRoster = playerRoster
+    this.teams = teams
   }
 }

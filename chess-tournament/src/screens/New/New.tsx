@@ -12,6 +12,7 @@ import Modal from "../../components/Modals/Modal";
 import { useNavigate } from "react-router-dom";
 import PhaseOne from "./PhaseOne/PhaseOne";
 import PhaseTwo from "./PhaseTwo/PhaseTwo";
+import PhaseThree from "./PhaseThree/PhaseThree";
 
 // type Props = {
 //   // saveRoster: () => void()
@@ -42,10 +43,10 @@ const New = () => {
         )}
         {/* second */}
         {phase === "SECOND" && (
-          <PhaseTwo roster={roster} gameType={gameType} setRoster={setRoster} teams={teams}/>
+          <PhaseTwo roster={roster} gameType={gameType} setRoster={setRoster} teams={teams} setPhase={setPhase}/>
         )}
         {/* third */}
-        {phase === "THIRD" && <div></div>}
+        {phase === "THIRD" && <PhaseThree gameType={gameType} gameRoster={roster} teams={teams}/>}
       </section>
       <Modal isOpen={tournamentCheck} onClose={() => setTournamentCheck(false)}>
         <div className={styles.modal}>
