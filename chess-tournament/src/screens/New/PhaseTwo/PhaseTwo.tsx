@@ -17,7 +17,7 @@ import { FolderCopySharp, DeleteSharp } from "@mui/icons-material";
 import { useState } from "react";
 import type { IPlayer, ITeam } from "../../../types/types";
 import Modal from "../NewModal";
-import { Player } from "../../../utilities";
+import { Player } from "../../../utilities/utilities";
 import TeamListItem from "./TeamListItem";
 
 type Props = {

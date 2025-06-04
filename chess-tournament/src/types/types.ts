@@ -1,4 +1,4 @@
-import type { Player } from "../utilities"
+import type { Player } from "../utilities/utilities"
 
 export interface IPlayer {
   id: number

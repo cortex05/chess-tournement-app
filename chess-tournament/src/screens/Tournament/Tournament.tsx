@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import type { ITournament } from '../../types/types'
+import { handleGameTypeDisplay } from '../../utilities/functions'
+import styles from './Tournament.module.css'
 
 
 type Props = {
@@ -20,7 +22,6 @@ const Tournament = () => {
       setTournament(value)
       setIsLoading(false)
     }
-
   }
 
   useEffect(() => {
@@ -28,10 +29,10 @@ const Tournament = () => {
   }, [])
   
   return (
-    <div>
+    <div className={styles.main}>
       {isLoading && <div>LOADING</div>}
       {!isLoading && <div>
-          <h1>{tournament?.name} is a {tournament?.tournamentType}</h1>
+          <h1>{tournament?.name} is a {handleGameTypeDisplay(tournament?.tournamentType ? tournament.tournamentType : "null")} tournament</h1>
         </div>}
     </div>
   )

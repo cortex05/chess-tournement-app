@@ -1,4 +1,4 @@
-import type { IPlayer, ITeam } from "./types/types"
+import type { IPlayer, ITeam } from "../types/types"
 
 // const dummyPlayer: IPlayer = {
 //   id: 1,

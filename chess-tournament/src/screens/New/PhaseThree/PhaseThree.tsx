@@ -1,8 +1,9 @@
 import type { IPlayer, ITeam } from "../../../types/types";
 import { Button } from "@mui/material";
 import styles from "./PhaseThree.module.css";
-import { Tournament } from "../../../utilities";
+import { Tournament } from "../../../utilities/utilities";
 import { useNavigate } from "react-router-dom";
+import { handleGameTypeDisplay } from "../../../utilities/functions";
 
 type Props = {
   gameType: string;
@@ -14,15 +15,6 @@ type Props = {
 const PhaseThree = (props: Props) => {
   const { gameType, gameRoster, teams, tournamentName } = props;
   const navigate = useNavigate();
-
-  const handleGameTypeDisplay = (gameType: string) => {
-    switch (gameType) {
-      case "FFA":
-        return "Free-For-All";
-      case "TEAM":
-        return "Team Tournament";
-    }
-  };
 
   const handleStart = (
     tournamentType: string,
