@@ -1,4 +1,4 @@
-import { Button, Switch } from "@mui/material";
+import { Button, Input, Switch } from "@mui/material";
 import React, { useState } from "react";
 import type { ITeam } from "../../../types/types";
 import { Team } from "../../../utilities";
@@ -7,16 +7,19 @@ type Props = {
   setGame: Function;
   setPhase: Function;
   setTeams: Function;
+  setTournamentName: Function
+  tournamentName: string
 };
 
 const PhaseOne = (props: Props) => {
-  const { setGame, setPhase, setTeams } = props;
+  const { setGame, setPhase, setTeams, tournamentName, setTournamentName } = props;
 
-  const [tournamentSelection, setTournamentSelection] =
-    useState<boolean>(false);
+  const [tournamentSelection, setTournamentSelection] = useState<boolean>(false);
+
   const handleChange = () => {
     setTournamentSelection(!tournamentSelection);
   };
+
   const handleSubmit = () => {
     const gameType = tournamentSelection === true ? "TEAM" : "FFA";
 
@@ -39,6 +42,15 @@ const PhaseOne = (props: Props) => {
         <span>Free-For-All</span>
         <Switch checked={tournamentSelection} onChange={handleChange} />
         <span>Team Tournament</span>
+      </div>
+      <div>
+        <Input
+            placeholder="Placeholder"
+            onChange={(e) => setTournamentName(e.target.value)}
+            autoFocus
+            value={tournamentName}
+            sx={{ color: "white" }}
+          />
       </div>
       <Button
         variant="outlined"

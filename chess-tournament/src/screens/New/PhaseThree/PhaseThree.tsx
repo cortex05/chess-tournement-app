@@ -8,10 +8,11 @@ type Props = {
   gameType: string;
   gameRoster: IPlayer[];
   teams: ITeam[];
+  tournamentName: string
 };
 
 const PhaseThree = (props: Props) => {
-  const { gameType, gameRoster, teams } = props;
+  const { gameType, gameRoster, teams, tournamentName } = props;
   const navigate = useNavigate();
 
   const handleGameTypeDisplay = (gameType: string) => {
@@ -26,19 +27,21 @@ const PhaseThree = (props: Props) => {
   const handleStart = (
     tournamentType: string,
     playerRoster: IPlayer[],
-    teams: ITeam[]
+    teams: ITeam[],
+    tournamentName: string
   ) => {
     const teamsSelect = tournamentType === "FFA" ? [] : teams;
 
     const tournament = new Tournament(
       tournamentType,
       playerRoster,
-      teamsSelect
+      teamsSelect,
+      tournamentName
     );
     const jsonTournament = JSON.stringify(tournament);
-    localStorage.setItem("TOURNAMENT", jsonTournament);
+    localStorage.setItem(tournamentName.toUpperCase(), jsonTournament);
     console.log(tournament);
-    navigate("/tournament");
+    navigate(`/tournament/${tournamentName}`);
   };
   return (
     <div>
@@ -72,7 +75,7 @@ const PhaseThree = (props: Props) => {
           variant="outlined"
           // startIcon={<PersonAddAltSharp />}
           size="large"
-          onClick={() => handleStart(gameType, gameRoster, teams)}
+          onClick={() => handleStart(gameType, gameRoster, teams, tournamentName)}
         >
           Submit
         </Button>

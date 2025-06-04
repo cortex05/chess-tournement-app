@@ -45,12 +45,14 @@ export class Tournament {
   tournamentType: string
   playerRoster: IPlayer[]
   teams: ITeam[]
+  name: string
 
   round: number = 1
 
-  constructor(tournamentType: string, playerRoster: IPlayer[], teams: ITeam[]){
+  constructor(tournamentType: string, playerRoster: IPlayer[], teams: ITeam[], name: string){
     this.tournamentType = tournamentType
     this.playerRoster = playerRoster
     this.teams = teams
+    this.name = name
   }
 }

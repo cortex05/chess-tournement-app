@@ -20,7 +20,7 @@ function App() {
         <Route path="/" element={<Home />}/>
         <Route path="/new" element={<New />}/>
         <Route path="/saved" element={<Saved />}/>
-        <Route path="/tournament" element={<Tournament />}/>
+        <Route path="/tournament/:tourney" element={<Tournament />}/>
       </Routes>
     </BrowserRouter>
   )

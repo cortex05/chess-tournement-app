@@ -28,6 +28,7 @@ const New = () => {
   const [gameType, setGameType]  = useState<string>("")
   const [roster, setRoster] = useState<IPlayer[]>([]);
   const [teams, setTeams] = useState<ITeam[]>([])
+  const [tournamentName, setTournamentName] = useState<string>("")
 
   // Phase
   const [phase, setPhase] = useState<string>("FIRST");
@@ -39,14 +40,14 @@ const New = () => {
         <h1>New Tournament</h1>
         {/* first */}
         {phase === "FIRST" && (
-          <PhaseOne setGame={setGameType} setPhase={setPhase} setTeams={setTeams}/>
+          <PhaseOne setGame={setGameType} setPhase={setPhase} setTeams={setTeams} tournamentName={tournamentName} setTournamentName={setTournamentName}/>
         )}
         {/* second */}
         {phase === "SECOND" && (
           <PhaseTwo roster={roster} gameType={gameType} setRoster={setRoster} teams={teams} setPhase={setPhase}/>
         )}
         {/* third */}
-        {phase === "THIRD" && <PhaseThree gameType={gameType} gameRoster={roster} teams={teams}/>}
+        {phase === "THIRD" && <PhaseThree gameType={gameType} gameRoster={roster} teams={teams} tournamentName={tournamentName}/>}
       </section>
       <Modal isOpen={tournamentCheck} onClose={() => setTournamentCheck(false)}>
         <div className={styles.modal}>
