@@ -16,3 +16,11 @@ export interface ITeam {
   teamRoster: IPlayer[]
   name: string
 }
+
+export interface ITournament {
+  tournamentType: string
+  playerRoster: IPlayer[]
+  teams: ITeam[]
+  name: string
+  round: number
+}
