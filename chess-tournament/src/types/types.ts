@@ -24,3 +24,8 @@ export interface ITournament {
   name: string
   round: number
 }
+
+export interface IMatch {
+  playerOne: IPlayer
+  playerTwo: IPlayer
+}

@@ -4,3 +4,51 @@
   flex-direction: column;
   align-items: center;
 }
+
+.settingRoster {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.teamList {
+  display: flex;
+  justify-content: space-between;
+}
+
+.settingRoster > div {
+  background-color: var(--dark-body);
+  width: 200px;
+  height: 400px;
+  color: white;
+  text-align: center;
+}
+
+/* PLayerITEM */
+.centerItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.centerItem > div {
+  display: flex;
+  flex-direction: row;
+  padding: 0px 10px;
+}
+
+/* .centerItemActive {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  
+}
+
+.centerItemActive > div {
+  color: white;
+} */

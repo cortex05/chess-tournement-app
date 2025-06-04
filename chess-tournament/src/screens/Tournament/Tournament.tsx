@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import type { ITournament } from '../../types/types'
+import type { IMatch, IPlayer, ITournament } from '../../types/types'
 import { handleGameTypeDisplay } from '../../utilities/functions'
 import styles from './Tournament.module.css'
+import PlayerItemRight from './Players/PlayerItemRight'
+import PlayerItemLeft from './Players/PlayerItemLeft'
+
 
 
 type Props = {
@@ -14,12 +17,21 @@ const Tournament = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [tournament, setTournament] = useState<ITournament>()
 
+  // Round variables
+  const [teamOneRoster, setTeamOneRoster] = useState<IPlayer[]>()
+  const [teamTwoRoster, setTeamTwoRoster] = useState<IPlayer[]>()
+  const [matchSetter, setMatchSetter] = useState<IMatch>()
+  // const [] = useState<>()
+
   const fetchTournament = () => {
+    // Move this to utility functions
     if(tourney){
       const jsonValue = localStorage.getItem(tourney.toUpperCase())
       const value = jsonValue !== null ? JSON.parse(jsonValue) : null
       console.log("tournament: ", value)
       setTournament(value)
+      setTeamOneRoster(value.teams[0].teamRoster)
+      setTeamTwoRoster(value.teams[1].teamRoster)
       setIsLoading(false)
     }
   }
@@ -33,6 +45,25 @@ const Tournament = () => {
       {isLoading && <div>LOADING</div>}
       {!isLoading && <div>
           <h1>{tournament?.name} is a {handleGameTypeDisplay(tournament?.tournamentType ? tournament.tournamentType : "null")} tournament</h1>
+          <div className={styles.settingRoster}>
+            <div>
+              <h3>{tournament?.teams[0].name}</h3>
+              <div>
+                {teamOneRoster?.map((player, index) => {
+                  return <PlayerItemLeft player={player} keyValue={index}/>
+                })}
+              </div>
+            </div>
+            <div></div>
+            <div>
+              <h3>{tournament?.teams[1].name}</h3>
+              <div>
+                {teamTwoRoster?.map((player, index) => {
+                  return <PlayerItemRight player={player} keyValue={index}/>
+                })}
+              </div>
+            </div>
+          </div>
         </div>}
     </div>
   )

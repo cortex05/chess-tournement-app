@@ -1,4 +1,4 @@
-import { StrictMode, useState } from 'react'
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
@@ -8,7 +8,6 @@ import Home from './screens/Home/Home'
 import New from './screens/New/New'
 import Saved from './screens/Saved/Saved'
 import Tournament from './screens/Tournament/Tournament'
-import type { IPlayer } from './types/types'
 
 
 function App() {

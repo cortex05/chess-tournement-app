@@ -56,3 +56,8 @@ export class Tournament {
     this.name = name
   }
 }
+
+export class Match {
+  playerOne: IPlayer | null = null
+  playerTwo: IPlayer | null = null
+}

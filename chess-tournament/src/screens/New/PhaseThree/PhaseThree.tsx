@@ -38,6 +38,7 @@ const PhaseThree = (props: Props) => {
   return (
     <div>
       <h1>Here is your game. Do you want to start?</h1>
+      <h2>{tournamentName}</h2>
       <h3>{handleGameTypeDisplay(gameType)}</h3>
       {gameType === "FFA" && (
         <div>
