@@ -1,67 +1,84 @@
-import React from 'react'
-import type { IPlayer, ITeam } from '../../../types/types';
-import { Button } from '@mui/material';
-import styles from './PhaseThree.module.css'
-import { Tournament } from '../../../utilities';
+import type { IPlayer, ITeam } from "../../../types/types";
+import { Button } from "@mui/material";
+import styles from "./PhaseThree.module.css";
+import { Tournament } from "../../../utilities";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
-  gameType: string
-  gameRoster: IPlayer[]
-  teams: ITeam[]
-}
+  gameType: string;
+  gameRoster: IPlayer[];
+  teams: ITeam[];
+};
 
-const handleGameTypeDisplay = (gameType: string) => {
-  switch(gameType){
-    case "FFA":
-      return "Free-For-All"
-    case "TEAM":
-      return "Team Tournament"  
-  }
-}
+const PhaseThree = (props: Props) => {
+  const { gameType, gameRoster, teams } = props;
+  const navigate = useNavigate();
 
-const handleStart= (tournamentType: string, playerRoster: IPlayer[], teams: ITeam[]) => {
-  const teamsSelect = tournamentType === "FFA" ? [] : teams
+  const handleGameTypeDisplay = (gameType: string) => {
+    switch (gameType) {
+      case "FFA":
+        return "Free-For-All";
+      case "TEAM":
+        return "Team Tournament";
+    }
+  };
 
-  const tournament = new Tournament(tournamentType, playerRoster, teamsSelect)
-  console.log(tournament)
-}
+  const handleStart = (
+    tournamentType: string,
+    playerRoster: IPlayer[],
+    teams: ITeam[]
+  ) => {
+    const teamsSelect = tournamentType === "FFA" ? [] : teams;
 
-const PhaseThree = (props: Props )=> {
-  const {gameType, gameRoster, teams} = props
+    const tournament = new Tournament(
+      tournamentType,
+      playerRoster,
+      teamsSelect
+    );
+    const jsonTournament = JSON.stringify(tournament);
+    localStorage.setItem("TOURNAMENT", jsonTournament);
+    console.log(tournament);
+    navigate("/tournament");
+  };
   return (
     <div>
       <h1>Here is your game. Do you want to start?</h1>
       <h3>{handleGameTypeDisplay(gameType)}</h3>
-      {gameType === "FFA" && <div>
+      {gameType === "FFA" && (
+        <div>
           {gameRoster.map((player) => {
-            return <div key={player.id}>{player.name}</div>
+            return <div key={player.id}>{player.name}</div>;
           })}
-        </div>}
-      {gameType === "TEAM" && <div className={styles.wrapper}>
+        </div>
+      )}
+      {gameType === "TEAM" && (
+        <div className={styles.wrapper}>
           <div>
             <h3>{teams[0].name}</h3>
             {teams[0].teamRoster.map((player) => {
-            return <div key={player.id}>{player.name}</div>
-          })}</div>
+              return <div key={player.id}>{player.name}</div>;
+            })}
+          </div>
           <div>
             <h3>{teams[1].name}</h3>
             {teams[1].teamRoster.map((player) => {
-            return <div key={player.id}>{player.name}</div>
-          })}
+              return <div key={player.id}>{player.name}</div>;
+            })}
           </div>
-        </div>}
+        </div>
+      )}
       <div>
         <Button
-        variant="outlined"
-        // startIcon={<PersonAddAltSharp />}
-        size="large"
-        onClick={() => handleStart(gameType, gameRoster, teams)}
-      >
-        Submit
-      </Button>  
-      </div>  
+          variant="outlined"
+          // startIcon={<PersonAddAltSharp />}
+          size="large"
+          onClick={() => handleStart(gameType, gameRoster, teams)}
+        >
+          Submit
+        </Button>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default PhaseThree
+export default PhaseThree;
