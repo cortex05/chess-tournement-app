@@ -17,18 +17,21 @@ type Props = {
 }
 
 const MatchPlayers = (props: Props) => {
-  const { playerOne, playerTwo, setPlayerOne, setTeamOneRoster, teamOneRoster } = props
+  const { playerOne, playerTwo, setPlayerOne, setTeamOneRoster, teamOneRoster, setTeamTwoRoster, teamTwoRoster, setPlayerTwo } = props
 
   const handleRemove = (direction: string) => {
     if(direction === "left" && playerOne){
-      console.log("Initial team roster:", teamOneRoster)
       const revertPlayer = playerOne
-      console.log("Object to push in", revertPlayer)
       const holderArray = [...teamOneRoster, revertPlayer]
-      console.log("Array we are going to push into: ", holderArray)
 
       setPlayerOne(undefined)
       setTeamOneRoster(holderArray)
+    } else if (direction === "right" && playerTwo){
+      const revertPlayer = playerTwo
+      const holderArray = [...teamTwoRoster, revertPlayer]
+
+      setPlayerTwo(undefined)
+      setTeamTwoRoster(holderArray)
     }
   }
 
@@ -50,7 +53,18 @@ const MatchPlayers = (props: Props) => {
       </div>
       <h4>VS</h4>
       <div>
-        {playerTwo ? <span>{playerTwo.name}</span> : <span>Select from </span>}
+        {playerTwo ? <div className={styles.centerItem}>
+        <ListItemText primary={playerTwo.name} />
+        <div>
+          <div>
+            <IconButton color={"primary"} onClick={() => handleRemove("right")}>
+              {/* <Avatar> */}
+              <DeleteSharp />
+              {/* </Avatar> */}
+            </IconButton>
+          </div>
+        </div>
+      </div> : <span>Select Player</span>}
       </div>
     </div>
   )

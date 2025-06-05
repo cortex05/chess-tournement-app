@@ -19,20 +19,29 @@ import styles from "../Tournament.module.css";
 
 type Props = {
   keyValue: number;
-  // removePlayer: Function;
   player: IPlayer;
-  // switchTeam: Function
+  setMatchPlayerTwo: Function
+  setTeamTwoRoster: Function
+  teamTwoRoster: IPlayer[]
+  matchPlayerTwo: IPlayer | undefined
 };
 
 const PlayerItemRight = (props: Props) => {
-  const { keyValue, player } = props;
+  const { keyValue, player, setMatchPlayerTwo, setTeamTwoRoster, teamTwoRoster, matchPlayerTwo } = props;
+
+  const handleShift = () => {
+      setMatchPlayerTwo(player)
+      const filteredRoster = teamTwoRoster.filter((remainingPlayer: IPlayer) => remainingPlayer.id !== player.id)
+      console.log(filteredRoster)
+      setTeamTwoRoster(filteredRoster)
+    }
 
   return (
     <div key={keyValue}>
-      <div className={styles.centerItem}>
+      {!matchPlayerTwo && <div className={styles.centerItem}>
         <div>
           <div>
-            <IconButton color={"success"} onClick={() => console.log("httt")}>
+            <IconButton color={"success"} onClick={() => handleShift()}>
               {/* <Avatar> */}
               <ArrowBackSharp />
               {/* </Avatar> */}
@@ -40,7 +49,7 @@ const PlayerItemRight = (props: Props) => {
           </div>
         </div>
         <ListItemText primary={player.name} />
-      </div>
+      </div>}
     </div>
   );
 };

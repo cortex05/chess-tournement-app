@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import type { IMatch, IMatchData, IPlayer, ITournament } from "../../types/types";
+import type {
+  IMatch,
+  IMatchData,
+  IPlayer,
+  ITournament,
+} from "../../types/types";
 import { handleGameTypeDisplay } from "../../utilities/functions";
 import styles from "./Tournament.module.css";
 import PlayerItemRight from "./Players/PlayerItemRight";
@@ -22,8 +27,8 @@ const Tournament = () => {
 
   const [matchPlayerOne, setMatchPlayerOne] = useState<IPlayer>();
   const [matchPlayerTwo, setMatchPlayerTwo] = useState<IPlayer>();
-	const [matchData, setMatchData] = useState<IMatchData>();
-	const [matchHolder, setMatchHolder] = useState<IMatch[]>([]);
+  const [matchData, setMatchData] = useState<IMatchData>();
+  const [matchHolder, setMatchHolder] = useState<IMatch[]>([]);
   // const [] = useState<>()
 
   const fetchTournament = () => {
@@ -35,10 +40,10 @@ const Tournament = () => {
       setTournament(value);
       setTeamOneRoster(value.teams[0].teamRoster);
       setTeamTwoRoster(value.teams[1].teamRoster);
-			setMatchData({
-				teamOneName: value.teams[0].name,
-				teamTwoName: value.teams[1].name
-			})
+      setMatchData({
+        teamOneName: value.teams[0].name,
+        teamTwoName: value.teams[1].name,
+      });
       setIsLoading(false);
     }
   };
@@ -64,29 +69,37 @@ const Tournament = () => {
               <h3>{tournament?.teams[0].name}</h3>
               <div>
                 {teamOneRoster?.map((player, index) => {
-                  return <PlayerItemLeft player={player} keyValue={index} setMatchPlayerOne={setMatchPlayerOne} setTeamOneRoster={setTeamOneRoster} teamOneRoster={teamOneRoster} matchPlayerOne={matchPlayerOne}/>;
+                  return (
+                    <PlayerItemLeft
+                      player={player}
+                      keyValue={index}
+                      setMatchPlayerOne={setMatchPlayerOne}
+                      setTeamOneRoster={setTeamOneRoster}
+                      teamOneRoster={teamOneRoster}
+                      matchPlayerOne={matchPlayerOne}
+                    />
+                  );
                 })}
               </div>
             </div>
             <div>
-							<h3>Match {matchHolder && matchHolder.length +1}</h3>
+              <h3>Match {matchHolder && matchHolder.length + 1}</h3>
               <MatchPlayers
                 playerOne={matchPlayerOne}
                 playerTwo={matchPlayerTwo}
-								setPlayerOne={setMatchPlayerOne}
-								setPlayerTwo={setMatchPlayerTwo}
-								
-								setTeamOneRoster={setTeamOneRoster}
-								setTeamTwoRoster={setTeamTwoRoster}
-								teamOneRoster={teamOneRoster} 
-								teamTwoRoster={teamTwoRoster}
+                setPlayerOne={setMatchPlayerOne}
+                setPlayerTwo={setMatchPlayerTwo}
+                setTeamOneRoster={setTeamOneRoster}
+                setTeamTwoRoster={setTeamTwoRoster}
+                teamOneRoster={teamOneRoster}
+                teamTwoRoster={teamTwoRoster}
               />
             </div>
             <div>
               <h3>{tournament?.teams[1].name}</h3>
               <div>
                 {teamTwoRoster?.map((player, index) => {
-                  return <PlayerItemRight player={player} keyValue={index} />;
+                  return <PlayerItemRight player={player} keyValue={index} setMatchPlayerTwo={setMatchPlayerTwo} setTeamTwoRoster={setTeamTwoRoster} teamTwoRoster={teamTwoRoster} matchPlayerTwo={matchPlayerTwo}/>;
                 })}
               </div>
             </div>
