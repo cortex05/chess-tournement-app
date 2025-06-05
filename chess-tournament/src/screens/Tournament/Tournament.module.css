@@ -52,3 +52,11 @@
 .centerItemActive > div {
   color: white;
 } */
+
+/* MATCH STYLING */
+.match {
+  color: white;
+  padding: 10px;
+}
+
+

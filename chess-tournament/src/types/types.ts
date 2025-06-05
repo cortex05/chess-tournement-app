@@ -29,3 +29,8 @@ export interface IMatch {
   playerOne: IPlayer
   playerTwo: IPlayer
 }
+
+export interface IMatchData {
+  teamOneName: string
+  teamTwoName: string 
+}

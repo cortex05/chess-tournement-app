@@ -19,30 +19,41 @@ import styles from "../Tournament.module.css";
 
 type Props = {
   keyValue: number;
-  // removePlayer: Function;
   player: IPlayer;
-  // switchTeam: Function
+  setMatchPlayerOne: Function
+  setTeamOneRoster: Function
+  teamOneRoster: IPlayer[]
+  matchPlayerOne: IPlayer | undefined
 };
 
 const PlayerItemLeft = (props: Props) => {
-  const { keyValue, player } = props;
+  const { keyValue, player, setMatchPlayerOne, setTeamOneRoster, teamOneRoster, matchPlayerOne } = props;
+
+  const handleShift = () => {
+    setMatchPlayerOne(player)
+    const filteredRoster = teamOneRoster.filter((remainingPlayer: IPlayer) => remainingPlayer.id !== player.id)
+    console.log(filteredRoster)
+    setTeamOneRoster(filteredRoster)
+  }
 
   return (
     <div key={keyValue}>
+      {!matchPlayerOne &&
       <div className={styles.centerItem}>
         <ListItemText primary={player.name} />
         <div>
           <div>
-            <IconButton color={"success"} onClick={() => console.log("httt")}>
+            <IconButton color={"success"} onClick={() => handleShift()}>
               {/* <Avatar> */}
               <ArrowForwardSharp />
               {/* </Avatar> */}
             </IconButton>
           </div>
         </div>
-      </div>
+      </div>}
     </div>
-  );
+      
+);
 };
 
 export default PlayerItemLeft;

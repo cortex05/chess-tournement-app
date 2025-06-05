@@ -24,8 +24,8 @@ const PhaseOne = (props: Props) => {
     const gameType = tournamentSelection === true ? "TEAM" : "FFA";
 
     if (gameType === "TEAM") {
-      const teamOne = new Team("TeamOne", 1);
-      const teamTwo = new Team("TeamTwo", 2);
+      const teamOne = new Team("Team One", 1);
+      const teamTwo = new Team("Team Two", 2);
       const teamsArray: ITeam[] = [teamOne, teamTwo];
       console.log("TEAMS: ARRAY:  ", teamsArray);
       setTeams(teamsArray);
