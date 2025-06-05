@@ -1,73 +1,120 @@
-import React from 'react'
-import type { IPlayer } from '../../../types/types'
+import React from "react";
+import type { IMatch, IPlayer } from "../../../types/types";
 
-import styles from '../Tournament.module.css'
-import { IconButton, ListItemText } from '@mui/material'
-import { ArrowForwardSharp, DeleteSharp } from '@mui/icons-material'
+import styles from "../Tournament.module.css";
+import { Button, IconButton, ListItemText } from "@mui/material";
+import { ArrowForwardSharp, DeleteSharp } from "@mui/icons-material";
+import { Match } from "../../../utilities/utilities";
 
 type Props = {
-  playerOne: IPlayer | undefined
-  playerTwo: IPlayer | undefined
-  setPlayerOne: Function
-  setPlayerTwo: Function
-  setTeamOneRoster: Function
-  setTeamTwoRoster: Function
-  teamOneRoster: IPlayer[]
-  teamTwoRoster: IPlayer[] 
-}
+  playerOne: IPlayer | undefined;
+  playerTwo: IPlayer | undefined;
+  setPlayerOne: Function;
+  setPlayerTwo: Function;
+  setTeamOneRoster: Function;
+  setTeamTwoRoster: Function;
+  teamOneRoster: IPlayer[];
+  teamTwoRoster: IPlayer[];
+  setMatchHolder: Function;
+  matchHolder: IMatch[];
+};
 
 const MatchPlayers = (props: Props) => {
-  const { playerOne, playerTwo, setPlayerOne, setTeamOneRoster, teamOneRoster, setTeamTwoRoster, teamTwoRoster, setPlayerTwo } = props
+  const {
+    playerOne,
+    playerTwo,
+    setPlayerOne,
+    setTeamOneRoster,
+    teamOneRoster,
+    setTeamTwoRoster,
+    teamTwoRoster,
+    setPlayerTwo,
+    matchHolder,
+    setMatchHolder,
+  } = props;
 
   const handleRemove = (direction: string) => {
-    if(direction === "left" && playerOne){
-      const revertPlayer = playerOne
-      const holderArray = [...teamOneRoster, revertPlayer]
+    if (direction === "left" && playerOne) {
+      const revertPlayer = playerOne;
+      const holderArray = [...teamOneRoster, revertPlayer];
 
-      setPlayerOne(undefined)
-      setTeamOneRoster(holderArray)
-    } else if (direction === "right" && playerTwo){
-      const revertPlayer = playerTwo
-      const holderArray = [...teamTwoRoster, revertPlayer]
+      setPlayerOne(undefined);
+      setTeamOneRoster(holderArray);
+    } else if (direction === "right" && playerTwo) {
+      const revertPlayer = playerTwo;
+      const holderArray = [...teamTwoRoster, revertPlayer];
 
-      setPlayerTwo(undefined)
-      setTeamTwoRoster(holderArray)
+      setPlayerTwo(undefined);
+      setTeamTwoRoster(holderArray);
     }
-  }
+  };
+
+  const handleSet = () => {
+    if (playerOne && playerTwo) {
+      const newMatch = new Match(playerOne, playerTwo);
+      setMatchHolder([...matchHolder, newMatch]);
+    }
+  };
 
   return (
-    <div className={styles.match}>
-      <div>
-        {playerOne ? <div className={styles.centerItem}>
-        <ListItemText primary={playerOne.name} />
+    <div>
+      <div className={styles.match}>
         <div>
-          <div>
-            <IconButton color={"primary"} onClick={() => handleRemove("left")}>
-              {/* <Avatar> */}
-              <DeleteSharp />
-              {/* </Avatar> */}
-            </IconButton>
-          </div>
+          {playerOne ? (
+            <div className={styles.centerItem}>
+              <ListItemText primary={playerOne.name} />
+              <div>
+                <div>
+                  <IconButton
+                    color={"primary"}
+                    onClick={() => handleRemove("left")}
+                  >
+                    {/* <Avatar> */}
+                    <DeleteSharp />
+                    {/* </Avatar> */}
+                  </IconButton>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <span>Select Player</span>
+          )}
         </div>
-      </div> : <span>Select Player</span>}
+        <h4>VS</h4>
+        <div>
+          {playerTwo ? (
+            <div className={styles.centerItem}>
+              <ListItemText primary={playerTwo.name} />
+              <div>
+                <div>
+                  <IconButton
+                    color={"primary"}
+                    onClick={() => handleRemove("right")}
+                  >
+                    {/* <Avatar> */}
+                    <DeleteSharp />
+                    {/* </Avatar> */}
+                  </IconButton>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <span>Select Player</span>
+          )}
+        </div>
       </div>
-      <h4>VS</h4>
       <div>
-        {playerTwo ? <div className={styles.centerItem}>
-        <ListItemText primary={playerTwo.name} />
-        <div>
-          <div>
-            <IconButton color={"primary"} onClick={() => handleRemove("right")}>
-              {/* <Avatar> */}
-              <DeleteSharp />
-              {/* </Avatar> */}
-            </IconButton>
-          </div>
-        </div>
-      </div> : <span>Select Player</span>}
+        <Button
+          variant="outlined"
+          // startIcon={<PersonAddAltSharp />}
+          size="large"
+          onClick={() => handleSet()}
+        >
+          Finished
+        </Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default MatchPlayers
+export default MatchPlayers;

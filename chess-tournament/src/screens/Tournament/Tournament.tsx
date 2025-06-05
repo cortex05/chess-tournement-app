@@ -93,6 +93,8 @@ const Tournament = () => {
                 setTeamTwoRoster={setTeamTwoRoster}
                 teamOneRoster={teamOneRoster}
                 teamTwoRoster={teamTwoRoster}
+								setMatchHolder={setMatchHolder}
+								matchHolder={matchHolder}
               />
             </div>
             <div>
@@ -104,6 +106,15 @@ const Tournament = () => {
               </div>
             </div>
           </div>
+					<footer className={styles.holderArray}>
+						{matchHolder.length > 0 && matchHolder?.map((match, index) => {
+							return <div className={styles.matchItem} key={index}>
+								<span>{match.playerOne.name}</span>
+								<span>VS</span>
+								<span>{match.playerTwo.name}</span>
+							</div>
+						})}
+					</footer>
         </div>
       )}
     </div>

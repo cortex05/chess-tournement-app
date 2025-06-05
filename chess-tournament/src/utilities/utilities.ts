@@ -58,6 +58,12 @@ export class Tournament {
 }
 
 export class Match {
-  playerOne: IPlayer | null = null
-  playerTwo: IPlayer | null = null
+  playerOne: IPlayer | null
+  playerTwo: IPlayer | null
+
+  constructor(playerOne: IPlayer, playerTwo: IPlayer){
+    this.playerOne = playerOne
+    this.playerTwo = playerTwo
+
+  }
 }
