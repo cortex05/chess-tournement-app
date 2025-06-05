@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import type { IMatch, IPlayer } from "../../../types/types";
 
 import styles from "../Tournament.module.css";
@@ -30,8 +30,9 @@ const MatchPlayers = (props: Props) => {
     teamTwoRoster,
     setPlayerTwo,
     matchHolder,
-    setMatchHolder,
+    setMatchHolder
   } = props;
+  const [color, setColor] = useState<boolean>(false)
 
   const handleRemove = (direction: string) => {
     if (direction === "left" && playerOne) {
@@ -53,6 +54,8 @@ const MatchPlayers = (props: Props) => {
     if (playerOne && playerTwo) {
       const newMatch = new Match(playerOne, playerTwo);
       setMatchHolder([...matchHolder, newMatch]);
+      setPlayerOne(undefined)
+      setPlayerTwo(undefined)
     }
   };
 
@@ -61,7 +64,7 @@ const MatchPlayers = (props: Props) => {
       <div className={styles.match}>
         <div>
           {playerOne ? (
-            <div className={styles.centerItem}>
+            <div className={`${styles.centerItem}`}>
               <ListItemText primary={playerOne.name} />
               <div>
                 <div>
@@ -103,7 +106,7 @@ const MatchPlayers = (props: Props) => {
           )}
         </div>
       </div>
-      <div>
+      {playerOne && playerTwo && <div>
         <Button
           variant="outlined"
           // startIcon={<PersonAddAltSharp />}
@@ -112,7 +115,7 @@ const MatchPlayers = (props: Props) => {
         >
           Finished
         </Button>
-      </div>
+      </div>}
     </div>
   );
 };

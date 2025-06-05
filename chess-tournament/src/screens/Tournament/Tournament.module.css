@@ -42,6 +42,10 @@
   align-items: center;
 }
 
+.forwardButton {
+  margin: 30px
+}
+
 /* PLayerITEM */
 .centerItem {
   display: flex;

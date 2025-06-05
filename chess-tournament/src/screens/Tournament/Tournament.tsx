@@ -11,15 +11,18 @@ import styles from "./Tournament.module.css";
 import PlayerItemRight from "./Players/PlayerItemRight";
 import PlayerItemLeft from "./Players/PlayerItemLeft";
 import MatchPlayers from "./Players/MatchPlayers";
+import { Button } from "@mui/material";
+import RoundActive from "./rounds/RoundActive";
 
-type Props = {
-  name: string;
-};
+// type Props = {
+//   name: string;
+// };
 
 const Tournament = () => {
   const { tourney } = useParams<string>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [tournament, setTournament] = useState<ITournament>();
+	const [roundStart, setRoundStart] = useState<boolean>(true)
 
   // Round variables
   const [teamOneRoster, setTeamOneRoster] = useState<IPlayer[]>([]);
@@ -27,7 +30,6 @@ const Tournament = () => {
 
   const [matchPlayerOne, setMatchPlayerOne] = useState<IPlayer>();
   const [matchPlayerTwo, setMatchPlayerTwo] = useState<IPlayer>();
-  const [matchData, setMatchData] = useState<IMatchData>();
   const [matchHolder, setMatchHolder] = useState<IMatch[]>([]);
   // const [] = useState<>()
 
@@ -36,17 +38,17 @@ const Tournament = () => {
     if (tourney) {
       const jsonValue = localStorage.getItem(tourney.toUpperCase());
       const value = jsonValue !== null ? JSON.parse(jsonValue) : null;
-      console.log("tournament: ", value);
+      // console.log("tournament: ", value);
       setTournament(value);
       setTeamOneRoster(value.teams[0].teamRoster);
       setTeamTwoRoster(value.teams[1].teamRoster);
-      setMatchData({
-        teamOneName: value.teams[0].name,
-        teamTwoName: value.teams[1].name,
-      });
       setIsLoading(false);
     }
   };
+
+	const endSetUp = () => {
+		setRoundStart(false)
+	}
 
   useEffect(() => {
     fetchTournament();
@@ -55,7 +57,7 @@ const Tournament = () => {
   return (
     <div className={styles.main}>
       {isLoading && <div>LOADING</div>}
-      {!isLoading && (
+      {!isLoading && roundStart && (
         <div>
           <h1>
             {tournament?.name} is a{" "}
@@ -83,40 +85,69 @@ const Tournament = () => {
               </div>
             </div>
             <div>
-              <h3>Match {matchHolder && matchHolder.length + 1}</h3>
-              <MatchPlayers
-                playerOne={matchPlayerOne}
-                playerTwo={matchPlayerTwo}
-                setPlayerOne={setMatchPlayerOne}
-                setPlayerTwo={setMatchPlayerTwo}
-                setTeamOneRoster={setTeamOneRoster}
-                setTeamTwoRoster={setTeamTwoRoster}
-                teamOneRoster={teamOneRoster}
-                teamTwoRoster={teamTwoRoster}
-								setMatchHolder={setMatchHolder}
-								matchHolder={matchHolder}
-              />
+              {(teamOneRoster.length > 0 || teamTwoRoster.length > 0 || matchPlayerOne || matchPlayerTwo) && (
+                <>
+                  <h3>Match {matchHolder && matchHolder.length + 1}</h3>
+                  <MatchPlayers
+                    playerOne={matchPlayerOne}
+                    playerTwo={matchPlayerTwo}
+                    setPlayerOne={setMatchPlayerOne}
+                    setPlayerTwo={setMatchPlayerTwo}
+                    setTeamOneRoster={setTeamOneRoster}
+                    setTeamTwoRoster={setTeamTwoRoster}
+                    teamOneRoster={teamOneRoster}
+                    teamTwoRoster={teamTwoRoster}
+                    setMatchHolder={setMatchHolder}
+                    matchHolder={matchHolder}
+                  />
+                </>
+              )}
+              {teamOneRoster.length === 0 && teamTwoRoster.length === 0 && matchPlayerOne === undefined && matchPlayerTwo === undefined && (
+                <div className={styles.forwardButton}>
+                  <Button
+                    variant="outlined"
+                    // startIcon={<PersonAddAltSharp />}
+                    size="large"
+                    onClick={() => endSetUp()}
+                  >
+                    Proceed
+                  </Button>
+                </div>
+              )}
             </div>
             <div>
               <h3>{tournament?.teams[1].name}</h3>
               <div>
                 {teamTwoRoster?.map((player, index) => {
-                  return <PlayerItemRight player={player} keyValue={index} setMatchPlayerTwo={setMatchPlayerTwo} setTeamTwoRoster={setTeamTwoRoster} teamTwoRoster={teamTwoRoster} matchPlayerTwo={matchPlayerTwo}/>;
+                  return (
+                    <PlayerItemRight
+                      player={player}
+                      keyValue={index}
+                      setMatchPlayerTwo={setMatchPlayerTwo}
+                      setTeamTwoRoster={setTeamTwoRoster}
+                      teamTwoRoster={teamTwoRoster}
+                      matchPlayerTwo={matchPlayerTwo}
+                    />
+                  );
                 })}
               </div>
             </div>
           </div>
-					<footer className={styles.holderArray}>
-						{matchHolder.length > 0 && matchHolder?.map((match, index) => {
-							return <div className={styles.matchItem} key={index}>
-								<span>{match.playerOne.name}</span>
-								<span>VS</span>
-								<span>{match.playerTwo.name}</span>
-							</div>
-						})}
-					</footer>
+          <footer className={styles.holderArray}>
+            {matchHolder.length > 0 &&
+              matchHolder?.map((match, index) => {
+                return (
+                  <div className={styles.matchItem} key={index}>
+                    <span>{match.playerOne.name}</span>
+                    <span>VS</span>
+                    <span>{match.playerTwo.name}</span>
+                  </div>
+                );
+              })}
+          </footer>
         </div>
       )}
+			{!isLoading && !roundStart && <RoundActive matches={matchHolder}/>}
     </div>
   );
 };
