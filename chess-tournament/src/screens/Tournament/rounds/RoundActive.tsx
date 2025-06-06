@@ -22,7 +22,7 @@ const RoundActive = (props: Props) => {
         {matches.map((match, index) => {
           return <MatchDisplay match={match} key={index} tournament={tournament} matches={matches} setMatchHolder={setMatchHolder} setFinishedMatches={setFinishedMatches} finishedMatches={finishedMatches}/>;
         })}
-        {matches.length > 0 && <div>
+        {(matches.length > 0 || finishedMatches.length > 0) && <div>
           {finishedMatches.map((match, index) => {
             return <div key={index}>{match.winner}</div>
           })}</div>}

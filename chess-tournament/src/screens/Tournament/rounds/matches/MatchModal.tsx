@@ -56,7 +56,6 @@ const MatchModal = (props: Props) => {
       setFinishedMatches([...finishedMatches, match])
 
       // Update Tournament
-
       // player roster...
       const filteredRoster = tournamentPlayers.filter((player) => { 
         return player.id !== playerOne.id && player.id !== playerTwo.id
@@ -69,7 +68,33 @@ const MatchModal = (props: Props) => {
       closeModal(false)
       
     } else if(matchWinner === "playerOne") {
-      // handle player one wins
+      // Update Players and match locally
+      playerOne.wins++
+      playerTwo.losses++
+
+      playerOne.playersMatched = [...playerOne.playersMatched, playerTwo]
+      playerTwo.playersMatched = [...playerTwo.playersMatched, playerOne]
+
+      playerOne.totalMatches++
+      playerTwo.totalMatches++
+
+      playerOne.score++
+
+      match.winner = "playerOne"
+      setFinishedMatches([...finishedMatches, match])
+
+      // Update Tournament
+      // player roster...
+      const filteredRoster = tournamentPlayers.filter((player) => { 
+        return player.id !== playerOne.id && player.id !== playerTwo.id
+      })
+      tournament.playerRoster = [...filteredRoster, playerOne, playerTwo]
+
+      // matches
+      const newMatches = matches.filter((oldMatch: IMatch) => oldMatch !== match)
+      setMatchHolder([...newMatches])
+      closeModal(false)
+
     } else if(matchWinner === "playerTwo"){
       // handle player two wins
     }
