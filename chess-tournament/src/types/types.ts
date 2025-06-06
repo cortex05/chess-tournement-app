@@ -4,7 +4,7 @@ export interface IPlayer {
   id: number
   name: string
   score: number
-  playersMatched: Player[]
+  playersMatched: IPlayer[]
   wins: number
   draws: number
   losses: number
@@ -28,6 +28,7 @@ export interface ITournament {
 export interface IMatch {
   playerOne: IPlayer
   playerTwo: IPlayer
+  winner: string
 }
 
 export interface IMatchData {

@@ -60,6 +60,7 @@ export class Tournament {
 export class Match {
   playerOne: IPlayer | null
   playerTwo: IPlayer | null
+  winner: string = ""
 
   constructor(playerOne: IPlayer, playerTwo: IPlayer){
     this.playerOne = playerOne

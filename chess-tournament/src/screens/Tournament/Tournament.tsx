@@ -146,7 +146,7 @@ const Tournament = () => {
           </footer>
         </div>
       )}
-			{!isLoading && !roundStart && tournament && <RoundActive matches={matchHolder} tournament={tournament}/>}
+			{!isLoading && !roundStart && tournament && <RoundActive matches={matchHolder} tournament={tournament} setMatchHolder={setMatchHolder}/>}
     </div>
   );
 };
