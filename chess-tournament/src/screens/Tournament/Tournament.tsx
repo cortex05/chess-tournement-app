@@ -106,7 +106,6 @@ const Tournament = () => {
                 <div className={styles.forwardButton}>
                   <Button
                     variant="outlined"
-                    // startIcon={<PersonAddAltSharp />}
                     size="large"
                     onClick={() => endSetUp()}
                   >
@@ -147,7 +146,7 @@ const Tournament = () => {
           </footer>
         </div>
       )}
-			{!isLoading && !roundStart && <RoundActive matches={matchHolder}/>}
+			{!isLoading && !roundStart && tournament && <RoundActive matches={matchHolder} tournament={tournament}/>}
     </div>
   );
 };

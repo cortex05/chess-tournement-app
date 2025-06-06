@@ -4,10 +4,11 @@ type Props = {
   isOpen: boolean;
   onClose: () => void;
   children?: any;
+  tall: boolean
 };
 
 const Modal = (props: Props) => {
-  const { isOpen, onClose, children } = props;
+  const { isOpen, onClose, children, tall } = props;
   if (!isOpen) return null;
 
   return (
@@ -28,7 +29,7 @@ const Modal = (props: Props) => {
       <div
         style={{
           background: "#222a3d",
-          height: 100,
+          height: `${tall ? 600 : 100}`,
           width: 400,
           margin: "auto",
           padding: "2%",

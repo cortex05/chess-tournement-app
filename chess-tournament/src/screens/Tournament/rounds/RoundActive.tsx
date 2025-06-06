@@ -1,15 +1,31 @@
-import React from 'react'
-import type { IMatch } from '../../../types/types'
+import React from "react";
+import type { IMatch, ITournament } from "../../../types/types";
+
+import styles from "./Rounds.module.css";
+import Modal from "../../../components/Modals/Modal";
+import MatchDisplay from "./MatchDisplay";
 
 type Props = {
-  matches: IMatch[]
-}
+  matches: IMatch[];
+  tournament: ITournament;
+};
 
 const RoundActive = (props: Props) => {
-  const { matches } = props
+  const { matches, tournament } = props;
   return (
-    <div>RoundActive</div>
-  )
-}
+    <div className={styles.main}>
+      Round {tournament.round}
+      <div className={styles.matchesField}>
+        {matches.map((match, index) => {
+          return (
+            
+              <MatchDisplay match={match} key={index}/>
+            
+          );
+        })}
+      </div>
+    </div>
+  );
+};
 
-export default RoundActive
+export default RoundActive;

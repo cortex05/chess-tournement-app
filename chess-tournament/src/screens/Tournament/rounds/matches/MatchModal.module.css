@@ -1,0 +1,29 @@
+.matchModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.matchModal span {
+  border: 2px solid white;
+  padding: 5px;
+  margin: 5px;
+  width: 200px;
+  text-align: center;
+}
+
+.green {
+  /* box-shadow: 5px green; */
+  background-color: green;
+}
+
+.red {
+  /* box-shadow: 5px green; */
+  background-color: red;
+}
+
+.draw {
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+}
