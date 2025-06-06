@@ -113,7 +113,7 @@ const MatchPlayers = (props: Props) => {
           size="large"
           onClick={() => handleSet()}
         >
-          Finished
+          Add Match
         </Button>
       </div>}
     </div>
