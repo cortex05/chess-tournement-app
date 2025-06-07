@@ -106,12 +106,12 @@ const RoundActive = (props: Props) => {
               );
             })}
           </div>
-          <div className={styles.roundOver}>
-            <h3>Round over. Proceed to the next?</h3>
-            <Button variant="outlined">Next Round</Button>
-          </div>
         </div>
       )}
+      {matches.length === 0 && finishedMatches.length > 0 && <div className={styles.roundOver}>
+            <h3>Round over. Proceed to the next?</h3>
+            <Button variant="outlined">Next Round</Button>
+          </div>}
     </div>
   );
 };
