@@ -4,9 +4,10 @@ import type {
   IMatch,
   IMatchData,
   IPlayer,
+  IRoundScore,
   ITournament,
 } from "../../types/types";
-import { handleGameTypeDisplay } from "../../utilities/functions";
+import { calculateScore, handleGameTypeDisplay } from "../../utilities/functions";
 import styles from "./Tournament.module.css";
 import PlayerItemRight from "./Players/PlayerItemRight";
 import PlayerItemLeft from "./Players/PlayerItemLeft";
@@ -31,6 +32,11 @@ const Tournament = () => {
   const [matchPlayerOne, setMatchPlayerOne] = useState<IPlayer>();
   const [matchPlayerTwo, setMatchPlayerTwo] = useState<IPlayer>();
   const [matchHolder, setMatchHolder] = useState<IMatch[]>([]);
+	const [roundScore, setRoundScore] = useState<IRoundScore>({
+  winner: "",
+  teamOneScore: 0,
+  teamTwoScore: 0
+});
   // const [] = useState<>()
 
   const fetchTournament = () => {
@@ -43,6 +49,7 @@ const Tournament = () => {
       setTeamOneRoster(value.teams[0].teamRoster);
       setTeamTwoRoster(value.teams[1].teamRoster);
       setIsLoading(false);
+			setRoundScore(calculateScore(value))
     }
   };
 
@@ -66,6 +73,8 @@ const Tournament = () => {
             )}{" "}
             tournament
           </h1>
+					<h2>Round {tournament?.round} set up.</h2>
+					<Button onClick={() => console.log("Scoreboard")}>Score</Button>
           <div className={styles.settingRoster}>
             <div>
               <h3>{tournament?.teams[0].name}</h3>
@@ -146,7 +155,7 @@ const Tournament = () => {
           </footer>
         </div>
       )}
-			{!isLoading && !roundStart && tournament && <RoundActive matches={matchHolder} tournament={tournament} setMatchHolder={setMatchHolder}/>}
+			{!isLoading && !roundStart && tournament && <RoundActive matches={matchHolder} tournament={tournament} setMatchHolder={setMatchHolder} roundScore={roundScore} setRoundScore={setRoundScore}/>}
     </div>
   );
 };

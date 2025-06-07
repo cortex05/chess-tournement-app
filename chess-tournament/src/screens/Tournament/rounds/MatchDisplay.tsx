@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import styles from "./Rounds.module.css";
-import type { IMatch, ITournament } from "../../../types/types";
+import type { IMatch, IRoundScore, ITournament } from "../../../types/types";
 import Modal from "../../../components/Modals/Modal";
 import MatchModal from "./matches/MatchModal";
 
@@ -12,8 +12,8 @@ type Props = {
   setMatchHolder: Function;
   setFinishedMatches: Function;
   finishedMatches: IMatch[];
-  setRoundScore: Function;
-  calculateRound: Function;
+  roundScore: IRoundScore
+  setRoundScore: Function
 };
 
 const MatchDisplay = (props: Props) => {
@@ -24,8 +24,8 @@ const MatchDisplay = (props: Props) => {
     setMatchHolder,
     setFinishedMatches,
     finishedMatches,
-    setRoundScore,
-    calculateRound,
+    roundScore,
+    setRoundScore
   } = props;
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -45,8 +45,8 @@ const MatchDisplay = (props: Props) => {
           setMatchHolder={setMatchHolder}
           setFinishedMatches={setFinishedMatches}
           finishedMatches={finishedMatches}
+          roundScore={roundScore}
           setRoundScore={setRoundScore}
-          calculateRound={calculateRound}
         />
       </Modal>
     </div>

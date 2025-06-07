@@ -1,58 +1,26 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import type {
   IMatch,
-  IPlayer,
   IRoundScore,
   ITournament,
 } from "../../../types/types";
 
 import styles from "./Rounds.module.css";
-import Modal from "../../../components/Modals/Modal";
 import MatchDisplay from "./MatchDisplay";
-import { RoundScore } from "../../../utilities/utilities";
 import { Button } from "@mui/material";
+
 
 type Props = {
   matches: IMatch[];
   tournament: ITournament;
   setMatchHolder: Function;
+  roundScore: IRoundScore
+  setRoundScore: Function
 };
 
 const RoundActive = (props: Props) => {
-  const { matches, tournament, setMatchHolder } = props;
+  const { matches, tournament, setMatchHolder, roundScore, setRoundScore } = props;
   const [finishedMatches, setFinishedMatches] = useState<IMatch[]>([]);
-  const [roundScore, setRoundScore] = useState<IRoundScore>();
-
-  const calculateScore = (tournament: ITournament) => {
-    // calculate team 1 score
-    const teamOne = tournament.teams[0].teamRoster;
-    const teamOneScore = teamOne.reduce((acc: number, player: IPlayer) => {
-      return acc + player.score;
-    }, 0);
-    console.log(teamOneScore);
-
-    // calculate team 2 score
-    const teamTwo = tournament.teams[1].teamRoster;
-    const teamTwoScore = teamTwo.reduce((acc: number, player: IPlayer) => {
-      return acc + player.score;
-    }, 0);
-    console.log(teamTwoScore);
-
-    // Find which is greater
-    const leader =
-      teamOneScore > teamTwoScore
-        ? "Team One"
-        : teamTwoScore > teamOneScore
-        ? "Team Two"
-        : "Tied";
-    const score = new RoundScore(leader, teamOneScore, teamTwoScore);
-
-    return score;
-  };
-
-  useEffect(() => {
-    setRoundScore(calculateScore(tournament));
-  }, []);
 
   return (
     <div className={styles.main}>
@@ -76,8 +44,8 @@ const RoundActive = (props: Props) => {
               setMatchHolder={setMatchHolder}
               setFinishedMatches={setFinishedMatches}
               finishedMatches={finishedMatches}
+              roundScore={roundScore}
               setRoundScore={setRoundScore}
-              calculateRound={calculateScore}
             />
           );
         })}
