@@ -11,9 +11,12 @@ type Props = {
   setMatchHolder: Function
   setFinishedMatches: Function
   finishedMatches: IMatch[]
+  setRoundScore: Function;
+  calculateRound: Function;
 };
 const MatchModal = (props: Props) => {
-  const { match, tournament, closeModal, matches, setMatchHolder, setFinishedMatches, finishedMatches } = props;
+  const { match, tournament, closeModal, matches, setMatchHolder, setFinishedMatches, finishedMatches, setRoundScore,
+    calculateRound } = props;
   const [isActive, setIsActive] = useState<string>("")
   const [matchWinner, setMatchWinner] = useState<string>("")
   const playerOne = match.playerOne
@@ -123,6 +126,7 @@ const MatchModal = (props: Props) => {
       setMatchHolder([...newMatches])
       closeModal(false)
     }
+    setRoundScore(calculateRound(tournament))
   }
 
   return (

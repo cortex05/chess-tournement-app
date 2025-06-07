@@ -7,15 +7,26 @@ import MatchModal from "./matches/MatchModal";
 
 type Props = {
   match: IMatch;
-  tournament: ITournament
-  matches: IMatch[]
-  setMatchHolder: Function
-  setFinishedMatches: Function
-  finishedMatches: IMatch[]
+  tournament: ITournament;
+  matches: IMatch[];
+  setMatchHolder: Function;
+  setFinishedMatches: Function;
+  finishedMatches: IMatch[];
+  setRoundScore: Function;
+  calculateRound: Function;
 };
 
 const MatchDisplay = (props: Props) => {
-  const { match, tournament, matches, setMatchHolder, setFinishedMatches, finishedMatches } = props;
+  const {
+    match,
+    tournament,
+    matches,
+    setMatchHolder,
+    setFinishedMatches,
+    finishedMatches,
+    setRoundScore,
+    calculateRound,
+  } = props;
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   return (
@@ -26,7 +37,17 @@ const MatchDisplay = (props: Props) => {
         <span>{match.playerTwo.name}</span>
       </div>
       <Modal tall={true} isOpen={isModalOpen} onClose={() => console.log("")}>
-        <MatchModal match={match} tournament={tournament} closeModal={setIsModalOpen} matches={matches} setMatchHolder={setMatchHolder} setFinishedMatches={setFinishedMatches} finishedMatches={finishedMatches}/>
+        <MatchModal
+          match={match}
+          tournament={tournament}
+          closeModal={setIsModalOpen}
+          matches={matches}
+          setMatchHolder={setMatchHolder}
+          setFinishedMatches={setFinishedMatches}
+          finishedMatches={finishedMatches}
+          setRoundScore={setRoundScore}
+          calculateRound={calculateRound}
+        />
       </Modal>
     </div>
   );

@@ -4,6 +4,14 @@
   align-items: center;
 }
 
+.scoreBoard {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 400px;
+  margin-top: 20px;
+}
+
 .matchesField {
   display: flex;
   flex-direction: row;
@@ -26,4 +34,28 @@
 .matchItem:hover {
   width: 110px;
   box-shadow: 10px 10px 5px black;
+}
+
+.holderArray {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  /* width: fit-content; */
+  background-color: var(--dark-body);
+  height: 100px;
+  min-width: 500px;
+  padding: 30px;
+}
+
+.roundOver {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  height: 125px;
+  background-color: var(--dark-body);
+}
+
+.roundOver h3 {
+  margin: 20px 0px;
 }

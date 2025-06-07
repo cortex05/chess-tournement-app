@@ -1,32 +1,117 @@
-import React, { useState } from "react";
-import type { IMatch, ITournament } from "../../../types/types";
+import React, { useEffect, useState } from "react";
+import type {
+  IMatch,
+  IPlayer,
+  IRoundScore,
+  ITournament,
+} from "../../../types/types";
 
 import styles from "./Rounds.module.css";
 import Modal from "../../../components/Modals/Modal";
 import MatchDisplay from "./MatchDisplay";
+import { RoundScore } from "../../../utilities/utilities";
+import { Button } from "@mui/material";
 
 type Props = {
   matches: IMatch[];
   tournament: ITournament;
-  setMatchHolder: Function
+  setMatchHolder: Function;
 };
 
 const RoundActive = (props: Props) => {
   const { matches, tournament, setMatchHolder } = props;
-  const [finishedMatches, setFinishedMatches] = useState<IMatch[]>([])
+  const [finishedMatches, setFinishedMatches] = useState<IMatch[]>([]);
+  const [roundScore, setRoundScore] = useState<IRoundScore>();
+
+  const calculateScore = (tournament: ITournament) => {
+    // calculate team 1 score
+    const teamOne = tournament.teams[0].teamRoster;
+    const teamOneScore = teamOne.reduce((acc: number, player: IPlayer) => {
+      return acc + player.score;
+    }, 0);
+    console.log(teamOneScore);
+
+    // calculate team 2 score
+    const teamTwo = tournament.teams[1].teamRoster;
+    const teamTwoScore = teamTwo.reduce((acc: number, player: IPlayer) => {
+      return acc + player.score;
+    }, 0);
+    console.log(teamTwoScore);
+
+    // Find which is greater
+    const leader =
+      teamOneScore > teamTwoScore
+        ? "Team One"
+        : teamTwoScore > teamOneScore
+        ? "Team Two"
+        : "Tied";
+    const score = new RoundScore(leader, teamOneScore, teamTwoScore);
+
+    return score;
+  };
+
+  useEffect(() => {
+    setRoundScore(calculateScore(tournament));
+  }, []);
 
   return (
     <div className={styles.main}>
-      Round {tournament.round}
+      <h2>Round {tournament.round}</h2>
+      <div className={styles.scoreBoard}>
+        {roundScore?.teamOneScore !== undefined && (
+          <h3>Team One: {roundScore?.teamOneScore}</h3>
+        )}
+        {roundScore?.teamTwoScore !== undefined && (
+          <h3>Team Two: {roundScore?.teamTwoScore}</h3>
+        )}
+      </div>
       <div className={styles.matchesField}>
         {matches.map((match, index) => {
-          return <MatchDisplay match={match} key={index} tournament={tournament} matches={matches} setMatchHolder={setMatchHolder} setFinishedMatches={setFinishedMatches} finishedMatches={finishedMatches}/>;
+          return (
+            <MatchDisplay
+              match={match}
+              key={index}
+              tournament={tournament}
+              matches={matches}
+              setMatchHolder={setMatchHolder}
+              setFinishedMatches={setFinishedMatches}
+              finishedMatches={finishedMatches}
+              setRoundScore={setRoundScore}
+              calculateRound={calculateScore}
+            />
+          );
         })}
-        {(matches.length > 0 || finishedMatches.length > 0) && <div>
-          {finishedMatches.map((match, index) => {
-            return <div key={index}>{match.winner}</div>
-          })}</div>}
       </div>
+      {(matches.length > 0 || finishedMatches.length > 0) && (
+        <div>
+          <div className={styles.holderArray}>
+            {finishedMatches.map((match, index) => {
+              return (
+                <div key={index} className={styles.matchItem}>
+                  {match.winner === "draw" && (
+                    <div>
+                      <h5>Draw</h5>
+                      <p>
+                        {match.playerOne.name}/{match.playerTwo.name}
+                      </p>
+                    </div>
+                  )}
+                  {match.winner !== "draw" && (
+                    <div>
+                      <h4>Winner: {match.playerOne.name}</h4>
+                      <h6>vs {match.playerTwo.name}</h6>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          <div className={styles.roundOver}>
+            <h3>Round over. Proceed to the next?</h3>
+            <Button variant="outlined">Next Round</Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

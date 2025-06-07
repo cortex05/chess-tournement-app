@@ -35,3 +35,9 @@ export interface IMatchData {
   teamOneName: string
   teamTwoName: string 
 }
+
+export interface IRoundScore {
+  winner: string
+  teamOneScore: number
+  teamTwoScore: number
+}

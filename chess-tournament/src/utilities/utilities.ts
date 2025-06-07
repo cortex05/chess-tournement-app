@@ -65,6 +65,17 @@ export class Match {
   constructor(playerOne: IPlayer, playerTwo: IPlayer){
     this.playerOne = playerOne
     this.playerTwo = playerTwo
+  }
+}
 
+export class RoundScore {
+  winner: string
+  teamOneScore: number
+  teamTwoScore: number
+
+  constructor(winner: string, teamOneScore: number, teamTwoScore: number){
+    this.winner = winner
+    this.teamOneScore = teamOneScore
+    this.teamTwoScore = teamTwoScore
   }
 }
