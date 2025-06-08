@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+import { StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
@@ -11,8 +11,6 @@ import Tournament from './screens/Tournament/Tournament'
 
 
 function App() {
-  // const [activeRoster, setActiveRoster] = useState<IPlayer[]>([])
-
   return (
     <BrowserRouter>
       <Routes>

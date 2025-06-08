@@ -4,10 +4,6 @@ import styles from './Home.module.css'
 import { AddCircleOutlineSharp, StorageSharp } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
 
-// Home.propTypes = {
-//   second: PropTypes.third
-// }
-
 export const Home = () => {
   const navigate = useNavigate()
   return (

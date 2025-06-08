@@ -30,9 +30,11 @@ const PhaseThree = (props: Props) => {
       teamsSelect,
       tournamentName
     );
+    const key = tournamentName.toUpperCase()
+    // 
     const jsonTournament = JSON.stringify(tournament);
-    localStorage.setItem(tournamentName.toUpperCase(), jsonTournament);
-    console.log(tournament);
+    localStorage.setItem(key, jsonTournament);
+    
     navigate(`/tournament/${tournamentName}`);
   };
   return (
