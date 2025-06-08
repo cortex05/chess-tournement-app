@@ -4,12 +4,13 @@ import styles from "./PhaseThree.module.css";
 import { Tournament } from "../../../utilities/utilities";
 import { useNavigate } from "react-router-dom";
 import { handleGameTypeDisplay } from "../../../utilities/functions";
+import { LOCAL_TOURNAMENTS_KEY } from "../../../data/keys";
 
 type Props = {
   gameType: string;
   gameRoster: IPlayer[];
   teams: ITeam[];
-  tournamentName: string
+  tournamentName: string;
 };
 
 const PhaseThree = (props: Props) => {
@@ -30,11 +31,29 @@ const PhaseThree = (props: Props) => {
       teamsSelect,
       tournamentName
     );
-    const key = tournamentName.toUpperCase()
-    // 
+    const key = tournamentName.toUpperCase();
+
+    // check if there are any tournaments
+    const jsonValue = localStorage.getItem(LOCAL_TOURNAMENTS_KEY);
+
+    if (!jsonValue) {
+      // If none make a key array and add this one
+      const newArray: string[] = [key];
+        localStorage.setItem(LOCAL_TOURNAMENTS_KEY, JSON.stringify(newArray));
+    } else {
+      // add this one
+
+        const oldArrayJSON = localStorage.getItem(LOCAL_TOURNAMENTS_KEY);
+        console.log("oldArray: ", oldArrayJSON);
+        const oldArrayParsed = oldArrayJSON ? JSON.parse(oldArrayJSON) : null;
+        const newArray: string[] = [...oldArrayParsed, key];
+        localStorage.setItem(LOCAL_TOURNAMENTS_KEY, JSON.stringify(newArray));
+
+    }
+    //
     const jsonTournament = JSON.stringify(tournament);
     localStorage.setItem(key, jsonTournament);
-    
+
     navigate(`/tournament/${tournamentName}`);
   };
   return (
@@ -70,7 +89,9 @@ const PhaseThree = (props: Props) => {
           variant="outlined"
           // startIcon={<PersonAddAltSharp />}
           size="large"
-          onClick={() => handleStart(gameType, gameRoster, teams, tournamentName)}
+          onClick={() =>
+            handleStart(gameType, gameRoster, teams, tournamentName)
+          }
         >
           Submit
         </Button>
