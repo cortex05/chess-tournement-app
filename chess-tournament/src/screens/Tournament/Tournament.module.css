@@ -85,4 +85,39 @@
   padding: 10px;
 }
 
+.scoreModal {
+  display: flex;
+  flex-direction: row;
+  
+}
 
+.scoreModal > div {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scoreModal > div > h4 {
+  border-bottom: 2px solid white;
+}
+
+.scoreModalPlayer {
+  display: flex;
+  flex-direction: column;
+  background-color: aqua;
+  color: black;
+  width: 80%;
+  margin: 5px 0px;
+  padding: 10px;
+}
+
+.scoreModalPlayer > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.scoreModalPlayer > div:first-child{
+  
+  border-bottom: 1px solid black;
+}

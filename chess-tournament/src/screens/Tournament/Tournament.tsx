@@ -18,6 +18,7 @@ import MatchPlayers from "./Players/MatchPlayers";
 import { Button } from "@mui/material";
 import RoundActive from "./rounds/RoundActive";
 import { mockScore } from "../../utilities/mockData";
+import Modal from "../../components/Modals/Modal";
 
 // type Props = {
 //   name: string;
@@ -28,6 +29,7 @@ const Tournament = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [tournament, setTournament] = useState<ITournament>();
   const [roundStart, setRoundStart] = useState<boolean>(true);
+	const [scoreModal, setScoreModal] = useState<boolean>(false)
 
   // Round variables
   const [teamOneRoster, setTeamOneRoster] = useState<IPlayer[]>([]);
@@ -69,7 +71,7 @@ const Tournament = () => {
             tournament
           </h1>
           <h2>Round {tournament?.round} set up.</h2>
-          <Button onClick={() => console.log("Scoreboard")}>Score</Button>
+          <Button onClick={() => setScoreModal(true)}>Score</Button>
           <div className={styles.settingRoster}>
             <div>
               <h3>{tournament?.teams[0].name}</h3>
@@ -169,6 +171,36 @@ const Tournament = () => {
 					setRoundStart={setRoundStart}
         />
       )}
+			<Modal tall isOpen={scoreModal} onClose={() => setScoreModal(false)}>
+				<div className={styles.scoreModal}>
+					<div>
+						<h4>Team One: {roundScore.teamOneScore} points</h4>
+						{teamOneRoster.map((player, index) => {
+							return <div key={index} className={styles.scoreModalPlayer}>
+									<div><span>{player.name}</span> <span>-</span> <span>{player.score}</span></div>
+									<div>
+										<span>W/L/D</span>
+										<span>-</span>
+										<span>{player.wins}/{player.losses}/{player.draws}</span>
+									</div>
+								</div>
+						})}
+					</div>
+					<div>
+						<h4>Team Two: {roundScore.teamTwoScore} points</h4>
+						{teamTwoRoster.map((player, index) => {
+							return <div key={index} className={styles.scoreModalPlayer}>
+									<div><span>{player.name}</span> <span>-</span> <span>{player.score}</span></div>
+									<div>
+										<span>W/L/D</span>
+										<span>-</span>
+										<span>{player.wins}/{player.losses}/{player.draws}</span>
+									</div>
+								</div>
+						})}
+					</div>
+				</div>
+			</Modal>
     </div>
   );
 };
