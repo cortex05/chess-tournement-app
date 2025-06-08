@@ -7,13 +7,17 @@ import type {
   IRoundScore,
   ITournament,
 } from "../../types/types";
-import { calculateScore, handleGameTypeDisplay } from "../../utilities/functions";
+import {
+  calculateScore,
+  handleGameTypeDisplay,
+} from "../../utilities/functions";
 import styles from "./Tournament.module.css";
 import PlayerItemRight from "./Players/PlayerItemRight";
 import PlayerItemLeft from "./Players/PlayerItemLeft";
 import MatchPlayers from "./Players/MatchPlayers";
 import { Button } from "@mui/material";
 import RoundActive from "./rounds/RoundActive";
+import { mockScore } from "../../utilities/mockData";
 
 // type Props = {
 //   name: string;
@@ -23,7 +27,7 @@ const Tournament = () => {
   const { tourney } = useParams<string>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [tournament, setTournament] = useState<ITournament>();
-	const [roundStart, setRoundStart] = useState<boolean>(true)
+  const [roundStart, setRoundStart] = useState<boolean>(true);
 
   // Round variables
   const [teamOneRoster, setTeamOneRoster] = useState<IPlayer[]>([]);
@@ -32,30 +36,21 @@ const Tournament = () => {
   const [matchPlayerOne, setMatchPlayerOne] = useState<IPlayer>();
   const [matchPlayerTwo, setMatchPlayerTwo] = useState<IPlayer>();
   const [matchHolder, setMatchHolder] = useState<IMatch[]>([]);
-	const [roundScore, setRoundScore] = useState<IRoundScore>({
-  winner: "",
-  teamOneScore: 0,
-  teamTwoScore: 0
-});
-  // const [] = useState<>()
+  const [roundScore, setRoundScore] = useState<IRoundScore>(mockScore);
 
   const fetchTournament = () => {
     // Move this to utility functions
     if (tourney) {
       const jsonValue = localStorage.getItem(tourney.toUpperCase());
-      const value = jsonValue !== null ? JSON.parse(jsonValue) : null;
+      const value = jsonValue !== null ? JSON.parse(jsonValue) : null
       // console.log("tournament: ", value);
       setTournament(value);
       setTeamOneRoster(value.teams[0].teamRoster);
       setTeamTwoRoster(value.teams[1].teamRoster);
       setIsLoading(false);
-			setRoundScore(calculateScore(value))
+      setRoundScore(calculateScore(value));
     }
   };
-
-	const endSetUp = () => {
-		setRoundStart(false)
-	}
 
   useEffect(() => {
     fetchTournament();
@@ -73,8 +68,8 @@ const Tournament = () => {
             )}{" "}
             tournament
           </h1>
-					<h2>Round {tournament?.round} set up.</h2>
-					<Button onClick={() => console.log("Scoreboard")}>Score</Button>
+          <h2>Round {tournament?.round} set up.</h2>
+          <Button onClick={() => console.log("Scoreboard")}>Score</Button>
           <div className={styles.settingRoster}>
             <div>
               <h3>{tournament?.teams[0].name}</h3>
@@ -94,7 +89,10 @@ const Tournament = () => {
               </div>
             </div>
             <div>
-              {(teamOneRoster.length > 0 || teamTwoRoster.length > 0 || matchPlayerOne || matchPlayerTwo) && (
+              {(teamOneRoster.length > 0 ||
+                teamTwoRoster.length > 0 ||
+                matchPlayerOne ||
+                matchPlayerTwo) && (
                 <>
                   <h3>Match {matchHolder && matchHolder.length + 1}</h3>
                   <MatchPlayers
@@ -111,17 +109,20 @@ const Tournament = () => {
                   />
                 </>
               )}
-              {teamOneRoster.length === 0 && teamTwoRoster.length === 0 && matchPlayerOne === undefined && matchPlayerTwo === undefined && (
-                <div className={styles.forwardButton}>
-                  <Button
-                    variant="outlined"
-                    size="large"
-                    onClick={() => endSetUp()}
-                  >
-                    Proceed
-                  </Button>
-                </div>
-              )}
+              {teamOneRoster.length === 0 &&
+                teamTwoRoster.length === 0 &&
+                matchPlayerOne === undefined &&
+                matchPlayerTwo === undefined && (
+                  <div className={styles.forwardButton}>
+                    <Button
+                      variant="outlined"
+                      size="large"
+                      onClick={() => setRoundStart(false)}
+                    >
+                      Proceed
+                    </Button>
+                  </div>
+                )}
             </div>
             <div>
               <h3>{tournament?.teams[1].name}</h3>
@@ -155,7 +156,18 @@ const Tournament = () => {
           </footer>
         </div>
       )}
-			{!isLoading && !roundStart && tournament && <RoundActive matches={matchHolder} tournament={tournament} setMatchHolder={setMatchHolder} roundScore={roundScore} setRoundScore={setRoundScore}/>}
+      {!isLoading && !roundStart && tournament && (
+        <RoundActive
+          matches={matchHolder}
+          tournament={tournament}
+          setMatchHolder={setMatchHolder}
+          roundScore={roundScore}
+          setRoundScore={setRoundScore}
+          setTeamOneRoster={setTeamOneRoster}
+          setTeamTwoRoster={setTeamTwoRoster}
+					setRoundStart={setRoundStart}
+        />
+      )}
     </div>
   );
 };

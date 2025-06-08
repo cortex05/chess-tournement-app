@@ -1,4 +1,4 @@
-import type { IPlayer, ITeam } from "../types/types"
+import type { IPlayer, IPlayerMatched, ITeam } from "../types/types"
 
 // const dummyPlayer: IPlayer = {
 //   id: 1,
@@ -13,7 +13,7 @@ import type { IPlayer, ITeam } from "../types/types"
 export class Player {
   // Defaults
   score: number = 0
-  playersMatched: Player[] = []
+  playersMatched: IPlayerMatched[] = []
   wins: number = 0
   draws: number = 0
   losses: number = 0
@@ -77,5 +77,16 @@ export class RoundScore {
     this.winner = winner
     this.teamOneScore = teamOneScore
     this.teamTwoScore = teamTwoScore
+  }
+}
+
+export class PlayerMatched {
+  playerId: number
+  numberOfMatches: number = 1
+  name: string
+
+  constructor(playerId: number, name: string){
+    this.playerId = playerId
+    this.name = name
   }
 }

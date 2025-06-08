@@ -49,7 +49,7 @@ const New = () => {
         {/* third */}
         {phase === "THIRD" && <PhaseThree gameType={gameType} gameRoster={roster} teams={teams} tournamentName={tournamentName}/>}
       </section>
-      <Modal isOpen={tournamentCheck} onClose={() => setTournamentCheck(false)}>
+      <Modal tall={false} isOpen={tournamentCheck} onClose={() => setTournamentCheck(false)}>
         <div className={styles.modal}>
           <div>
             <h5>What kind of tournament do you want?</h5>

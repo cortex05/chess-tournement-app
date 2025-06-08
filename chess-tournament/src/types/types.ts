@@ -1,10 +1,9 @@
-import type { Player } from "../utilities/utilities"
 
 export interface IPlayer {
   id: number
   name: string
   score: number
-  playersMatched: IPlayer[]
+  playersMatched: IPlayerMatched[]
   wins: number
   draws: number
   losses: number
@@ -40,4 +39,10 @@ export interface IRoundScore {
   winner: string
   teamOneScore: number
   teamTwoScore: number
+}
+
+export interface IPlayerMatched {
+  playerId: number
+  numberOfMatches: number
+  name: string
 }

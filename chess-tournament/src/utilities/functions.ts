@@ -1,5 +1,5 @@
 import type { IPlayer, ITournament } from "../types/types";
-import { RoundScore } from "./utilities";
+import { PlayerMatched, RoundScore } from "./utilities";
 
 export const handleGameTypeDisplay = (gameType: string) => {
   switch (gameType) {
@@ -36,6 +36,22 @@ export const calculateScore = (tournament: ITournament) => {
 
     return score;
   };
+
+export const updatePlayersMatched = (playerOne: IPlayer, playerTwo: IPlayer) => {
+    // if player 2 is not in playerOne
+    if (
+      playerOne.playersMatched.filter((playerMatched) => {
+        return playerMatched.playerId === playerTwo.id;
+      }).length === 0
+    ) {
+      const newRecord = new PlayerMatched(playerTwo.id, playerTwo.name);
+      playerOne.playersMatched = [...playerOne.playersMatched, newRecord];
+    } else {
+      const targetIndex = playerOne.playersMatched.map((e) => e.playerId).indexOf(playerTwo.id);
+      console.log(targetIndex)
+      playerOne.playersMatched[targetIndex].numberOfMatches++;
+    }
+  }  
 
 // export const handlePluralTournament = (title: string) => {
 
