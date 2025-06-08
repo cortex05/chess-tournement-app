@@ -51,6 +51,19 @@ export const updatePlayersMatched = (playerOne: IPlayer, playerTwo: IPlayer) => 
       console.log(targetIndex)
       playerOne.playersMatched[targetIndex].numberOfMatches++;
     }
+
+    if (
+      playerTwo.playersMatched.filter((playerMatched) => {
+        return playerMatched.playerId === playerOne.id;
+      }).length === 0
+    ) {
+      const newRecord = new PlayerMatched(playerOne.id, playerOne.name);
+      playerTwo.playersMatched = [...playerTwo.playersMatched, newRecord];
+    } else {
+      const targetIndex = playerTwo.playersMatched.map((e) => e.playerId).indexOf(playerOne.id);
+      console.log(targetIndex)
+      playerTwo.playersMatched[targetIndex].numberOfMatches++;
+    }
   }  
 
 // export const handlePluralTournament = (title: string) => {

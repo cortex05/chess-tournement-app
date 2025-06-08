@@ -31,6 +31,7 @@ const RoundActive = (props: Props) => {
     const jsonTournament = JSON.stringify(tournament);
     localStorage.setItem(tournament.name.toUpperCase(), jsonTournament);
 
+    console.log("team one roster: ", tournament.teams[0].teamRoster)
     setTeamOneRoster(tournament.teams[0].teamRoster)
     setTeamTwoRoster(tournament.teams[1].teamRoster)
     setRoundStart(true)

@@ -20,36 +20,69 @@ import styles from "../Tournament.module.css";
 type Props = {
   keyValue: number;
   player: IPlayer;
-  setMatchPlayerTwo: Function
-  setTeamTwoRoster: Function
-  teamTwoRoster: IPlayer[]
-  matchPlayerTwo: IPlayer | undefined
+  setMatchPlayerTwo: Function;
+  setTeamTwoRoster: Function;
+  teamTwoRoster: IPlayer[];
+  matchPlayerTwo: IPlayer | undefined;
+  playerOne: IPlayer | undefined;
 };
 
 const PlayerItemRight = (props: Props) => {
-  const { keyValue, player, setMatchPlayerTwo, setTeamTwoRoster, teamTwoRoster, matchPlayerTwo } = props;
+  const {
+    keyValue,
+    player,
+    setMatchPlayerTwo,
+    setTeamTwoRoster,
+    teamTwoRoster,
+    matchPlayerTwo,
+    playerOne,
+  } = props;
 
   const handleShift = () => {
-      setMatchPlayerTwo(player)
-      const filteredRoster = teamTwoRoster.filter((remainingPlayer: IPlayer) => remainingPlayer.id !== player.id)
-      console.log(filteredRoster)
-      setTeamTwoRoster(filteredRoster)
+    setMatchPlayerTwo(player);
+    const filteredRoster = teamTwoRoster.filter(
+      (remainingPlayer: IPlayer) => remainingPlayer.id !== player.id
+    );
+    console.log(filteredRoster);
+    setTeamTwoRoster(filteredRoster);
+  };
+
+  const nameText = (playerName: string, foe: IPlayer | undefined) => {
+    if (foe) {
+      console.log("foe")
+      if (
+        player.playersMatched.filter((playerMatched) => {
+          return playerMatched.playerId === foe.id;
+        }).length > 0
+      ) {
+        console.log("we've fought before")
+        const targetIndex = player.playersMatched
+          .map((e) => e.playerId)
+          .indexOf(foe.id);
+        console.log(targetIndex);
+        const matches = player.playersMatched[targetIndex].numberOfMatches;
+        return `${playerName} - ${matches}`;
+      }
     }
+    return playerName;
+  };
 
   return (
     <div key={keyValue}>
-      {!matchPlayerTwo && <div className={styles.centerItem}>
-        <div>
+      {!matchPlayerTwo && (
+        <div className={styles.centerItem}>
           <div>
-            <IconButton color={"success"} onClick={() => handleShift()}>
-              {/* <Avatar> */}
-              <ArrowBackSharp />
-              {/* </Avatar> */}
-            </IconButton>
+            <div>
+              <IconButton color={"success"} onClick={() => handleShift()}>
+                {/* <Avatar> */}
+                <ArrowBackSharp />
+                {/* </Avatar> */}
+              </IconButton>
+            </div>
           </div>
+          <ListItemText primary={nameText(player.name, playerOne)} />
         </div>
-        <ListItemText primary={player.name} />
-      </div>}
+      )}
     </div>
   );
 };

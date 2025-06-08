@@ -136,6 +136,7 @@ const Tournament = () => {
                       setTeamTwoRoster={setTeamTwoRoster}
                       teamTwoRoster={teamTwoRoster}
                       matchPlayerTwo={matchPlayerTwo}
+											playerOne={matchPlayerOne}
                     />
                   );
                 })}
