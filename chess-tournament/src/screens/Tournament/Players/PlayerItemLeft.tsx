@@ -24,10 +24,11 @@ type Props = {
   setTeamOneRoster: Function
   teamOneRoster: IPlayer[]
   matchPlayerOne: IPlayer | undefined
+  playerTwo: IPlayer | undefined
 };
 
 const PlayerItemLeft = (props: Props) => {
-  const { keyValue, player, setMatchPlayerOne, setTeamOneRoster, teamOneRoster, matchPlayerOne } = props;
+  const { keyValue, player, setMatchPlayerOne, setTeamOneRoster, teamOneRoster, matchPlayerOne, playerTwo } = props;
 
   const handleShift = () => {
     setMatchPlayerOne(player)
@@ -36,11 +37,31 @@ const PlayerItemLeft = (props: Props) => {
     setTeamOneRoster(filteredRoster)
   }
 
+  const nameText = (playerName: string, foe: IPlayer | undefined) => {
+      if (foe) {
+        console.log("foe")
+        if (
+          player.playersMatched.filter((playerMatched) => {
+            return playerMatched.playerId === foe.id;
+          }).length > 0
+        ) {
+          console.log("we've fought before")
+          const targetIndex = player.playersMatched
+            .map((e) => e.playerId)
+            .indexOf(foe.id);
+          console.log(targetIndex);
+          const matches = player.playersMatched[targetIndex].numberOfMatches;
+          return `${playerName} - ${matches}`;
+        }
+      }
+      return playerName;
+    };
+
   return (
     <div key={keyValue}>
       {!matchPlayerOne &&
       <div className={styles.centerItem}>
-        <ListItemText primary={player.name} />
+        <ListItemText primary={nameText(player.name, playerTwo)} />
         <div>
           <div>
             <IconButton color={"success"} onClick={() => handleShift()}>
