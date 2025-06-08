@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # My code
-./src/data/keys.ts
+chess-tournament/src/data/keys.ts

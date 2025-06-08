@@ -1,0 +1,29 @@
+.mainBody {
+  margin: 15px 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tourneyField {
+  background-color: var(--dark-body);
+  margin-top: 30px;
+  padding: 20px;
+}
+
+.tourneyItem {
+  /* display: flex;
+  flex-direction: row;
+  align-items: center; */
+  text-align: center;
+  padding: 15px;
+  margin: 20px;
+  border: 2px solid white;
+  transition: .3s
+}
+
+.tourneyItem:hover {
+  background-color: white;
+  color: var(--dark-body);
+  box-shadow: 10px 10px 5px var(--card-body);
+}
