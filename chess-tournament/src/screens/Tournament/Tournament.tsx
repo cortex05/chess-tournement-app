@@ -178,7 +178,7 @@ const Tournament = () => {
 						{teamOneRoster.map((player, index) => {
 							return <div key={index} className={styles.scoreModalPlayer}>
 									<div><span>{player.name}</span> <span>-</span> <span>{player.score}</span></div>
-									<div>
+									<div> 
 										<span>W/L/D</span>
 										<span>-</span>
 										<span>{player.wins}/{player.losses}/{player.draws}</span>

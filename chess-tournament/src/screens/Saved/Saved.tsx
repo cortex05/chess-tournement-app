@@ -51,8 +51,8 @@ const Saved = () => {
           </section>}
         {!isLoading && savedTournaments.length === 0 && <section>There are no saved tournaments. Go to the home page and make a new one.</section>}
       </div>
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} tall>
-        <SavedModalBody keyName={activePreview}/>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} tall={true}>
+        <SavedModalBody keyName={activePreview} closeModal={setIsModalOpen}/>
       </Modal>
     </>
   );

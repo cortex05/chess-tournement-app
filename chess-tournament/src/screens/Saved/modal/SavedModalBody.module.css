@@ -1,0 +1,71 @@
+.displayContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.displayContent > h3 {
+  border-bottom: 1px solid white;
+}
+
+.displayContent > h4 {
+  margin: 5px 0px;
+}
+
+.scoreModal {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.scoreModal > div {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scoreModal > div:first-child {
+  border-right: 1px solid white;
+}
+
+.scoreModal > div > h4 {
+  border-bottom: 2px solid white;
+}
+
+.scoreModalPlayer {
+  display: flex;
+  flex-direction: column;
+  background-color: aqua;
+  border-radius: 10px;
+  color: black;
+  width: 80%;
+  margin: 5px 0px;
+  padding: 10px;
+}
+
+.scoreModalPlayer > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.scoreModalPlayer > div:first-child{
+  
+  border-bottom: 1px solid black;
+}
+
+.displayContent footer {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  align-items: center;
+  margin: 10px;
+}
+
+.displayContent footer div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 10px 0px;
+  width: 100%;
+}
