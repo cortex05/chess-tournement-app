@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Header } from "../../components/Header/Header";
 import { LOCAL_TOURNAMENTS_KEY } from "../../data/keys";
 
 import styles from './Saved.module.css'
-import { Button } from "@mui/material";
 import Modal from "../../components/Modals/Modal";
 import SavedModalBody from "./modal/SavedModalBody";
 

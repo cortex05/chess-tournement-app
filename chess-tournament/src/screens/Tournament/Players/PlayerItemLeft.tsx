@@ -1,19 +1,10 @@
 import {
-  ArrowBackSharp,
-  ArrowDownwardSharp,
   ArrowForwardSharp,
-  DeleteForeverSharp,
-  DeleteSharp,
-  FolderCopySharp,
-  SyncAltSharp,
 } from "@mui/icons-material";
 import {
-  Avatar,
   IconButton,
-  ListItemAvatar,
   ListItemText,
 } from "@mui/material";
-import React, { useState } from "react";
 import type { IPlayer } from "../../../types/types";
 import styles from "../Tournament.module.css";
 

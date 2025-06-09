@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import type { IMatch, IPlayer, IRoundScore, ITournament } from "../../../../types/types";
+import { useState } from "react";
+import type { IMatch, IRoundScore, ITournament } from "../../../../types/types";
 
 import styles from "./MatchModal.module.css";
 import { calculateScore, updatePlayersMatched } from "../../../../utilities/functions";
-import { PlayerMatched } from "../../../../utilities/utilities";
 
 type Props = {
   match: IMatch;
@@ -25,7 +24,6 @@ const MatchModal = (props: Props) => {
     setMatchHolder,
     setFinishedMatches,
     finishedMatches,
-    roundScore,
     setRoundScore,
   } = props;
   const [isActive, setIsActive] = useState<string>("");

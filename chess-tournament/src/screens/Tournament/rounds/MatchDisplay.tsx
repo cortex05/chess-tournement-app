@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import styles from "./Rounds.module.css";
 import type { IMatch, IRoundScore, ITournament } from "../../../types/types";

@@ -1,9 +1,8 @@
-import React, { useState } from "react";
 import type { IMatch, IPlayer } from "../../../types/types";
 
 import styles from "../Tournament.module.css";
 import { Button, IconButton, ListItemText } from "@mui/material";
-import { ArrowForwardSharp, DeleteSharp } from "@mui/icons-material";
+import { DeleteSharp } from "@mui/icons-material";
 import { Match } from "../../../utilities/utilities";
 
 type Props = {
@@ -32,7 +31,6 @@ const MatchPlayers = (props: Props) => {
     matchHolder,
     setMatchHolder
   } = props;
-  const [color, setColor] = useState<boolean>(false)
 
   const handleRemove = (direction: string) => {
     if (direction === "left" && playerOne) {

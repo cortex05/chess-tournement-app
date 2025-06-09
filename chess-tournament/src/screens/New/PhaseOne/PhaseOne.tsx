@@ -1,5 +1,5 @@
 import { Button, Input, Switch } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import type { ITeam } from "../../../types/types";
 import { Team } from "../../../utilities/utilities";
 

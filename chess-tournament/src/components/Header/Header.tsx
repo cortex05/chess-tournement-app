@@ -33,6 +33,7 @@ export const Header = (props: Props) => {
         Home
       </Button>
       <AddPlayerModal
+        tall={false}
         isOpen={warningModal}
         onClose={() => setWarningModal(false)}
       >

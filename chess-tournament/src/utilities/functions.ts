@@ -61,7 +61,3 @@ export const updatePlayersMatched = (playerOne: IPlayer, playerTwo: IPlayer) => 
       playerTwo.playersMatched[targetIndex].numberOfMatches++;
     }
   }  
-
-// export const handlePluralTournament = (title: string) => {
-
-// }

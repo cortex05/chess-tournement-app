@@ -1,15 +1,4 @@
 import type { IPlayer, IPlayerMatched, ITeam } from "../types/types"
-
-// const dummyPlayer: IPlayer = {
-//   id: 1,
-//   name: "john",
-//   score: 2,
-//   playersMatched: [],
-//   wins: 0,
-//   draws: 0,
-//   losses: 0,
-//   totalMatches: 0
-// }
 export class Player {
   // Defaults
   score: number = 0

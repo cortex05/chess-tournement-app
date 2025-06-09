@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import type {
   IMatch,
-  IMatchData,
   IPlayer,
   IRoundScore,
   ITournament,
