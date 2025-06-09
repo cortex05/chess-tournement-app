@@ -86,6 +86,7 @@ const Tournament = () => {
                       teamOneRoster={teamOneRoster}
                       matchPlayerOne={matchPlayerOne}
                       playerTwo={matchPlayerTwo}
+                      key={index}
                     />
                   );
                 })}
@@ -140,6 +141,7 @@ const Tournament = () => {
                       teamTwoRoster={teamTwoRoster}
                       matchPlayerTwo={matchPlayerTwo}
 											playerOne={matchPlayerOne}
+                      key={index}
                     />
                   );
                 })}

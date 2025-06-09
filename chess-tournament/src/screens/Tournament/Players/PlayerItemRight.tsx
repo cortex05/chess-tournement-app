@@ -68,7 +68,7 @@ const PlayerItemRight = (props: Props) => {
   };
 
   return (
-    <div key={keyValue}>
+    <div >
       {!matchPlayerTwo && (
         <div className={styles.centerItem}>
           <div>

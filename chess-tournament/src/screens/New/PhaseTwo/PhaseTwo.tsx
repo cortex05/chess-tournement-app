@@ -203,6 +203,7 @@ const PhaseTwo = (props: Props) => {
                     removePlayer={removePlayer}
                     player={player}
                     switchTeam={switchTeam}
+                    key={index}
                   />
                 );
               })}

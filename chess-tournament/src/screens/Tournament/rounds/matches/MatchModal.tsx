@@ -156,7 +156,7 @@ const MatchModal = (props: Props) => {
         className={isActive === "draw" ? `${styles.draw}` : ""}
         onClick={() => handleClick("draw", "draw")}
       >
-        draw
+        Draw
       </span>
       {isActive && matchWinner && (
         <span className={styles.correct} onClick={() => handleSuccess()}>
