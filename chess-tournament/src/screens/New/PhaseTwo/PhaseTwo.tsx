@@ -1,5 +1,4 @@
-import { Stack, Button, List, Input } from "@mui/material";
-import styles from "../New.module.css";
+import { Stack, Button, List, Input, Typography } from "@mui/material";
 import {
   ArrowBackSharp,
   ArrowForwardSharp,
@@ -20,12 +19,14 @@ import Modal from "../NewModal";
 import { Player } from "../../../utilities/utilities";
 import TeamListItem from "./TeamListItem";
 
+import styles from "./PhaseTwo.module.css";
+
 type Props = {
-  roster: IPlayer[]
-  gameType: string
-  setRoster: Function
-  teams: ITeam[]
-  setPhase: Function
+  roster: IPlayer[];
+  gameType: string;
+  setRoster: Function;
+  teams: ITeam[];
+  setPhase: Function;
 };
 
 const PhaseTwo = (props: Props) => {
@@ -58,8 +59,8 @@ const PhaseTwo = (props: Props) => {
 
   // FFA logic
   const handleFinished = () => {
-    setPhase("THIRD")
-  }
+    setPhase("THIRD");
+  };
 
   // TEAM LOGIC
   const switchTeam = (playerMoving: IPlayer, side: string) => {
@@ -140,37 +141,35 @@ const PhaseTwo = (props: Props) => {
         </div>
       )}
       {gameType === "TEAM" && (
-        <div>
-          <h4>
+        <div className={styles.mainTeam}>
+          <Typography variant="h6" gutterBottom>
             Add players for your tournament, add them to a team and click
             finished when all players are entered.
-          </h4>
+          </Typography>
           <div className={styles.mainButtons}>
-            {!isModalOpen && (
-              <Stack spacing={2} direction="row">
-                <Button
-                  variant="outlined"
-                  startIcon={<PersonAddAltSharp />}
-                  size="large"
-                  onClick={() => setIsModalOpen(true)}
-                >
-                  Add Player
-                </Button>
+            <Stack spacing={2} direction="row">
+              <Button
+                variant="outlined"
+                startIcon={<PersonAddAltSharp />}
+                size="large"
+                onClick={() => setIsModalOpen(true)}
+              >
+                Add Player
+              </Button>
 
-                {centerPlayers.length === 0 &&
-                  teams[0].teamRoster.length > 0 &&
-                  teams[1].teamRoster.length > 0 && (
-                    <Button
-                      variant="outlined"
-                      startIcon={<PersonAddAltSharp />}
-                      size="large"
-                      onClick={() => handleFinished()}
-                    >
-                      Finished
-                    </Button>
-                  )}
-              </Stack>
-            )}
+              {centerPlayers.length === 0 &&
+                teams[0].teamRoster.length > 0 &&
+                teams[1].teamRoster.length > 0 && (
+                  <Button
+                    variant="outlined"
+                    startIcon={<PersonAddAltSharp />}
+                    size="large"
+                    onClick={() => handleFinished()}
+                  >
+                    Finished
+                  </Button>
+                )}
+            </Stack>
           </div>
           <div className={styles.teamList}>
             <List component="div" disablePadding>
