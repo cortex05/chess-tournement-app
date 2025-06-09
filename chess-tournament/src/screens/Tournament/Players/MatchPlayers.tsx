@@ -1,7 +1,7 @@
 import type { IMatch, IPlayer } from "../../../types/types";
 
 import styles from "../Tournament.module.css";
-import { Button, IconButton, ListItemText } from "@mui/material";
+import { Button, IconButton, ListItemText, Typography } from "@mui/material";
 import { DeleteSharp } from "@mui/icons-material";
 import { Match } from "../../../utilities/utilities";
 
@@ -78,10 +78,10 @@ const MatchPlayers = (props: Props) => {
               </div>
             </div>
           ) : (
-            <span>Select Player</span>
+            <Typography variant="body1" gutterBottom>Select Player One</Typography>
           )}
         </div>
-        <h4>VS</h4>
+        <Typography variant="h6" gutterBottom>VS</Typography>
         <div>
           {playerTwo ? (
             <div className={styles.centerItem}>
@@ -100,7 +100,7 @@ const MatchPlayers = (props: Props) => {
               </div>
             </div>
           ) : (
-            <span>Select Player</span>
+            <Typography variant="body1" gutterBottom >Select Player Two</Typography>
           )}
         </div>
       </div>

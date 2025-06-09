@@ -28,7 +28,7 @@ const Tournament = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [tournament, setTournament] = useState<ITournament>();
   const [roundStart, setRoundStart] = useState<boolean>(true);
-	const [scoreModal, setScoreModal] = useState<boolean>(false)
+  const [scoreModal, setScoreModal] = useState<boolean>(false);
 
   // Round variables
   const [teamOneRoster, setTeamOneRoster] = useState<IPlayer[]>([]);
@@ -43,7 +43,7 @@ const Tournament = () => {
     // Move this to utility functions
     if (tourney) {
       const jsonValue = localStorage.getItem(tourney.toUpperCase());
-      const value = jsonValue !== null ? JSON.parse(jsonValue) : null
+      const value = jsonValue !== null ? JSON.parse(jsonValue) : null;
       // console.log("tournament: ", value);
       setTournament(value);
       setTeamOneRoster(value.teams[0].teamRoster);
@@ -63,14 +63,23 @@ const Tournament = () => {
       {!isLoading && roundStart && (
         <div className={styles.main}>
           <Typography variant="h4" gutterBottom>
-            {tournament?.name} {" "} 
-            tournament
+            {tournament?.name} tournament
           </Typography>
-          <Typography variant="h5" gutterBottom>Round {tournament?.round} set up.</Typography>
-          <Button variant="outlined" onClick={() => setScoreModal(true)}>Scoreboard</Button>
+          <Typography variant="h5" gutterBottom>
+            Round {tournament?.round} set up.
+          </Typography>
+          <Button variant="outlined" onClick={() => setScoreModal(true)}>
+            Scoreboard
+          </Button>
           <div className={styles.settingRoster}>
             <div>
-              <Typography variant="h5" gutterBottom className={styles.teamHeader}>{tournament?.teams[0].name}</Typography>
+              <Typography
+                variant="h5"
+                gutterBottom
+                className={styles.teamHeader}
+              >
+                {tournament?.teams[0].name}
+              </Typography>
               <div>
                 {teamOneRoster?.map((player, index) => {
                   return (
@@ -94,7 +103,13 @@ const Tournament = () => {
                 matchPlayerOne ||
                 matchPlayerTwo) && (
                 <>
-                  <Typography variant="h5" gutterBottom className={styles.teamHeader}>Match {matchHolder && matchHolder.length + 1}</Typography>
+                  <Typography
+                    variant="h5"
+                    gutterBottom
+                    className={styles.teamHeader}
+                  >
+                    Match {matchHolder && matchHolder.length + 1}
+                  </Typography>
                   <MatchPlayers
                     playerOne={matchPlayerOne}
                     playerTwo={matchPlayerTwo}
@@ -114,6 +129,7 @@ const Tournament = () => {
                 matchPlayerOne === undefined &&
                 matchPlayerTwo === undefined && (
                   <div className={styles.forwardButton}>
+                    <Typography variant="h5" gutterBottom>That's everyone.</Typography>
                     <Button
                       variant="outlined"
                       size="large"
@@ -125,7 +141,13 @@ const Tournament = () => {
                 )}
             </div>
             <div>
-              <Typography variant="h5" gutterBottom className={styles.teamHeader}>{tournament?.teams[1].name}</Typography>
+              <Typography
+                variant="h5"
+                gutterBottom
+                className={styles.teamHeader}
+              >
+                {tournament?.teams[1].name}
+              </Typography>
               <div>
                 {teamTwoRoster?.map((player, index) => {
                   return (
@@ -136,7 +158,7 @@ const Tournament = () => {
                       setTeamTwoRoster={setTeamTwoRoster}
                       teamTwoRoster={teamTwoRoster}
                       matchPlayerTwo={matchPlayerTwo}
-											playerOne={matchPlayerOne}
+                      playerOne={matchPlayerOne}
                       key={index}
                     />
                   );
@@ -144,17 +166,26 @@ const Tournament = () => {
               </div>
             </div>
           </div>
-          <footer className={styles.holderArray}>
-            {matchHolder.length > 0 &&
-              matchHolder?.map((match, index) => {
-                return (
-                  <div className={styles.matchItem} key={index}>
-                    <span>{match.playerOne.name}</span>
-                    <span>VS</span>
-                    <span>{match.playerTwo.name}</span>
-                  </div>
-                );
-              })}
+          <footer className={styles.setMatchesBody}>
+            <Typography variant="h5" gutterBottom>Set Matches</Typography>
+            <div className={styles.holderArray}>
+              {matchHolder.length > 0 &&
+                matchHolder?.map((match, index) => {
+                  return (
+                    <div className={styles.matchItem} key={index}>
+                      <Typography variant="body2" gutterBottom>
+                        {match.playerOne.name}
+                      </Typography>
+                      <Typography variant="body1" gutterBottom>
+                        VS
+                      </Typography>
+                      <Typography variant="body2" gutterBottom>
+                        {match.playerTwo.name}
+                      </Typography>
+                    </div>
+                  );
+                })}
+            </div>
           </footer>
         </div>
       )}
@@ -167,39 +198,53 @@ const Tournament = () => {
           setRoundScore={setRoundScore}
           setTeamOneRoster={setTeamOneRoster}
           setTeamTwoRoster={setTeamTwoRoster}
-					setRoundStart={setRoundStart}
+          setRoundStart={setRoundStart}
         />
       )}
-			<Modal tall isOpen={scoreModal} onClose={() => setScoreModal(false)}>
-				<div className={styles.scoreModal}>
-					<div>
-						<h4>Team One: {roundScore.teamOneScore} points</h4>
-						{teamOneRoster.map((player, index) => {
-							return <div key={index} className={styles.scoreModalPlayer}>
-									<div><span>{player.name}</span> <span>-</span> <span>{player.score}</span></div>
-									<div> 
-										<span>W/L/D</span>
-										<span>-</span>
-										<span>{player.wins}/{player.losses}/{player.draws}</span>
-									</div>
-								</div>
-						})}
-					</div>
-					<div>
-						<h4>Team Two: {roundScore.teamTwoScore} points</h4>
-						{teamTwoRoster.map((player, index) => {
-							return <div key={index} className={styles.scoreModalPlayer}>
-									<div><span>{player.name}</span> <span>-</span> <span>{player.score}</span></div>
-									<div>
-										<span>W/L/D</span>
-										<span>-</span>
-										<span>{player.wins}/{player.losses}/{player.draws}</span>
-									</div>
-								</div>
-						})}
-					</div>
-				</div>
-			</Modal>
+      <Modal tall isOpen={scoreModal} onClose={() => setScoreModal(false)}>
+        <div className={styles.scoreModal}>
+          <div>
+            <h4>Team One: {roundScore.teamOneScore} points</h4>
+            {teamOneRoster.map((player, index) => {
+              return (
+                <div key={index} className={styles.scoreModalPlayer}>
+                  <div>
+                    <span>{player.name}</span> <span>-</span>{" "}
+                    <span>{player.score}</span>
+                  </div>
+                  <div>
+                    <span>W/L/D</span>
+                    <span>-</span>
+                    <span>
+                      {player.wins}/{player.losses}/{player.draws}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div>
+            <h4>Team Two: {roundScore.teamTwoScore} points</h4>
+            {teamTwoRoster.map((player, index) => {
+              return (
+                <div key={index} className={styles.scoreModalPlayer}>
+                  <div>
+                    <span>{player.name}</span> <span>-</span>{" "}
+                    <span>{player.score}</span>
+                  </div>
+                  <div>
+                    <span>W/L/D</span>
+                    <span>-</span>
+                    <span>
+                      {player.wins}/{player.losses}/{player.draws}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
