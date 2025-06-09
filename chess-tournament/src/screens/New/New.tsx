@@ -23,15 +23,12 @@ const New = () => {
       <Header lossCheck={true} />
       <section className={styles.main}>
         <h1>New Tournament</h1>
-        {/* first */}
         {phase === "FIRST" && (
           <PhaseOne setGame={setGameType} setPhase={setPhase} setTeams={setTeams} tournamentName={tournamentName} setTournamentName={setTournamentName}/>
         )}
-        {/* second */}
         {phase === "SECOND" && (
           <PhaseTwo roster={roster} gameType={gameType} setRoster={setRoster} teams={teams} setPhase={setPhase}/>
         )}
-        {/* third */}
         {phase === "THIRD" && <PhaseThree gameType={gameType} gameRoster={roster} teams={teams} tournamentName={tournamentName}/>}
       </section>
     </>

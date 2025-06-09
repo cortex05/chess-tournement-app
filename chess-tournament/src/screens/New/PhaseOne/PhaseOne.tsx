@@ -1,20 +1,24 @@
-import { Button, Input, Switch } from "@mui/material";
+import { Button, Input, Switch, Typography } from "@mui/material";
 import { useState } from "react";
 import type { ITeam } from "../../../types/types";
 import { Team } from "../../../utilities/utilities";
+
+import styles from "./PhaseOne.module.css";
 
 type Props = {
   setGame: Function;
   setPhase: Function;
   setTeams: Function;
-  setTournamentName: Function
-  tournamentName: string
+  setTournamentName: Function;
+  tournamentName: string;
 };
 
 const PhaseOne = (props: Props) => {
-  const { setGame, setPhase, setTeams, tournamentName, setTournamentName } = props;
+  const { setGame, setPhase, setTeams, tournamentName, setTournamentName } =
+    props;
 
-  const [tournamentSelection, setTournamentSelection] = useState<boolean>(false);
+  const [tournamentSelection, setTournamentSelection] =
+    useState<boolean>(false);
 
   const handleChange = () => {
     setTournamentSelection(!tournamentSelection);
@@ -27,7 +31,7 @@ const PhaseOne = (props: Props) => {
       const teamOne = new Team("Team One", 1);
       const teamTwo = new Team("Team Two", 2);
       const teamsArray: ITeam[] = [teamOne, teamTwo];
- 
+
       setTeams(teamsArray);
     }
 
@@ -36,23 +40,51 @@ const PhaseOne = (props: Props) => {
   };
 
   return (
-    <div>
-      <h1>What type of tournament do you want?</h1>
+    <div className={styles.phaseOne}>
       <div>
-        <span>Free-For-All</span>
-        <Switch checked={tournamentSelection} onChange={handleChange} />
-        <span>Team Tournament</span>
+        <Typography variant="h5" gutterBottom>Select Tournament type:</Typography>
+        <div>
+          <Typography variant="body2" gutterBottom>Free-For-All</Typography>
+          <Switch checked={tournamentSelection} onChange={handleChange} />
+          <Typography variant="body2" gutterBottom>Team Tournament</Typography>
+        </div>
       </div>
       <div>
+        <div>
+          <Typography variant="body1" gutterBottom>Win = 1 point</Typography>
+          <Typography variant="body1" gutterBottom>Draw = .5 point</Typography>
+          <Typography variant="body1" gutterBottom>Loss = 0 point</Typography>
+        </div>
+        <div>
+        <div>
+          <Typography variant="h6" gutterBottom>Free-For-All</Typography>
+          <Typography variant="body1" gutterBottom>
+            Every man for himself! Each round players are paired against an
+            opponent. The winners of each round are paired with each other in
+            subsequent rounds. The player with the most points at the end, wins.
+          </Typography>
+        </div>
+        <div>
+          <Typography variant="h6" gutterBottom>Team Tournament</Typography>
+          <Typography variant="body1" gutterBottom>
+            Players will be sorted into two teams. Players on one team will only
+            ever compete against players of the other. The team with the most
+            points after each player has played against the opposing team, wins!
+          </Typography>
+        </div>
+      </div>
+      </div>
+      <div>
+        <Typography variant="h6" gutterBottom>Tournament name:</Typography>
         <Input
-            placeholder="Placeholder"
-            onChange={(e) => setTournamentName(e.target.value)}
-            autoFocus
-            value={tournamentName}
-            sx={{ color: "white" }}
-          />
-      </div>
-      <Button
+          placeholder="Placeholder"
+          color="primary"
+          onChange={(e) => setTournamentName(e.target.value)}
+          autoFocus
+          value={tournamentName}
+          sx={{ color: "white" }}
+        />
+        <Button
         variant="outlined"
         // startIcon={<PersonAddAltSharp />}
         size="large"
@@ -60,28 +92,6 @@ const PhaseOne = (props: Props) => {
       >
         Submit
       </Button>
-      <div>
-        <p>Win = 1 point</p>
-        <p>Draw = .5 point</p>
-        <p>Loss = 0 point</p>
-      </div>
-      <div>
-        <div>
-          <h3>Free-For-All</h3>
-          <p>
-            Every man for himself! Each round players are paired against an
-            opponent. The winners of each round are paired with each other in
-            subsequent rounds. The player with the most points at the end, wins.
-          </p>
-        </div>
-        <div>
-          <h3>Team Tournament</h3>
-          <p>
-            Players will be sorted into two teams. Players on one team will only
-            ever compete against players of the other. The team with the most
-            points after each player has played against the opposing team, wins!
-          </p>
-        </div>
       </div>
     </div>
   );
