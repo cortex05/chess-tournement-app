@@ -43,23 +43,19 @@ const PlayerItemRight = (props: Props) => {
     const filteredRoster = teamTwoRoster.filter(
       (remainingPlayer: IPlayer) => remainingPlayer.id !== player.id
     );
-    console.log(filteredRoster);
     setTeamTwoRoster(filteredRoster);
   };
 
   const nameText = (playerName: string, foe: IPlayer | undefined) => {
     if (foe) {
-      console.log("foe")
       if (
         player.playersMatched.filter((playerMatched) => {
           return playerMatched.playerId === foe.id;
         }).length > 0
       ) {
-        console.log("we've fought before")
         const targetIndex = player.playersMatched
           .map((e) => e.playerId)
           .indexOf(foe.id);
-        console.log(targetIndex);
         const matches = player.playersMatched[targetIndex].numberOfMatches;
         return `${playerName} - ${matches}`;
       }

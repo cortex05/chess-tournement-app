@@ -27,7 +27,7 @@ const PhaseOne = (props: Props) => {
       const teamOne = new Team("Team One", 1);
       const teamTwo = new Team("Team Two", 2);
       const teamsArray: ITeam[] = [teamOne, teamTwo];
-      console.log("TEAMS: ARRAY:  ", teamsArray);
+ 
       setTeams(teamsArray);
     }
 

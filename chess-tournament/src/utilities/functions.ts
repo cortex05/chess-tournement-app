@@ -16,14 +16,12 @@ export const calculateScore = (tournament: ITournament) => {
     const teamOneScore = teamOne.reduce((acc: number, player: IPlayer) => {
       return acc + player.score;
     }, 0);
-    console.log(teamOneScore);
 
     // calculate team 2 score
     const teamTwo = tournament.teams[1].teamRoster;
     const teamTwoScore = teamTwo.reduce((acc: number, player: IPlayer) => {
       return acc + player.score;
     }, 0);
-    console.log(teamTwoScore);
 
     // Find which is greater
     const leader =
@@ -48,7 +46,6 @@ export const updatePlayersMatched = (playerOne: IPlayer, playerTwo: IPlayer) => 
       playerOne.playersMatched = [...playerOne.playersMatched, newRecord];
     } else {
       const targetIndex = playerOne.playersMatched.map((e) => e.playerId).indexOf(playerTwo.id);
-      console.log(targetIndex)
       playerOne.playersMatched[targetIndex].numberOfMatches++;
     }
 
@@ -61,7 +58,6 @@ export const updatePlayersMatched = (playerOne: IPlayer, playerTwo: IPlayer) => 
       playerTwo.playersMatched = [...playerTwo.playersMatched, newRecord];
     } else {
       const targetIndex = playerTwo.playersMatched.map((e) => e.playerId).indexOf(playerOne.id);
-      console.log(targetIndex)
       playerTwo.playersMatched[targetIndex].numberOfMatches++;
     }
   }  

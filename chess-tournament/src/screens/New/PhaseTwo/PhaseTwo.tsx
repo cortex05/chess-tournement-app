@@ -68,14 +68,14 @@ const PhaseTwo = (props: Props) => {
       const newRoster = centerPlayers.filter(
         (player) => player.id !== playerMoving.id
       );
-      console.log(newRoster);
+
       setCenterPlayers(newRoster);
     } else if (side === "RIGHT") {
       teams[1].teamRoster.push(playerMoving);
       const newRoster = centerPlayers.filter(
         (player) => player.id !== playerMoving.id
       );
-      console.log(newRoster);
+
       setCenterPlayers(newRoster);
     }
   };

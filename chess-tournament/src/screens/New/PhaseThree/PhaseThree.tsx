@@ -44,7 +44,7 @@ const PhaseThree = (props: Props) => {
       // add this one
 
         const oldArrayJSON = localStorage.getItem(LOCAL_TOURNAMENTS_KEY);
-        console.log("oldArray: ", oldArrayJSON);
+
         const oldArrayParsed = oldArrayJSON ? JSON.parse(oldArrayJSON) : null;
         const newArray: string[] = [...oldArrayParsed, key];
         localStorage.setItem(LOCAL_TOURNAMENTS_KEY, JSON.stringify(newArray));
