@@ -6,8 +6,8 @@ import type {
 } from "../../../types/types";
 
 import styles from "./Rounds.module.css";
-import MatchDisplay from "./MatchDisplay";
-import { Button } from "@mui/material";
+import MatchDisplay from "./matches/MatchDisplay";
+import { Button, Typography } from "@mui/material";
 
 
 type Props = {
@@ -38,13 +38,13 @@ const RoundActive = (props: Props) => {
 
   return (
     <div className={styles.main}>
-      <h2>Round {tournament.round}</h2>
+      <Typography variant="h4" gutterBottom>Round {tournament.round}</Typography>
       <div className={styles.scoreBoard}>
         {roundScore?.teamOneScore !== undefined && (
-          <h3>Team One: {roundScore?.teamOneScore}</h3>
+          <Typography variant="h5" gutterBottom>Team One: {roundScore?.teamOneScore}</Typography>
         )}
         {roundScore?.teamTwoScore !== undefined && (
-          <h3>Team Two: {roundScore?.teamTwoScore}</h3>
+          <Typography variant="h5" gutterBottom>Team Two: {roundScore?.teamTwoScore}</Typography>
         )}
       </div>
       <div className={styles.matchesField}>
@@ -80,8 +80,8 @@ const RoundActive = (props: Props) => {
                   )}
                   {match.winner !== "draw" && (
                     <div>
-                      <h4>Winner: {match.playerOne.name}</h4>
-                      <h6>vs {match.playerTwo.name}</h6>
+                      <Typography variant="body1">Winner: {match.playerOne.name}</Typography>
+                      <Typography variant="caption">vs {match.playerTwo.name}</Typography>
                     </div>
                   )}
                 </div>
@@ -91,7 +91,7 @@ const RoundActive = (props: Props) => {
         </div>
       )}
       {matches.length === 0 && finishedMatches.length > 0 && <div className={styles.roundOver}>
-            <h3>Round over. Proceed to the next?</h3>
+            <Typography variant="h6">Round over. Proceed to the next?</Typography>
             <Button variant="outlined" onClick={() => endRound()}>Next Round</Button>
           </div>}
     </div>

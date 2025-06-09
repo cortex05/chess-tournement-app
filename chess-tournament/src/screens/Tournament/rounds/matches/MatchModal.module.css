@@ -4,12 +4,17 @@
   align-items: center;
 }
 
-.matchModal span {
-  border: 2px solid white;
+.outcome {
+  border: 2px solid var(--background-color);
   padding: 5px;
   margin: 5px;
   width: 200px;
   text-align: center;
+  transition: .5s
+}
+
+.outcome:hover {
+  width: 210px;
 }
 
 .green {
@@ -32,4 +37,8 @@
   background-color: var(--background-color);
   color: white;
   border: 2px solid var(--dark-body);
+}
+
+.matchModal button {
+  margin-top: 10px;
 }

@@ -3,6 +3,7 @@ import type { IMatch, IRoundScore, ITournament } from "../../../../types/types";
 
 import styles from "./MatchModal.module.css";
 import { calculateScore, updatePlayersMatched } from "../../../../utilities/functions";
+import { Button, Typography } from "@mui/material";
 
 type Props = {
   match: IMatch;
@@ -137,29 +138,35 @@ const MatchModal = (props: Props) => {
 
   return (
     <div className={styles.matchModal}>
-      Who won?
+      <Typography variant="body1"></Typography>Who won?
       <span
-        className={isActive === "green" ? `${styles.green}` : ""}
+        className={`${isActive === "green" ? `${styles.green}` : ""} ${styles.outcome}`}
         onClick={() => handleClick("green", "playerOne")}
       >
-        {match.playerOne.name}
+        <Typography variant="body2">
+          {match.playerOne.name}
+        </Typography>
+        
       </span>
       <span
-        className={isActive === "red" ? `${styles.red}` : ""}
+        className={`${isActive === "red" ? `${styles.red}` : ""} ${styles.outcome}`}
         onClick={() => handleClick("red", "playerTwo")}
       >
-        {match.playerTwo.name}
+        <Typography variant="body2">
+          {match.playerTwo.name}
+        </Typography>
+        
       </span>
       <span
-        className={isActive === "draw" ? `${styles.draw}` : ""}
+        className={`${isActive === "draw" ? `${styles.draw}` : ""} ${styles.outcome}`}
         onClick={() => handleClick("draw", "draw")}
       >
         Draw
       </span>
       {isActive && matchWinner && (
-        <span className={styles.correct} onClick={() => handleSuccess()}>
+        <Button variant="outlined" className={styles.correct} onClick={() => handleSuccess()}>
           Correct?
-        </span>
+        </Button>
       )}
     </div>
   );

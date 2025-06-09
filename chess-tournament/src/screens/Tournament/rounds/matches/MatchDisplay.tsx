@@ -1,9 +1,10 @@
 import { useState } from "react";
 
-import styles from "./Rounds.module.css";
-import type { IMatch, IRoundScore, ITournament } from "../../../types/types";
-import Modal from "../../../components/Modals/Modal";
-import MatchModal from "./matches/MatchModal";
+import styles from "../Rounds.module.css";
+import type { IMatch, IRoundScore, ITournament } from "../../../../types/types";
+import Modal from "../../../../components/Modals/Modal";
+import MatchModal from "./MatchModal";
+import { Typography } from "@mui/material";
 
 type Props = {
   match: IMatch;
@@ -32,9 +33,9 @@ const MatchDisplay = (props: Props) => {
   return (
     <div>
       <div className={styles.matchItem} onClick={() => setIsModalOpen(true)}>
-        <span>{match.playerOne.name}</span>
-        <span>VS</span>
-        <span>{match.playerTwo.name}</span>
+        <Typography variant="body1">{match.playerOne.name}</Typography>
+        <Typography variant="body2">VS</Typography>
+        <Typography variant="body1">{match.playerTwo.name}</Typography>
       </div>
       <Modal tall={true} isOpen={isModalOpen} onClose={() => console.log("")}>
         <MatchModal
