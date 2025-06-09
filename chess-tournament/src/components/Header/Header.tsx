@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { AddCircleOutlineSharp } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
@@ -38,8 +38,8 @@ export const Header = (props: Props) => {
         onClose={() => setWarningModal(false)}
       >
         <div className={styles.modal}>
-          Warning! If you leave now, you will lose all unsaved progress. Are you
-          sure you want to leave?
+          <Typography variant="body1" gutterBottom>Warning! If you leave now, you will lose all unsaved progress. Are you
+          sure you want to leave?</Typography>
           <Button
             variant="outlined"
             size="large"
