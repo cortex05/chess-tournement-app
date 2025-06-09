@@ -14,7 +14,7 @@ import styles from "./Tournament.module.css";
 import PlayerItemRight from "./Players/PlayerItemRight";
 import PlayerItemLeft from "./Players/PlayerItemLeft";
 import MatchPlayers from "./Players/MatchPlayers";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import RoundActive from "./rounds/RoundActive";
 import { mockScore } from "../../utilities/mockData";
 import Modal from "../../components/Modals/Modal";
@@ -58,22 +58,19 @@ const Tournament = () => {
   }, []);
 
   return (
-    <div className={styles.main}>
+    <div className={styles.overHead}>
       {isLoading && <div>LOADING</div>}
       {!isLoading && roundStart && (
-        <div>
-          <h1>
-            {tournament?.name} is a{" "}
-            {handleGameTypeDisplay(
-              tournament?.tournamentType ? tournament.tournamentType : "null"
-            )}{" "}
+        <div className={styles.main}>
+          <Typography variant="h4" gutterBottom>
+            {tournament?.name} {" "} 
             tournament
-          </h1>
-          <h2>Round {tournament?.round} set up.</h2>
-          <Button onClick={() => setScoreModal(true)}>Score</Button>
+          </Typography>
+          <Typography variant="h5" gutterBottom>Round {tournament?.round} set up.</Typography>
+          <Button variant="outlined" onClick={() => setScoreModal(true)}>Scoreboard</Button>
           <div className={styles.settingRoster}>
             <div>
-              <h3>{tournament?.teams[0].name}</h3>
+              <Typography variant="h5" gutterBottom className={styles.teamHeader}>{tournament?.teams[0].name}</Typography>
               <div>
                 {teamOneRoster?.map((player, index) => {
                   return (
@@ -97,7 +94,7 @@ const Tournament = () => {
                 matchPlayerOne ||
                 matchPlayerTwo) && (
                 <>
-                  <h3>Match {matchHolder && matchHolder.length + 1}</h3>
+                  <Typography variant="h5" gutterBottom className={styles.teamHeader}>Match {matchHolder && matchHolder.length + 1}</Typography>
                   <MatchPlayers
                     playerOne={matchPlayerOne}
                     playerTwo={matchPlayerTwo}
@@ -128,7 +125,7 @@ const Tournament = () => {
                 )}
             </div>
             <div>
-              <h3>{tournament?.teams[1].name}</h3>
+              <Typography variant="h5" gutterBottom className={styles.teamHeader}>{tournament?.teams[1].name}</Typography>
               <div>
                 {teamTwoRoster?.map((player, index) => {
                   return (

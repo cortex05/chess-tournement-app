@@ -1,8 +1,26 @@
-.main {
+.overHead {
   margin: 15px 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.main {
+  background-color: var(--dark-body);
+  padding: 30px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.main > button {
+  margin: 10px 0px;
+}
+
+.teamHeader {
+  border-bottom: 2px solid var(--background-color);
 }
 
 .settingRoster {
