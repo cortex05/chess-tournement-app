@@ -6,6 +6,7 @@ import type { IPlayer, ITeam } from "../../types/types";
 import PhaseOne from "./PhaseOne/PhaseOne";
 import PhaseTwo from "./PhaseTwo/PhaseTwo";
 import PhaseThree from "./PhaseThree/PhaseThree";
+import { Typography } from "@mui/material";
 
 
 const New = () => {
@@ -22,7 +23,7 @@ const New = () => {
     <>
       <Header lossCheck={true} />
       <section className={styles.main}>
-        <h1>New Tournament</h1>
+        <Typography variant="h5" gutterBottom>New Tournament</Typography>
         {phase === "FIRST" && (
           <PhaseOne setGame={setGameType} setPhase={setPhase} setTeams={setTeams} tournamentName={tournamentName} setTournamentName={setTournamentName}/>
         )}

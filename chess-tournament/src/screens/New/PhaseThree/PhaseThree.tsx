@@ -1,10 +1,11 @@
 import type { IPlayer, ITeam } from "../../../types/types";
-import { Button } from "@mui/material";
-import styles from "./PhaseThree.module.css";
+import { Button, Typography } from "@mui/material";
 import { Tournament } from "../../../utilities/utilities";
 import { useNavigate } from "react-router-dom";
 import { handleGameTypeDisplay } from "../../../utilities/functions";
 import { LOCAL_TOURNAMENTS_KEY } from "../../../data/keys";
+
+import styles from "./PhaseThree.module.css";
 
 type Props = {
   gameType: string;
@@ -57,10 +58,10 @@ const PhaseThree = (props: Props) => {
     navigate(`/tournament/${tournamentName}`);
   };
   return (
-    <div>
-      <h1>Here is your game. Do you want to start?</h1>
-      <h2>{tournamentName}</h2>
-      <h3>{handleGameTypeDisplay(gameType)}</h3>
+    <div className={styles.main}>
+      <Typography variant="h5" gutterBottom>Here is your game. Do you want to start?</Typography>
+      <Typography variant="h5" gutterBottom>Title: {tournamentName}</Typography>
+      <Typography variant="h5" gutterBottom>Type: {handleGameTypeDisplay(gameType)}</Typography>
       {gameType === "FFA" && (
         <div>
           {gameRoster.map((player) => {
@@ -69,17 +70,17 @@ const PhaseThree = (props: Props) => {
         </div>
       )}
       {gameType === "TEAM" && (
-        <div className={styles.wrapper}>
+        <div className={styles.teamWrapper}>
           <div>
-            <h3>{teams[0].name}</h3>
+            <Typography variant="h6" gutterBottom>{teams[0].name}</Typography>
             {teams[0].teamRoster.map((player) => {
-              return <div key={player.id}>{player.name}</div>;
+              return <Typography variant="body1" gutterBottom key={player.id}>{player.name}</Typography>;
             })}
           </div>
           <div>
-            <h3>{teams[1].name}</h3>
+            <Typography variant="h6" gutterBottom>{teams[1].name}</Typography>
             {teams[1].teamRoster.map((player) => {
-              return <div key={player.id}>{player.name}</div>;
+              return <Typography variant="body1" gutterBottom key={player.id}>{player.name}</Typography>;
             })}
           </div>
         </div>
@@ -93,7 +94,7 @@ const PhaseThree = (props: Props) => {
             handleStart(gameType, gameRoster, teams, tournamentName)
           }
         >
-          Submit
+          Start
         </Button>
       </div>
     </div>
