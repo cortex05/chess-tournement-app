@@ -168,13 +168,13 @@ const Tournament = () => {
                 matchHolder?.map((match, index) => {
                   return (
                     <div className={styles.matchItem} key={index}>
-                      <Typography variant="body2" gutterBottom>
+                      <Typography variant="body2" gutterBottom className={`${match.whitePlayer === "playerOne" ? styles.positive : styles.negative}`}>
                         {match.playerOne.name}
                       </Typography>
-                      <Typography variant="body1" gutterBottom>
+                      <Typography variant="body2" gutterBottom>
                         VS
                       </Typography>
-                      <Typography variant="body2" gutterBottom>
+                      <Typography variant="body2" gutterBottom className={`${match.whitePlayer === "playerTwo" ? styles.positive : styles.negative}`}>
                         {match.playerTwo.name}
                       </Typography>
                     </div>

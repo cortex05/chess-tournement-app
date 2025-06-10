@@ -55,6 +55,7 @@ const MatchPlayers = (props: Props) => {
     if (playerOne && playerTwo) {
       const colorSelection = whitePlayer ? "playerOne" : "playerTwo"
       const newMatch = new Match(playerOne, playerTwo, colorSelection);
+      setFilledMatch(false)
       setMatchHolder([...matchHolder, newMatch]);
       setPlayerOne(undefined);
       setPlayerTwo(undefined);

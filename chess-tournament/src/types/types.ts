@@ -28,6 +28,7 @@ export interface IMatch {
   playerOne: IPlayer
   playerTwo: IPlayer
   winner: string
+  whitePlayer: string
 }
 
 export interface IMatchData {
