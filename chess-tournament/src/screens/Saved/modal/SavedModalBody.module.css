@@ -18,6 +18,10 @@
   width: 100%;
 }
 
+.scoreModal h6 {
+  border-bottom: 2px solid var(--background-color);
+}
+
 .scoreModal > div {
   width: 50%;
   display: flex;
@@ -29,18 +33,15 @@
   border-right: 1px solid white;
 }
 
-.scoreModal > div > h4 {
-  border-bottom: 2px solid white;
-}
-
 .scoreModalPlayer {
   display: flex;
   flex-direction: column;
-  background-color: aqua;
-  border-radius: 10px;
-  color: black;
+  /* background-color: aqua; */
+  border: 2px solid var(--background-color);
+  /* border-radius: 10px; */
+  color: white;
   width: 80%;
-  margin: 5px 0px;
+  margin: 10px 0px;
   padding: 10px;
 }
 
@@ -51,7 +52,7 @@
 }
 .scoreModalPlayer > div:first-child{
   
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--background-color);
 }
 
 .displayContent footer {

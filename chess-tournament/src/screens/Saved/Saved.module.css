@@ -9,18 +9,26 @@
   background-color: var(--dark-body);
   margin-top: 30px;
   padding: 20px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .tourneyItem {
   text-align: center;
   padding: 15px;
-  margin: 20px;
-  border: 2px solid white;
+  height: 40px;
+  width: 320px;
+  margin: 15px;
+  border: 2px solid var(--background-color);
   transition: .3s
 }
 
 .tourneyItem:hover {
-  background-color: white;
-  color: var(--dark-body);
-  box-shadow: 10px 10px 5px var(--card-body);
+  /* background-color: white;
+  color: var(--dark-body); */
+  width: 340px;
+  box-shadow: 2px 2px 5px var(--background-color);
 }

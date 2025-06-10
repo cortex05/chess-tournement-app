@@ -5,6 +5,7 @@ import { LOCAL_TOURNAMENTS_KEY } from "../../data/keys";
 import styles from './Saved.module.css'
 import Modal from "../../components/Modals/Modal";
 import SavedModalBody from "./modal/SavedModalBody";
+import { Typography } from "@mui/material";
 
 const Saved = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -39,11 +40,11 @@ const Saved = () => {
       <div className={styles.mainBody}>
         {isLoading && <div>LOADING</div>}
         {!isLoading && savedTournaments.length > 0 && <section>
-            <h1>Here are the local saved tournaments</h1>
+            <Typography variant="h5">Here are the local saved tournaments</Typography>
             <div className={styles.tourneyField}>
               {savedTournaments.map((key, index) => {
                 return <div key={index} className={styles.tourneyItem} onClick={() => handleClick(key)}>
-                  <h3>{key.toLowerCase()}</h3>
+                  <Typography variant="h6">{key.toLowerCase()}</Typography>
                 </div>
               })}
             </div>
