@@ -2,6 +2,7 @@ import { Stack, Button, List, Input, Typography } from "@mui/material";
 import {
   ArrowBackSharp,
   ArrowForwardSharp,
+  KeyboardBackspaceSharp,
   PersonAddAltSharp,
 } from "@mui/icons-material";
 
@@ -27,10 +28,12 @@ type Props = {
   setRoster: Function;
   teams: ITeam[];
   setPhase: Function;
+  setTeams: Function;
+  setGame: Function;
 };
 
 const PhaseTwo = (props: Props) => {
-  const { roster, gameType, setRoster, teams, setPhase } = props;
+  const { roster, gameType, setRoster, teams, setPhase, setTeams, setGame } = props;
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [playerName, setPlayerName] = useState<string>("");
   const [centerPlayers, setCenterPlayers] = useState<IPlayer[]>([]);
@@ -103,6 +106,11 @@ const PhaseTwo = (props: Props) => {
       }
     }
   };
+  const handleBack = () => {
+    setTeams([])
+    setGame("")
+    setPhase("FIRST");
+  }
 
   return (
     <div>
@@ -115,6 +123,7 @@ const PhaseTwo = (props: Props) => {
           <div className={styles.mainButtons}>
             {!isModalOpen && (
               <Stack spacing={2} direction="row">
+                <Button variant="outlined" startIcon={<KeyboardBackspaceSharp />} size="large" onClick={() => handleBack()}>Back</Button>
                 <Button
                   variant="outlined"
                   startIcon={<PersonAddAltSharp />}
@@ -171,6 +180,7 @@ const PhaseTwo = (props: Props) => {
           </Typography>
           <div className={styles.mainButtons}>
             <Stack spacing={2} direction="row">
+              <Button variant="outlined" startIcon={<KeyboardBackspaceSharp />} size="large" onClick={() => handleBack()}>Back</Button>
               <Button
                 variant="outlined"
                 startIcon={<PersonAddAltSharp />}
