@@ -21,6 +21,11 @@ const TeamListItem = (props: Props) => {
   const { keyValue, removePlayer, player, switchTeam } = props;
   const [assigner, setAssigner] = useState<boolean>(false);
 
+  const switchPlayer = (direction: string) => {
+    switchTeam(player, direction)
+    setAssigner(false)
+  }
+
   return (
     <div key={keyValue}>
       {!assigner && (
@@ -46,7 +51,7 @@ const TeamListItem = (props: Props) => {
           <div>
             <IconButton
               color={"success"}
-              onClick={() => switchTeam(player, "LEFT")}
+              onClick={() => switchPlayer("LEFT")}
             >
               <ArrowBackSharp />
             </IconButton>
@@ -64,7 +69,7 @@ const TeamListItem = (props: Props) => {
             {/* <Avatar> */}
             <IconButton
               color="warning"
-              onClick={() => switchTeam(player, "RIGHT")}
+              onClick={() => switchPlayer("RIGHT")}
             >
               <ArrowForwardSharp />
             </IconButton>
