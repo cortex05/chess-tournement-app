@@ -52,9 +52,12 @@ const PhaseTwo = (props: Props) => {
 
   const removePlayer = (playerId: number) => {
     const newRoster = roster.filter((player) => player.id !== playerId);
+    const newCenterArray = centerPlayers.filter((keepPlayer => {
+      return keepPlayer.id !== playerId
+    }))
 
     setRoster(newRoster);
-    setCenterPlayers(newRoster);
+    setCenterPlayers(newCenterArray);
   };
 
   // FFA logic
