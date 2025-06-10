@@ -53,14 +53,80 @@ const MatchPlayers = (props: Props) => {
 
   const handleSet = () => {
     if (playerOne && playerTwo) {
-      const colorSelection = whitePlayer ? "playerOne" : "playerTwo"
+      const colorSelection = whitePlayer ? "playerOne" : "playerTwo";
       const newMatch = new Match(playerOne, playerTwo, colorSelection);
-      setFilledMatch(false)
+      setFilledMatch(false);
       setMatchHolder([...matchHolder, newMatch]);
       setPlayerOne(undefined);
       setPlayerTwo(undefined);
     }
   };
+
+  const playerOneText = (player: IPlayer, foe: IPlayer) => {
+    if (whitePlayer) {
+      if (
+        player.playersMatched.filter((playerMatched) => {
+          return playerMatched.playerId === foe.id;
+        }).length > 0
+      ) {
+        const targetIndex = player.playersMatched
+          .map((e) => e.playerId)
+          .indexOf(foe.id);
+        const matchesAsWhite = player.playersMatched[targetIndex].timesAsBlack;
+        return `${player.name} - ${matchesAsWhite}`;
+      }
+      return player.name;
+    } else if (!whitePlayer) {
+      if (
+        player.playersMatched.filter((playerMatched) => {
+          return playerMatched.playerId === foe.id;
+        }).length > 0
+      ) {
+        const targetIndex = player.playersMatched
+          .map((e) => e.playerId)
+          .indexOf(foe.id);
+
+        const matchesAsBlack = player.playersMatched[targetIndex].timesAsWhite;
+        return `${player.name} - ${matchesAsBlack}`;
+      }
+      return player.name;
+    }
+  };
+
+  const playerTwoText = (player: IPlayer, foe: IPlayer) => {
+    if (!whitePlayer) {
+      if (
+        player.playersMatched.filter((playerMatched) => {
+          return playerMatched.playerId === foe.id;
+        }).length > 0
+      ) {
+        const targetIndex = player.playersMatched
+          .map((e) => e.playerId)
+          .indexOf(foe.id);
+        const matchesAsWhite = player.playersMatched[targetIndex].timesAsBlack;
+        console.log(player.playersMatched[targetIndex])
+         console.log(matchesAsWhite)
+        return `${player.name} - ${matchesAsWhite}`;
+      }
+      return player.name;
+    } else if (whitePlayer) {
+      if (
+        player.playersMatched.filter((playerMatched) => {
+          return playerMatched.playerId === foe.id;
+        }).length > 0
+      ) {
+        const targetIndex = player.playersMatched
+          .map((e) => e.playerId)
+          .indexOf(foe.id);
+
+        const matchesAsBlack = player.playersMatched[targetIndex].timesAsWhite;
+        console.log(player.playersMatched[targetIndex])
+         console.log(matchesAsBlack)
+        return `${player.name} - ${matchesAsBlack}`;
+      }
+      return player.name;
+    }
+  }
 
   return (
     <div>
@@ -122,16 +188,28 @@ const MatchPlayers = (props: Props) => {
       )}
       {filledMatch && playerOne && playerTwo && (
         <div className={styles.match}>
-          <div className={`${styles.colorSelect} ${whitePlayer ? styles.positive : styles.negative }`} onClick={() => setWhitePlayer(!whitePlayer)}>
-            <ListItemText primary={playerOne.name} />
+          <div
+            className={`${styles.colorSelect} ${
+              whitePlayer ? styles.positive : styles.negative
+            }`}
+            onClick={() => setWhitePlayer(!whitePlayer)}
+          >
+            <ListItemText
+              primary={playerOneText(playerOne, playerTwo)}
+            />
           </div>
 
           <Button variant="outlined" onClick={() => handleSet()}>
             Accept
           </Button>
 
-          <div className={`${styles.colorSelect} ${whitePlayer ? styles.negative : styles.positive }`} onClick={() => setWhitePlayer(!whitePlayer)}>
-            <ListItemText primary={playerTwo.name} />
+          <div
+            className={`${styles.colorSelect} ${
+              whitePlayer ? styles.negative : styles.positive
+            }`}
+            onClick={() => setWhitePlayer(!whitePlayer)}
+          >
+            <ListItemText primary={playerTwoText(playerTwo, playerOne)} />
           </div>
         </div>
       )}
