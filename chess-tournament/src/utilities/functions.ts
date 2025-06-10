@@ -35,7 +35,7 @@ export const calculateScore = (tournament: ITournament) => {
     return score;
   };
 
-export const updatePlayersMatched = (playerOne: IPlayer, playerTwo: IPlayer) => {
+export const updatePlayersMatched = (playerOne: IPlayer, playerTwo: IPlayer, whitePlayer: string) => {
     // if player 2 is not in playerOne
     if (
       playerOne.playersMatched.filter((playerMatched) => {
@@ -43,10 +43,21 @@ export const updatePlayersMatched = (playerOne: IPlayer, playerTwo: IPlayer) => 
       }).length === 0
     ) {
       const newRecord = new PlayerMatched(playerTwo.id, playerTwo.name);
+      if(whitePlayer === "playerOne"){
+        newRecord.timesAsBlack++
+      } else if(whitePlayer === "playerTwo"){
+        newRecord.timesAsWhite++
+      }
       playerOne.playersMatched = [...playerOne.playersMatched, newRecord];
     } else {
       const targetIndex = playerOne.playersMatched.map((e) => e.playerId).indexOf(playerTwo.id);
       playerOne.playersMatched[targetIndex].numberOfMatches++;
+
+      if(whitePlayer === "playerOne"){
+        playerOne.playersMatched[targetIndex].timesAsBlack++
+      } else if (whitePlayer === "playerTwo"){
+        playerOne.playersMatched[targetIndex].timesAsWhite++
+      }
     }
 
     if (
@@ -55,9 +66,20 @@ export const updatePlayersMatched = (playerOne: IPlayer, playerTwo: IPlayer) => 
       }).length === 0
     ) {
       const newRecord = new PlayerMatched(playerOne.id, playerOne.name);
+      if(whitePlayer === "playerOne"){
+        newRecord.timesAsWhite++
+      } else if(whitePlayer === "playerTwo"){
+        newRecord.timesAsBlack++
+      }
       playerTwo.playersMatched = [...playerTwo.playersMatched, newRecord];
     } else {
       const targetIndex = playerTwo.playersMatched.map((e) => e.playerId).indexOf(playerOne.id);
       playerTwo.playersMatched[targetIndex].numberOfMatches++;
+
+      if(whitePlayer === "playerOne"){
+        playerTwo.playersMatched[targetIndex].timesAsWhite++
+      } else if (whitePlayer === "playerTwo"){
+        playerTwo.playersMatched[targetIndex].timesAsBlack++
+      }
     }
   }  

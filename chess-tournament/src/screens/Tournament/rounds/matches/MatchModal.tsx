@@ -51,7 +51,7 @@ const MatchModal = (props: Props) => {
   };
 
   const handleSuccess = () => {
-    updatePlayersMatched(playerOne, playerTwo)
+    updatePlayersMatched(playerOne, playerTwo, match.whitePlayer)
 
     if (matchWinner === "draw") {
       // Update Players and match locally

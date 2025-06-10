@@ -46,4 +46,6 @@ export interface IPlayerMatched {
   playerId: number
   numberOfMatches: number
   name: string
+  timesAsWhite: number
+  timesAsBlack: number
 }

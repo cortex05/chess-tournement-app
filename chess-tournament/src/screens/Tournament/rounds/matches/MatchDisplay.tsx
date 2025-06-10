@@ -29,13 +29,18 @@ const MatchDisplay = (props: Props) => {
     setRoundScore
   } = props;
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  
+  // FIX LATER
+  // const closeModal = () => {
+  //   setIsModalOpen(false)
+  // }
 
   return (
     <div>
       <div className={styles.matchItem} onClick={() => setIsModalOpen(true)}>
-        <Typography variant="body1">{match.playerOne.name}</Typography>
+        <Typography variant="body1" className={`${match.whitePlayer === "playerOne" ? styles.positive : styles.negative}`}>{match.playerOne.name}</Typography>
         <Typography variant="body2">VS</Typography>
-        <Typography variant="body1">{match.playerTwo.name}</Typography>
+        <Typography variant="body1" className={`${match.whitePlayer === "playerTwo" ? styles.positive : styles.negative}`}>{match.playerTwo.name}</Typography>
       </div>
       <Modal tall={true} isOpen={isModalOpen} onClose={() => console.log("")}>
         <MatchModal
