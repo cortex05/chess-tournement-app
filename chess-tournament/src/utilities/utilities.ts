@@ -50,10 +50,12 @@ export class Match {
   playerOne: IPlayer | null
   playerTwo: IPlayer | null
   winner: string = ""
+  whitePlayer: string = ""
 
-  constructor(playerOne: IPlayer, playerTwo: IPlayer){
+  constructor(playerOne: IPlayer, playerTwo: IPlayer, whitePlayer: string){
     this.playerOne = playerOne
     this.playerTwo = playerTwo
+    this.whitePlayer = whitePlayer
   }
 }
 
@@ -73,6 +75,8 @@ export class PlayerMatched {
   playerId: number
   numberOfMatches: number = 1
   name: string
+  timesAsWhite: number = 0
+  timesAsBlack: number = 0
 
   constructor(playerId: number, name: string){
     this.playerId = playerId

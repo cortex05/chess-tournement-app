@@ -3,7 +3,7 @@ import { Button, Typography } from "@mui/material";
 import { AddCircleOutlineSharp } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
-import AddPlayerModal from "../Modals/Modal";
+import Modal from "../Modals/Modal";
 
 type Props = {
   lossCheck: Boolean;
@@ -32,7 +32,7 @@ export const Header = (props: Props) => {
       >
         Home
       </Button>
-      <AddPlayerModal
+      <Modal
         tall={false}
         isOpen={warningModal}
         onClose={() => setWarningModal(false)}
@@ -49,7 +49,7 @@ export const Header = (props: Props) => {
             }}
           >Leave</Button>
         </div>
-      </AddPlayerModal>
+      </Modal>
     </div>
   );
 };

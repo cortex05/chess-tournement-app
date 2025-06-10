@@ -1,9 +1,10 @@
 import type { IMatch, IPlayer } from "../../../types/types";
 
-import styles from "../Tournament.module.css";
+import styles from "./MatchPlayers.module.css";
 import { Button, IconButton, ListItemText, Typography } from "@mui/material";
 import { DeleteSharp } from "@mui/icons-material";
 import { Match } from "../../../utilities/utilities";
+import { useState } from "react";
 
 type Props = {
   playerOne: IPlayer | undefined;
@@ -29,8 +30,10 @@ const MatchPlayers = (props: Props) => {
     teamTwoRoster,
     setPlayerTwo,
     matchHolder,
-    setMatchHolder
+    setMatchHolder,
   } = props;
+  const [filledMatch, setFilledMatch] = useState<boolean>(false);
+  const [whitePlayer, setWhitePlayer] = useState<boolean>(true);
 
   const handleRemove = (direction: string) => {
     if (direction === "left" && playerOne) {
@@ -50,70 +53,101 @@ const MatchPlayers = (props: Props) => {
 
   const handleSet = () => {
     if (playerOne && playerTwo) {
-      const newMatch = new Match(playerOne, playerTwo);
+      const colorSelection = whitePlayer ? "playerOne" : "playerTwo"
+      const newMatch = new Match(playerOne, playerTwo, colorSelection);
       setMatchHolder([...matchHolder, newMatch]);
-      setPlayerOne(undefined)
-      setPlayerTwo(undefined)
+      setPlayerOne(undefined);
+      setPlayerTwo(undefined);
     }
   };
 
   return (
     <div>
-      <div className={styles.match}>
-        <div>
-          {playerOne ? (
-            <div className={`${styles.centerItem}`}>
-              <ListItemText primary={playerOne.name} />
-              <div>
+      {!filledMatch && (
+        <div className={styles.match}>
+          <div>
+            {playerOne ? (
+              <div className={`${styles.centerItem}`}>
+                <ListItemText primary={playerOne.name} />
                 <div>
-                  <IconButton
-                    color={"primary"}
-                    onClick={() => handleRemove("left")}
-                  >
-                    {/* <Avatar> */}
-                    <DeleteSharp />
-                    {/* </Avatar> */}
-                  </IconButton>
+                  <div>
+                    <IconButton
+                      color={"primary"}
+                      onClick={() => handleRemove("left")}
+                    >
+                      {/* <Avatar> */}
+                      <DeleteSharp />
+                      {/* </Avatar> */}
+                    </IconButton>
+                  </div>
                 </div>
               </div>
-            </div>
-          ) : (
-            <Typography variant="body1" gutterBottom>Select Player One</Typography>
-          )}
-        </div>
-        <Typography variant="h6" gutterBottom>VS</Typography>
-        <div>
-          {playerTwo ? (
-            <div className={styles.centerItem}>
-              <ListItemText primary={playerTwo.name} />
-              <div>
+            ) : (
+              <Typography variant="body1" gutterBottom>
+                Select Player One
+              </Typography>
+            )}
+            {filledMatch && <div></div>}
+          </div>
+          <Typography variant="h6" gutterBottom>
+            VS
+          </Typography>
+
+          <div>
+            {playerTwo ? (
+              <div className={styles.centerItem}>
+                <ListItemText primary={playerTwo.name} />
                 <div>
-                  <IconButton
-                    color={"primary"}
-                    onClick={() => handleRemove("right")}
-                  >
-                    {/* <Avatar> */}
-                    <DeleteSharp />
-                    {/* </Avatar> */}
-                  </IconButton>
+                  <div>
+                    <IconButton
+                      color={"primary"}
+                      onClick={() => handleRemove("right")}
+                    >
+                      {/* <Avatar> */}
+                      <DeleteSharp />
+                      {/* </Avatar> */}
+                    </IconButton>
+                  </div>
                 </div>
               </div>
-            </div>
-          ) : (
-            <Typography variant="body1" gutterBottom >Select Player Two</Typography>
+            ) : (
+              <Typography variant="body1" gutterBottom>
+                Select Player Two
+              </Typography>
+            )}
+            {filledMatch && <div></div>}
+          </div>
+        </div>
+      )}
+      {filledMatch && playerOne && playerTwo && (
+        <div className={styles.match}>
+          <div className={`${styles.colorSelect} ${whitePlayer ? styles.positive : styles.negative }`} onClick={() => setWhitePlayer(!whitePlayer)}>
+            <ListItemText primary={playerOne.name} />
+          </div>
+
+          <Button variant="outlined" onClick={() => handleSet()}>
+            Accept
+          </Button>
+
+          <div className={`${styles.colorSelect} ${whitePlayer ? styles.negative : styles.positive }`} onClick={() => setWhitePlayer(!whitePlayer)}>
+            <ListItemText primary={playerTwo.name} />
+          </div>
+        </div>
+      )}
+      {playerOne && playerTwo && (
+        <div>
+          {!filledMatch && (
+            <Button
+              variant="outlined"
+              // startIcon={<PersonAddAltSharp />}
+              size="large"
+              onClick={() => setFilledMatch(true)}
+            >
+              Pick Colors
+            </Button>
           )}
         </div>
-      </div>
-      {playerOne && playerTwo && <div>
-        <Button
-          variant="outlined"
-          // startIcon={<PersonAddAltSharp />}
-          size="large"
-          onClick={() => handleSet()}
-        >
-          Add Match
-        </Button>
-      </div>}
+      )}
     </div>
   );
 };

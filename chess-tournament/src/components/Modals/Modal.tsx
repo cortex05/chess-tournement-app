@@ -4,7 +4,7 @@ type Props = {
   isOpen: boolean;
   onClose: () => void;
   children?: any;
-  tall: boolean
+  tall: boolean 
 };
 
 const Modal = (props: Props) => {
@@ -24,6 +24,7 @@ const Modal = (props: Props) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        zIndex: "1"
       }}
     >
       <div
