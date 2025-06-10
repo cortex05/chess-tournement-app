@@ -5,10 +5,7 @@ import {
   DeleteForeverSharp,
   SyncAltSharp,
 } from "@mui/icons-material";
-import {
-  IconButton,
-  ListItemText,
-} from "@mui/material";
+import { IconButton, ListItemText } from "@mui/material";
 import { useState } from "react";
 import type { IPlayer } from "../../../types/types";
 import styles from "../New.module.css";
@@ -17,28 +14,23 @@ type Props = {
   keyValue: number;
   removePlayer: Function;
   player: IPlayer;
-  switchTeam: Function
+  switchTeam: Function;
 };
 
 const TeamListItem = (props: Props) => {
   const { keyValue, removePlayer, player, switchTeam } = props;
   const [assigner, setAssigner] = useState<boolean>(false);
 
-  
-
   return (
     <div key={keyValue}>
       {!assigner && (
-        <div className={styles.centerItem}>
+        <div className={`${styles.centerItem} ${styles.itemHover}`}>
           <div>
             <IconButton color="info" onClick={() => setAssigner(true)}>
-              {/* <Avatar> */}
               <SyncAltSharp />
-              {/* </Avatar> */}
             </IconButton>
           </div>
           <ListItemText primary={player.name} />
-
           <IconButton
             color="info"
             edge="end"
@@ -52,14 +44,14 @@ const TeamListItem = (props: Props) => {
       {assigner && (
         <div className={styles.centerItemActive} key={keyValue}>
           <div>
-            <IconButton color={"success"} onClick={() => switchTeam(player, 'LEFT')}>
-              {/* <Avatar> */}
+            <IconButton
+              color={"success"}
+              onClick={() => switchTeam(player, "LEFT")}
+            >
               <ArrowBackSharp />
-              {/* </Avatar> */}
             </IconButton>
           </div>
           <ListItemText primary={player.name} />
-
           <IconButton
             color="primary"
             edge="end"
@@ -70,7 +62,10 @@ const TeamListItem = (props: Props) => {
           </IconButton>
           <div>
             {/* <Avatar> */}
-            <IconButton color="warning" onClick={() => switchTeam(player, 'RIGHT')}>
+            <IconButton
+              color="warning"
+              onClick={() => switchTeam(player, "RIGHT")}
+            >
               <ArrowForwardSharp />
             </IconButton>
 

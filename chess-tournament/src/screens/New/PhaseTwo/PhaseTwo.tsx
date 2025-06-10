@@ -63,7 +63,7 @@ const PhaseTwo = (props: Props) => {
   };
 
   // TEAM LOGIC
-  const switchTeam = (playerMoving: IPlayer, side: string) => {
+  const switchTeam = (playerMoving: IPlayer, side: string, team: string | undefined) => {
     if (side === "LEFT") {
       teams[0].teamRoster.push(playerMoving);
       const newRoster = centerPlayers.filter(
@@ -78,6 +78,26 @@ const PhaseTwo = (props: Props) => {
       );
 
       setCenterPlayers(newRoster);
+    } else if(side === "CENTER" && team){
+      // make array for team roster without playerMoving
+      if(team === "ONE"){
+        // make array for team roster without playerMoving and reassign team roster
+        const newRoster = teams[0].teamRoster.filter((oldPlayer) => {
+          return oldPlayer.id !== playerMoving.id
+        })
+        teams[0].teamRoster = newRoster
+
+        setCenterPlayers([...centerPlayers, playerMoving])
+
+      } else if (team === "TWO"){
+        // make array for team roster without playerMoving and reassign team roster
+        const newRoster = teams[1].teamRoster.filter((oldPlayer) => {
+          return oldPlayer.id !== playerMoving.id
+        })
+        teams[1].teamRoster = newRoster
+
+        setCenterPlayers([...centerPlayers, playerMoving])
+      }
     }
   };
 
@@ -178,17 +198,13 @@ const PhaseTwo = (props: Props) => {
                   return (
                     <ListItem alignItems={"center"} key={index}>
                       <ListItemText primary={player.name} />
-
                       <div>
-                        {/* <Avatar> */}
                         <IconButton
                           color="primary"
-                          onClick={() => console.log("yes")}
+                          onClick={() => switchTeam(player, "CENTER","ONE")}
                         >
                           <ArrowForwardSharp />
                         </IconButton>
-
-                        {/* </Avatar> */}
                       </div>
                     </ListItem>
                   );
@@ -215,7 +231,7 @@ const PhaseTwo = (props: Props) => {
                       <div>
                         <IconButton
                           color={"primary"}
-                          onClick={() => console.log("left")}
+                          onClick={() => switchTeam(player, "CENTER","TWO")}
                         >
                           {/* <Avatar> */}
                           <ArrowBackSharp />

@@ -8,10 +8,6 @@
   margin-top: 20px;
 }
 
-.main h5:first-child {
-  /* border-bottom: 1px solid white; */
-}
-
 .teamWrapper {
   display: flex;
   flex-direction: row;

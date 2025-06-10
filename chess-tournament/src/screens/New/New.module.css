@@ -16,9 +16,13 @@
 .teamList {
   display: flex;
   justify-content: space-between;
+  /* align-items: center; */
 }
 
 .teamList > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: var(--dark-body);
   width: 200px;
   height: 400px;
@@ -37,6 +41,11 @@
   margin-bottom: 15px;
   box-shadow: 2px 1px 5px var(--background-color)
 }
+
+/* FIX LATER */
+/* .itemHover:hover {
+  width: 210px;
+} */
 
 .centerItemActive {
   display: flex;

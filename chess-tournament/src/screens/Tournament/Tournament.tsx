@@ -7,8 +7,7 @@ import type {
   ITournament,
 } from "../../types/types";
 import {
-  calculateScore,
-  handleGameTypeDisplay,
+  calculateScore
 } from "../../utilities/functions";
 import styles from "./Tournament.module.css";
 import PlayerItemRight from "./Players/PlayerItemRight";
@@ -18,10 +17,6 @@ import { Button, Typography } from "@mui/material";
 import RoundActive from "./rounds/RoundActive";
 import { mockScore } from "../../utilities/mockData";
 import Modal from "../../components/Modals/Modal";
-
-// type Props = {
-//   name: string;
-// };
 
 const Tournament = () => {
   const { tourney } = useParams<string>();
