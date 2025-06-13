@@ -9,7 +9,7 @@ import type {
 import { calculateScore } from "../../utilities/functions";
 import styles from "./Tournament.module.css";
 import RoundActive from "./rounds/RoundActive";
-import { mockScore } from "../../utilities/mockData";
+import { mockPlayer, mockScore } from "../../utilities/mockData";
 import Modal from "../../components/Modals/Modal";
 import RoundSetUp from "./rounds/RoundSetUp";
 
@@ -35,11 +35,19 @@ const Tournament = () => {
       const jsonValue = localStorage.getItem(tourney.toUpperCase());
       const value = jsonValue !== null ? JSON.parse(jsonValue) : null;
       // console.log("tournament: ", value);
-      setTournament(value);
-      setTeamOneRoster(value.teams[0].teamRoster);
-      setTeamTwoRoster(value.teams[1].teamRoster);
-      setIsLoading(false);
-      setRoundScore(calculateScore(value));
+      console.log(value.tournamentType)
+      if (value && value.tournamentType === "FFA") {
+        setTournament(value)
+        setMatchPlayerOne(mockPlayer)
+        setMatchPlayerTwo(mockPlayer)
+        setIsLoading(false);
+      } else if (value.tournamentType === "TEAM") {
+        setTournament(value);
+        setTeamOneRoster(value.teams[0].teamRoster);
+        setTeamTwoRoster(value.teams[1].teamRoster);
+        setIsLoading(false);
+        setRoundScore(calculateScore(value));
+      }
     }
   };
 
@@ -50,23 +58,25 @@ const Tournament = () => {
   return (
     <div className={styles.overHead}>
       {isLoading && <div>LOADING</div>}
-      {!isLoading && roundStart && tournament && matchPlayerOne && matchPlayerTwo && (
-        <RoundSetUp
-          tournament={tournament}
-          setScoreModal={setScoreModal}
-          teamOneRoster={teamOneRoster}
-          teamTwoRoster={teamTwoRoster}
-          setTeamOneRoster={setTeamOneRoster}
-          setTeamTwoRoster={setTeamTwoRoster}
-          matchPlayerOne={matchPlayerOne}
-          matchPlayerTwo={matchPlayerTwo}
-          setMatchPlayerOne={setMatchPlayerOne}
-          setMatchPlayerTwo={setMatchPlayerTwo}
-          matchHolder={matchHolder}
-          setMatchHolder={setMatchHolder}
-          setRoundStart={setRoundStart}
-        />
-      )}
+      {!isLoading &&
+        roundStart &&
+        tournament && (
+          <RoundSetUp
+            tournament={tournament}
+            setScoreModal={setScoreModal}
+            teamOneRoster={teamOneRoster}
+            teamTwoRoster={teamTwoRoster}
+            setTeamOneRoster={setTeamOneRoster}
+            setTeamTwoRoster={setTeamTwoRoster}
+            matchPlayerOne={matchPlayerOne}
+            matchPlayerTwo={matchPlayerTwo}
+            setMatchPlayerOne={setMatchPlayerOne}
+            setMatchPlayerTwo={setMatchPlayerTwo}
+            matchHolder={matchHolder}
+            setMatchHolder={setMatchHolder}
+            setRoundStart={setRoundStart}
+          />
+        )}
       {!isLoading && !roundStart && tournament && (
         <RoundActive
           matches={matchHolder}

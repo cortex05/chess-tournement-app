@@ -58,13 +58,10 @@
 .holderArray {
   display: flex;
   flex-direction: row;
-  /* width: fit-content; */
   background-color: var(--dark-body);
   height: 100px;
   min-width: 500px;
-  padding: 5px 30px 30px 30px;
-
-  
+  padding: 5px 30px 30px 30px;  
 }
 
 .matchItem {

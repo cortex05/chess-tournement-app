@@ -29,17 +29,21 @@ const SavedModalBody = (props: Props) => {
     // get the tournament
     const jsonValue = localStorage.getItem(keyName.toUpperCase());
     const tourney = jsonValue !== null ? JSON.parse(jsonValue) : null;
-
-    setlocalTournament(tourney);
-    setRoundScore(calculateScore(tourney));
-    setIsLoading(false);
+    if (tourney.tournamentType === "FFA") {
+      setlocalTournament(tourney);
+      setIsLoading(false);
+    } else {
+      setlocalTournament(tourney);
+      setRoundScore(calculateScore(tourney));
+      setIsLoading(false);
+    }
   }, []);
 
   return (
     <div>
       {isLoading && <div>LOADING</div>}
       {!isLoading && (
-        <div className={styles.displayContent}>
+        localTournament?.tournamentType === "FFA" ? <div>Free for all tournaments under construction. Check back soon!</div> : <div className={styles.displayContent}>
           <Typography variant="h5">{localTournament?.name}</Typography>
           <Typography variant="h6">Round {localTournament?.round}</Typography>
           <div className={styles.scoreModal}>
