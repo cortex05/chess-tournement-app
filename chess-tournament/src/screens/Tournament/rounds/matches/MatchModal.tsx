@@ -64,7 +64,7 @@ const MatchModal = (props: Props) => {
       playerOne.score = playerOne.score += 0.5;
       playerTwo.score = playerTwo.score += 0.5;
 
-      match.winner = "Draw";
+      match.winner = "draw";
       setFinishedMatches([...finishedMatches, match]);
 
       // Update Tournament

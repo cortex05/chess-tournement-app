@@ -69,19 +69,19 @@ const RoundActive = (props: Props) => {
           <div className={styles.holderArray}>
             {finishedMatches.map((match, index) => {
               return (
-                <div key={index} className={styles.matchItem}>
+                <div key={index} className={styles.matchWin}>
                   {match.winner === "draw" && (
                     <div>
-                      <h5>Draw</h5>
-                      <p>
+                      <Typography variant="body2">Draw</Typography>
+                      <Typography variant="caption">
                         {match.playerOne.name}/{match.playerTwo.name}
-                      </p>
+                      </Typography>
                     </div>
                   )}
                   {match.winner !== "draw" && (
-                    <div>
-                      <Typography variant="body1">Winner: {match.playerOne.name}</Typography>
-                      <Typography variant="caption">vs {match.playerTwo.name}</Typography>
+                    <div >
+                      <Typography variant="body2">Winner: {match.winner === "playerOne" ? match.playerOne.name : match.playerTwo.name}</Typography>
+                      <Typography variant="caption">vs {match.winner === "playerOne" ? match.playerTwo.name : match.playerOne.name}</Typography>
                     </div>
                   )}
                 </div>
