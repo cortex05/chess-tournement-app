@@ -1,0 +1,13 @@
+.main {
+  background-color: var(--dark-body);
+  padding: 30px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.main > button {
+  margin: 10px 0px;
+}

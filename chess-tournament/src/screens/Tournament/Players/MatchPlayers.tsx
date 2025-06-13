@@ -62,8 +62,40 @@ const MatchPlayers = (props: Props) => {
     }
   };
 
-  const playerOneText = (player: IPlayer, foe: IPlayer) => {
-    if (whitePlayer) {
+  const playerOneText = (player: IPlayer, foe: IPlayer, whichPlayer: string) => {
+    if (whichPlayer === "playerOne") {
+      if (whitePlayer) {
+        if (
+          player.playersMatched.filter((playerMatched) => {
+            return playerMatched.playerId === foe.id;
+          }).length > 0
+        ) {
+          const targetIndex = player.playersMatched
+            .map((e) => e.playerId)
+            .indexOf(foe.id);
+          const matchesAsWhite =
+            player.playersMatched[targetIndex].timesAsBlack;
+          return `${player.name} - ${matchesAsWhite}`;
+        }
+        return player.name;
+      } else if (!whitePlayer) {
+        if (
+          player.playersMatched.filter((playerMatched) => {
+            return playerMatched.playerId === foe.id;
+          }).length > 0
+        ) {
+          const targetIndex = player.playersMatched
+            .map((e) => e.playerId)
+            .indexOf(foe.id);
+
+          const matchesAsBlack =
+            player.playersMatched[targetIndex].timesAsWhite;
+          return `${player.name} - ${matchesAsBlack}`;
+        }
+        return player.name;
+      }
+    } else if(whichPlayer === "playerTwo"){
+      if (!whitePlayer) {
       if (
         player.playersMatched.filter((playerMatched) => {
           return playerMatched.playerId === foe.id;
@@ -73,39 +105,8 @@ const MatchPlayers = (props: Props) => {
           .map((e) => e.playerId)
           .indexOf(foe.id);
         const matchesAsWhite = player.playersMatched[targetIndex].timesAsBlack;
-        return `${player.name} - ${matchesAsWhite}`;
-      }
-      return player.name;
-    } else if (!whitePlayer) {
-      if (
-        player.playersMatched.filter((playerMatched) => {
-          return playerMatched.playerId === foe.id;
-        }).length > 0
-      ) {
-        const targetIndex = player.playersMatched
-          .map((e) => e.playerId)
-          .indexOf(foe.id);
-
-        const matchesAsBlack = player.playersMatched[targetIndex].timesAsWhite;
-        return `${player.name} - ${matchesAsBlack}`;
-      }
-      return player.name;
-    }
-  };
-
-  const playerTwoText = (player: IPlayer, foe: IPlayer) => {
-    if (!whitePlayer) {
-      if (
-        player.playersMatched.filter((playerMatched) => {
-          return playerMatched.playerId === foe.id;
-        }).length > 0
-      ) {
-        const targetIndex = player.playersMatched
-          .map((e) => e.playerId)
-          .indexOf(foe.id);
-        const matchesAsWhite = player.playersMatched[targetIndex].timesAsBlack;
-        console.log(player.playersMatched[targetIndex])
-         console.log(matchesAsWhite)
+        console.log(player.playersMatched[targetIndex]);
+        console.log(matchesAsWhite);
         return `${player.name} - ${matchesAsWhite}`;
       }
       return player.name;
@@ -120,13 +121,45 @@ const MatchPlayers = (props: Props) => {
           .indexOf(foe.id);
 
         const matchesAsBlack = player.playersMatched[targetIndex].timesAsWhite;
-        console.log(player.playersMatched[targetIndex])
-         console.log(matchesAsBlack)
         return `${player.name} - ${matchesAsBlack}`;
       }
       return player.name;
     }
-  }
+    }
+  };
+
+  // const playerTwoText = (player: IPlayer, foe: IPlayer) => {
+  //   if (!whitePlayer) {
+  //     if (
+  //       player.playersMatched.filter((playerMatched) => {
+  //         return playerMatched.playerId === foe.id;
+  //       }).length > 0
+  //     ) {
+  //       const targetIndex = player.playersMatched
+  //         .map((e) => e.playerId)
+  //         .indexOf(foe.id);
+  //       const matchesAsWhite = player.playersMatched[targetIndex].timesAsBlack;
+  //       console.log(player.playersMatched[targetIndex]);
+  //       console.log(matchesAsWhite);
+  //       return `${player.name} - ${matchesAsWhite}`;
+  //     }
+  //     return player.name;
+  //   } else if (whitePlayer) {
+  //     if (
+  //       player.playersMatched.filter((playerMatched) => {
+  //         return playerMatched.playerId === foe.id;
+  //       }).length > 0
+  //     ) {
+  //       const targetIndex = player.playersMatched
+  //         .map((e) => e.playerId)
+  //         .indexOf(foe.id);
+
+  //       const matchesAsBlack = player.playersMatched[targetIndex].timesAsWhite;
+  //       return `${player.name} - ${matchesAsBlack}`;
+  //     }
+  //     return player.name;
+  //   }
+  // };
 
   return (
     <div>
@@ -194,9 +227,7 @@ const MatchPlayers = (props: Props) => {
             }`}
             onClick={() => setWhitePlayer(!whitePlayer)}
           >
-            <ListItemText
-              primary={playerOneText(playerOne, playerTwo)}
-            />
+            <ListItemText primary={playerOneText(playerOne, playerTwo, "playerOne")} />
           </div>
 
           <Button variant="outlined" onClick={() => handleSet()}>
@@ -209,7 +240,7 @@ const MatchPlayers = (props: Props) => {
             }`}
             onClick={() => setWhitePlayer(!whitePlayer)}
           >
-            <ListItemText primary={playerTwoText(playerTwo, playerOne)} />
+            <ListItemText primary={playerOneText(playerTwo, playerOne, "playerTwo")} />
           </div>
         </div>
       )}
