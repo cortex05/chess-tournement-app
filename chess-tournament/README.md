@@ -1,17 +1,43 @@
-# React + TypeScript + Vite
+# Chess Turnament
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This app is currently optimized to handle a tournament of around 6 players on two teams. Both teams must be even.
 
-Currently, two official plugins are available:
+<!-- - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh -->
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation and Use
+1 - Clone or download main app folder locally.
+2 - In code base, under: 
+  
+  chess-tournament/src
 
-## Expanding the ESLint configuration
+  - make a folder called data and add a file and call it:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+  keys.ts
 
-```js
+  - Then add this line and make your own secret key value:
+
+  export const LOCAL_TOURNAMENTS_KEY = "[YOUR_OWN_KEY_NAME]"
+
+3 - Open a terminal on your computer and navigate into the chess-tournament/ folder
+4 - Run:
+
+  npm install
+
+5 - Once packages are installed, run:
+
+  npm run dev
+
+  - Then add this to your web browser of choice:
+
+  http://localhost:5173/
+
+  - You should be set to use the App!
+
+### Upcoming features:
+- Free for all tournament
+
+<!-- ```js
 export default tseslint.config({
   extends: [
     // Remove ...tseslint.configs.recommended and replace with this
@@ -29,26 +55,4 @@ export default tseslint.config({
     },
   },
 })
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+``` -->
