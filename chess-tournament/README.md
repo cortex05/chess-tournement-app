@@ -7,6 +7,7 @@ This app is currently optimized to handle a tournament of around 6 players on tw
 
 ## Installation and Use
 1 - Clone or download main app folder locally.
+
 2 - In code base, under: 
   
   chess-tournament/src
@@ -20,6 +21,7 @@ This app is currently optimized to handle a tournament of around 6 players on tw
   export const LOCAL_TOURNAMENTS_KEY = "[YOUR_OWN_KEY_NAME]"
 
 3 - Open a terminal on your computer and navigate into the chess-tournament/ folder
+
 4 - Run:
 
   npm install
