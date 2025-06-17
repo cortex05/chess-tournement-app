@@ -1,4 +1,4 @@
-import type { IPlayer, IRoundScore } from "../types/types"
+import type { IPlayer, IRoundScore, ITournament } from "../types/types"
 
 export const mockScore: IRoundScore = {
     winner: "",
@@ -15,4 +15,12 @@ export const mockScore: IRoundScore = {
     draws: 0,
     losses: 0,
     totalMatches: 0
+  }
+
+  export const mockTournament: ITournament = {
+    tournamentType: "",
+    playerRoster: [],
+    teams: [],
+    name: "",
+    round: 0
   }
