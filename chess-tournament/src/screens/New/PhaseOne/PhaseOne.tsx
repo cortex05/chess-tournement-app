@@ -86,7 +86,6 @@ const PhaseOne = (props: Props) => {
         />
         <Button
         variant="outlined"
-        // startIcon={<PersonAddAltSharp />}
         size="large"
         onClick={() => handleSubmit()}
       >

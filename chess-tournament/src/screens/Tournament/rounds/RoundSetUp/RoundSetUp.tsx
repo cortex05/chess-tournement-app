@@ -1,9 +1,9 @@
 import styles from "./RoundSetUp.module.css";
-import PlayerItemRight from "../Players/PlayerItemRight";
-import PlayerItemLeft from "../Players/PlayerItemLeft";
-import MatchPlayers from "../Players/MatchPlayers";
+import PlayerItemRight from "../../Players/PlayerItemRight";
+import PlayerItemLeft from "../../Players/PlayerItemLeft";
+import MatchPlayers from "../../Players/MatchPlayers";
 import { Button, Typography } from "@mui/material";
-import type { IMatch, IPlayer, ITournament } from "../../../types/types";
+import type { IMatch, IPlayer, ITournament } from "../../../../types/types";
 
 type Props = {
   tournament: ITournament;

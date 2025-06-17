@@ -7,8 +7,8 @@ import {
 } from "@mui/icons-material";
 import { IconButton, ListItemText } from "@mui/material";
 import { useState } from "react";
-import type { IPlayer } from "../../../types/types";
-import styles from "../New.module.css";
+import type { IPlayer } from "../../../../types/types";
+import styles from "./TeamListItem.module.css"
 
 type Props = {
   keyValue: number;

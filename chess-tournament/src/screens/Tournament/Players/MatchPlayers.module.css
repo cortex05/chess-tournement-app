@@ -35,3 +35,18 @@
    background-color: black;
   color: white;
 }
+
+/* PLAYERITEM LEFT/RIGHT */
+.centerItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.centerItem > div {
+  display: flex;
+  flex-direction: row;
+  padding: 0px 10px;
+}

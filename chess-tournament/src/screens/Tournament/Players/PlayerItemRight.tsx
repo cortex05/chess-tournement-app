@@ -6,7 +6,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import type { IPlayer } from "../../../types/types";
-import styles from "../Tournament.module.css";
+import styles from "./MatchPlayers.module.css";
 
 type Props = {
   keyValue: number;

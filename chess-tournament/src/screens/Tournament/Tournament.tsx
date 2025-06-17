@@ -8,10 +8,10 @@ import type {
 } from "../../types/types";
 import { calculateScore } from "../../utilities/functions";
 import styles from "./Tournament.module.css";
-import RoundActive from "./rounds/RoundActive";
+import RoundActive from "./rounds/RoundActive/RoundActive";
 import { mockPlayer, mockScore } from "../../utilities/mockData";
 import Modal from "../../components/Modals/Modal";
-import RoundSetUp from "./rounds/RoundSetUp";
+import RoundSetUp from "./rounds/RoundSetUp/RoundSetUp";
 
 const Tournament = () => {
   const { tourney } = useParams<string>();
@@ -30,11 +30,11 @@ const Tournament = () => {
   const [roundScore, setRoundScore] = useState<IRoundScore>(mockScore);
 
   const fetchTournament = () => {
-    // Move this to utility functions
+    // Move this to utility functions oncs FFA fully implemented
     if (tourney) {
       const jsonValue = localStorage.getItem(tourney.toUpperCase());
       const value = jsonValue !== null ? JSON.parse(jsonValue) : null;
-      // console.log("tournament: ", value);
+
       console.log(value.tournamentType)
       if (value && value.tournamentType === "FFA") {
         setTournament(value)

@@ -16,11 +16,12 @@ import ListItem from "@mui/material/ListItem";
 import { FolderCopySharp, DeleteSharp } from "@mui/icons-material";
 import { useState } from "react";
 import type { IPlayer, ITeam } from "../../../types/types";
-import Modal from "../NewModal";
+
 import { Player } from "../../../utilities/utilities";
-import TeamListItem from "./TeamListItem";
+import TeamListItem from "./ListItem/TeamListItem";
 
 import styles from "./PhaseTwo.module.css";
+import Modal from "../../../components/Modals/Modal";
 
 type Props = {
   roster: IPlayer[];
@@ -259,10 +260,10 @@ const PhaseTwo = (props: Props) => {
           </div>
         </div>
       )}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+      <Modal tall isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <div className={styles.modal}>
           <Input
-            placeholder="Placeholder"
+            placeholder="Player Name"
             onChange={(e) => setPlayerName(e.target.value)}
             autoFocus
             value={playerName}

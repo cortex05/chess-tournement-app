@@ -1,4 +1,3 @@
-// import PropTypes from 'prop-types'
 import { Stack, Button } from '@mui/material'
 import styles from './Home.module.css'
 import { AddCircleOutlineSharp, StorageSharp } from '@mui/icons-material'

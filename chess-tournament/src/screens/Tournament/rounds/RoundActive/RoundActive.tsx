@@ -3,10 +3,10 @@ import type {
   IMatch,
   IRoundScore,
   ITournament,
-} from "../../../types/types";
+} from "../../../../types/types";
 
 import styles from "./Rounds.module.css";
-import MatchDisplay from "./matches/MatchDisplay";
+import MatchDisplay from "../matches/MatchDisplay";
 import { Button, Typography } from "@mui/material";
 
 
