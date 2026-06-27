@@ -8,14 +8,10 @@ import Home from "./screens/Home/Home";
 import New from "./screens/New/New";
 import Saved from "./screens/Saved/Saved";
 import Tournament from "./screens/Tournament/Tournament";
-import { State, StateDispatch } from "./state/state";
-import { initialState, reducer } from "./state/reducer";
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState)
   return (
-    <State.Provider value={state}>
-      <StateDispatch.Provider value={dispatch}>
+
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -24,8 +20,6 @@ function App() {
           <Route path="/tournament/:tourney" element={<Tournament />} />
         </Routes>
       </BrowserRouter>
-      </StateDispatch.Provider>
-    </State.Provider>
   );
 }
 

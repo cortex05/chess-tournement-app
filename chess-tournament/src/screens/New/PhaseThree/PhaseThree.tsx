@@ -7,8 +7,6 @@ import { LOCAL_TOURNAMENTS_KEY } from "../../../data/keys";
 
 import styles from "./PhaseThree.module.css";
 import { KeyboardBackspaceSharp } from "@mui/icons-material";
-import { useDispatch } from "react-redux";
-import { setTournament } from "../../../state/actions";
 
 type Props = {
   gameType: string;
@@ -20,7 +18,6 @@ type Props = {
 
 const PhaseThree = (props: Props) => {
   const { gameType, gameRoster, teams, tournamentName, setPhase } = props;
-  const dispatch = useDispatch()
   const navigate = useNavigate();
 
   const handleStart = (
@@ -55,8 +52,7 @@ const PhaseThree = (props: Props) => {
       const newArray: string[] = [...oldArrayParsed, key];
       localStorage.setItem(LOCAL_TOURNAMENTS_KEY, JSON.stringify(newArray));
     }
-    //
-    dispatch(setTournament(tournament))
+    
     const jsonTournament = JSON.stringify(tournament);
     localStorage.setItem(key, jsonTournament);
 
