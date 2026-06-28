@@ -9,7 +9,6 @@ import New from './screens/New/New'
 import Saved from './screens/Saved/Saved'
 import Tournament from './screens/Tournament/Tournament'
 
-
 function App() {
   return (
     <BrowserRouter>

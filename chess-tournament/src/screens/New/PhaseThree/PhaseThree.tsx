@@ -4,6 +4,7 @@ import { Tournament } from "../../../utilities/utilities";
 import { useNavigate } from "react-router-dom";
 import { handleGameTypeDisplay } from "../../../utilities/functions";
 import { LOCAL_TOURNAMENTS_KEY } from "../../../data/keys";
+import useTournamentStore from "../../../store/useTournamentStore";
 
 import styles from "./PhaseThree.module.css";
 import { KeyboardBackspaceSharp } from "@mui/icons-material";
@@ -19,6 +20,9 @@ type Props = {
 const PhaseThree = (props: Props) => {
   const { gameType, gameRoster, teams, tournamentName, setPhase } = props;
   const navigate = useNavigate();
+  const setActiveTournament = useTournamentStore(
+    (state) => state.setActiveTournament
+  );
 
   const handleStart = (
     tournamentType: string,
@@ -56,6 +60,7 @@ const PhaseThree = (props: Props) => {
     const jsonTournament = JSON.stringify(tournament);
     localStorage.setItem(key, jsonTournament);
 
+    setActiveTournament(tournament);
     navigate(`/tournament/${tournamentName}`);
   };
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import styles from "../Rounds.module.css";
+import styles from "../RoundActive/Rounds.module.css";
 import type { IMatch, IRoundScore, ITournament } from "../../../../types/types";
 import Modal from "../../../../components/Modals/Modal";
 import MatchModal from "./MatchModal";
