@@ -5,6 +5,7 @@ import MatchPlayers from "../../Players/MatchPlayers";
 import { Button, Typography } from "@mui/material";
 import type { IMatch, IPlayer } from "../../../../types/types";
 import useTournamentStore from "../../../../store/useTournamentStore";
+import { useState } from "react";
 
 type Props = {
   setScoreModal: Function;
@@ -36,7 +37,33 @@ const RoundSetUp = (props: Props) => {
     setMatchHolder,
     setRoundStart,
   } = props;
+  const [pendingUndoIndex, setPendingUndoIndex] = useState<number | null>(null);
   const tournament = useTournamentStore((s) => s.activeTournament);
+
+  const pushBackIfMissing = (roster: IPlayer[], player: IPlayer) => {
+    if (roster.some((existingPlayer) => existingPlayer.id === player.id)) {
+      return roster;
+    }
+    return [...roster, player];
+  };
+
+  const handleUndoMatch = (matchIndex: number) => {
+    const removedMatch = matchHolder[matchIndex];
+    if (!removedMatch) return;
+
+    setMatchHolder(
+      matchHolder.filter((_: IMatch, index: number) => index !== matchIndex)
+    );
+
+    setTeamOneRoster(
+      pushBackIfMissing(teamOneRoster, removedMatch.playerOne)
+    );
+    setTeamTwoRoster(
+      pushBackIfMissing(teamTwoRoster, removedMatch.playerTwo)
+    );
+    setPendingUndoIndex(null);
+  };
+
   if (!tournament) return null;
   return (
     <>
@@ -159,32 +186,67 @@ const RoundSetUp = (props: Props) => {
               {matchHolder.length > 0 &&
                 matchHolder?.map((match, index) => {
                   return (
-                    <div className={styles.matchItem} key={index}>
-                      <Typography
-                        variant="body2"
-                        gutterBottom
-                        className={`${
-                          match.whitePlayer === "playerOne"
-                            ? styles.positive
-                            : styles.negative
-                        }`}
-                      >
-                        {match.playerOne.name}
-                      </Typography>
-                      <Typography variant="body2" gutterBottom>
-                        VS
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        gutterBottom
-                        className={`${
-                          match.whitePlayer === "playerTwo"
-                            ? styles.positive
-                            : styles.negative
-                        }`}
-                      >
-                        {match.playerTwo.name}
-                      </Typography>
+                    <div
+                      className={styles.matchItem}
+                      key={index}
+                      onClick={() => setPendingUndoIndex(index)}
+                    >
+                      {pendingUndoIndex !== index && (
+                        <>
+                          <Typography
+                            variant="body2"
+                            gutterBottom
+                            className={`${
+                              match.whitePlayer === "playerOne"
+                                ? styles.positive
+                                : styles.negative
+                            }`}
+                          >
+                            {match.playerOne.name}
+                          </Typography>
+                          <Typography variant="body2" gutterBottom>
+                            VS
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            gutterBottom
+                            className={`${
+                              match.whitePlayer === "playerTwo"
+                                ? styles.positive
+                                : styles.negative
+                            }`}
+                          >
+                            {match.playerTwo.name}
+                          </Typography>
+                        </>
+                      )}
+                      {pendingUndoIndex === index && (
+                        <div className={styles.undoConfirm}>
+                          <Button
+                            variant="text"
+                            className={`${styles.confirmAction} ${styles.confirmRemove}`}
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              handleUndoMatch(index);
+                            }}
+                          >
+                            Remove
+                          </Button>
+                          <Typography variant="caption" className={styles.confirmOr}>
+                            or
+                          </Typography>
+                          <Button
+                            variant="text"
+                            className={`${styles.confirmAction} ${styles.confirmCancel}`}
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              setPendingUndoIndex(null);
+                            }}
+                          >
+                            Cancel
+                          </Button>
+                        </div>
+                      )}
                     </div>
                   );
                 })}
