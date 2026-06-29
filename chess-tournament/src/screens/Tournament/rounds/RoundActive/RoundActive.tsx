@@ -2,17 +2,16 @@ import { useState } from "react";
 import type {
   IMatch,
   IRoundScore,
-  ITournament,
 } from "../../../../types/types";
 
 import styles from "./Rounds.module.css";
 import MatchDisplay from "../matches/MatchDisplay";
 import { Button, Typography } from "@mui/material";
+import useTournamentStore from "../../../../store/useTournamentStore";
 
 
 type Props = {
   matches: IMatch[];
-  tournament: ITournament;
   setMatchHolder: Function;
   roundScore: IRoundScore
   setRoundScore: Function
@@ -22,14 +21,19 @@ type Props = {
 };
 
 const RoundActive = (props: Props) => {
-  const { matches, tournament, setMatchHolder, roundScore, setRoundScore, setTeamOneRoster, setTeamTwoRoster, setRoundStart } = props;
+  const { matches, setMatchHolder, roundScore, setRoundScore, setTeamOneRoster, setTeamTwoRoster, setRoundStart } = props;
+  const tournament = useTournamentStore((s) => s.activeTournament);
+  const updateTournament = useTournamentStore((s) => s.updateTournament);
   const [finishedMatches, setFinishedMatches] = useState<IMatch[]>([]);
+
+  if (!tournament) return null;
 
   const endRound = () => {
     tournament.round++
     // save tournament
     const jsonTournament = JSON.stringify(tournament);
     localStorage.setItem(tournament.name.toUpperCase(), jsonTournament);
+    updateTournament({ ...tournament });
 
     setTeamOneRoster(tournament.teams[0].teamRoster)
     setTeamTwoRoster(tournament.teams[1].teamRoster)
@@ -53,7 +57,6 @@ const RoundActive = (props: Props) => {
             <MatchDisplay
               match={match}
               key={index}
-              tournament={tournament}
               matches={matches}
               setMatchHolder={setMatchHolder}
               setFinishedMatches={setFinishedMatches}

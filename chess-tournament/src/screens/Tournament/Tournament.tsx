@@ -12,11 +12,14 @@ import RoundActive from "./rounds/RoundActive/RoundActive";
 import { mockPlayer, mockScore } from "../../utilities/mockData";
 import Modal from "../../components/Modals/Modal";
 import RoundSetUp from "./rounds/RoundSetUp/RoundSetUp";
+import useTournamentStore from "../../store/useTournamentStore";
 
 const Tournament = () => {
   const { tourney } = useParams<string>();
+  const activeTournament = useTournamentStore((s) => s.activeTournament);
+  const setActiveTournament = useTournamentStore((s) => s.setActiveTournament);
+  const clearActiveTournament = useTournamentStore((s) => s.clearActiveTournament);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [tournament, setTournament] = useState<ITournament>();
   const [roundStart, setRoundStart] = useState<boolean>(true);
   const [scoreModal, setScoreModal] = useState<boolean>(false);
 
@@ -31,38 +34,57 @@ const Tournament = () => {
 
   const fetchTournament = () => {
     // Move this to utility functions oncs FFA fully implemented
-    if (tourney) {
-      const jsonValue = localStorage.getItem(tourney.toUpperCase());
-      const value = jsonValue !== null ? JSON.parse(jsonValue) : null;
+    if (!tourney) {
+      clearActiveTournament();
+      setIsLoading(false);
+      return;
+    }
 
-      console.log(value.tournamentType)
-      if (value && value.tournamentType === "FFA") {
-        setTournament(value)
-        setMatchPlayerOne(mockPlayer)
-        setMatchPlayerTwo(mockPlayer)
+    const jsonValue = localStorage.getItem(tourney.toUpperCase());
+    if (jsonValue === null) {
+      clearActiveTournament();
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const value: ITournament = JSON.parse(jsonValue);
+
+      if (value.tournamentType === "FFA") {
+        setActiveTournament(value);
+        setMatchPlayerOne(mockPlayer);
+        setMatchPlayerTwo(mockPlayer);
+        setTeamOneRoster([]);
+        setTeamTwoRoster([]);
+        setRoundScore(mockScore);
         setIsLoading(false);
       } else if (value.tournamentType === "TEAM") {
-        setTournament(value);
+        setActiveTournament(value);
         setTeamOneRoster(value.teams[0].teamRoster);
         setTeamTwoRoster(value.teams[1].teamRoster);
-        setIsLoading(false);
         setRoundScore(calculateScore(value));
+        setIsLoading(false);
+      } else {
+        clearActiveTournament();
+        setIsLoading(false);
       }
+    } catch {
+      clearActiveTournament();
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     fetchTournament();
-  }, []);
+  }, [tourney]);
 
   return (
     <div className={styles.overHead}>
       {isLoading && <div>LOADING</div>}
       {!isLoading &&
         roundStart &&
-        tournament && (
+        activeTournament && (
           <RoundSetUp
-            tournament={tournament}
             setScoreModal={setScoreModal}
             teamOneRoster={teamOneRoster}
             teamTwoRoster={teamTwoRoster}
@@ -76,11 +98,11 @@ const Tournament = () => {
             setMatchHolder={setMatchHolder}
             setRoundStart={setRoundStart}
           />
-        )}
-      {!isLoading && !roundStart && tournament && (
+        )
+      }
+      {!isLoading && !roundStart && activeTournament && (
         <RoundActive
           matches={matchHolder}
-          tournament={tournament}
           setMatchHolder={setMatchHolder}
           roundScore={roundScore}
           setRoundScore={setRoundScore}

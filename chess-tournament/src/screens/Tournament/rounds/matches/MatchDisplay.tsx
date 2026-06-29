@@ -1,14 +1,13 @@
 import { useState } from "react";
 
 import styles from "../RoundActive/Rounds.module.css";
-import type { IMatch, IRoundScore, ITournament } from "../../../../types/types";
+import type { IMatch, IRoundScore } from "../../../../types/types";
 import Modal from "../../../../components/Modals/Modal";
 import MatchModal from "./MatchModal";
 import { Typography } from "@mui/material";
 
 type Props = {
   match: IMatch;
-  tournament: ITournament;
   matches: IMatch[];
   setMatchHolder: Function;
   setFinishedMatches: Function;
@@ -20,7 +19,6 @@ type Props = {
 const MatchDisplay = (props: Props) => {
   const {
     match,
-    tournament,
     matches,
     setMatchHolder,
     setFinishedMatches,
@@ -45,7 +43,6 @@ const MatchDisplay = (props: Props) => {
       <Modal tall={true} isOpen={isModalOpen} onClose={() => console.log("")}>
         <MatchModal
           match={match}
-          tournament={tournament}
           closeModal={setIsModalOpen}
           matches={matches}
           setMatchHolder={setMatchHolder}

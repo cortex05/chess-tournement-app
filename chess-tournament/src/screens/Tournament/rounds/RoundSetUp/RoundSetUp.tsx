@@ -3,10 +3,10 @@ import PlayerItemRight from "../../Players/PlayerItemRight";
 import PlayerItemLeft from "../../Players/PlayerItemLeft";
 import MatchPlayers from "../../Players/MatchPlayers";
 import { Button, Typography } from "@mui/material";
-import type { IMatch, IPlayer, ITournament } from "../../../../types/types";
+import type { IMatch, IPlayer } from "../../../../types/types";
+import useTournamentStore from "../../../../store/useTournamentStore";
 
 type Props = {
-  tournament: ITournament;
   setScoreModal: Function;
   teamOneRoster: IPlayer[];
   teamTwoRoster: IPlayer[];
@@ -23,7 +23,6 @@ type Props = {
 
 const RoundSetUp = (props: Props) => {
   const {
-    tournament,
     setScoreModal,
     teamOneRoster,
     teamTwoRoster,
@@ -37,6 +36,8 @@ const RoundSetUp = (props: Props) => {
     setMatchHolder,
     setRoundStart,
   } = props;
+  const tournament = useTournamentStore((s) => s.activeTournament);
+  if (!tournament) return null;
   return (
     <>
       {tournament.tournamentType === "FFA" && (

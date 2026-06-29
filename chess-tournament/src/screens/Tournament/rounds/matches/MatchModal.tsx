@@ -1,13 +1,13 @@
 import { useState } from "react";
-import type { IMatch, IRoundScore, ITournament } from "../../../../types/types";
+import type { IMatch, IRoundScore } from "../../../../types/types";
 
 import styles from "./MatchModal.module.css";
 import { calculateScore, updatePlayersMatched } from "../../../../utilities/functions";
 import { Button, Typography } from "@mui/material";
+import useTournamentStore from "../../../../store/useTournamentStore";
 
 type Props = {
   match: IMatch;
-  tournament: ITournament;
   closeModal: Function;
   matches: IMatch[];
   setMatchHolder: Function;
@@ -19,7 +19,6 @@ type Props = {
 const MatchModal = (props: Props) => {
   const {
     match,
-    tournament,
     closeModal,
     matches,
     setMatchHolder,
@@ -27,13 +26,16 @@ const MatchModal = (props: Props) => {
     finishedMatches,
     setRoundScore,
   } = props;
+  const tournament = useTournamentStore((s) => s.activeTournament);
+  const updateTournament = useTournamentStore((s) => s.updateTournament);
   const [isActive, setIsActive] = useState<string>("");
   const [matchWinner, setMatchWinner] = useState<string>("");
+
+  if (!tournament) return null;
+
   const playerOne = match.playerOne;
   const playerTwo = match.playerTwo;
   const tournamentPlayers = tournament.playerRoster;
-  // const tTeamOne = tournament.teams[0]
-  // const tTeamTwo = tournament.teams[1]
 
   const handleClick = (color: string, winner: string) => {
     switch (color) {
@@ -134,6 +136,7 @@ const MatchModal = (props: Props) => {
       closeModal(false);
     }
     setRoundScore(calculateScore(tournament));
+    updateTournament({ ...tournament });
   };
 
   return (
