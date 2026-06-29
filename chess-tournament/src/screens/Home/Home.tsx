@@ -5,11 +5,12 @@ import { useNavigate } from 'react-router-dom'
 
 export const Home = () => {
   const navigate = useNavigate()
+
   return (
     <div className={styles.body}>
       <section className={styles.card}>
         <h1>Need a Chess Tournament?</h1>
-        <div>
+        <div className={styles.actions}>
           <Stack spacing={2} direction="row">
             <Button 
               variant='outlined' 
@@ -19,7 +20,7 @@ export const Home = () => {
             <Button 
               variant='outlined' 
               startIcon={<StorageSharp />} 
-              size='small'
+              size='large'
               onClick={() => navigate('/saved')}>Saved</Button>
           </Stack>
         </div>

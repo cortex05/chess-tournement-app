@@ -1,25 +1,73 @@
 body {
   background-color: var(--background-color);
   color: var(--main-text);
-  height: 100%;
+  min-height: 100vh;
   width: 100%;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: end;
-  align-items: center; */
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 36px 50px;
 }
 
 .card {
-  background-color: var(--card-body);
+  background-color: var(--dark-body);
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 50%;
-  margin: 50px auto;
-  border: 5px solid black;
-  padding: 30px 0px;
+  justify-content: center;
+  text-align: center;
+  gap: 24px;
+  width: min(1180px, 100%);
+  min-height: 72vh;
+  border: 3px solid var(--background-color);
+  padding: 40px 24px;
+  box-sizing: border-box;
 }
 
-.card Button {
-  background-color: black;
+.card h1 {
+  font-size: clamp(2rem, 3.5vw, 3.25rem);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+}
+
+.actions :global(.MuiButton-root) {
+  color: var(--background-color);
+  border-color: var(--background-color);
+  border-width: 2px;
+  min-width: 150px;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 10px 18px;
+}
+
+.actions :global(.MuiButton-root:hover) {
+  border-color: var(--main-text);
+  color: var(--main-text);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 768px) {
+  .body {
+    padding: 16px;
+  }
+
+  .card {
+    min-height: 60vh;
+    padding: 28px 16px;
+  }
+
+  .actions :global(.MuiStack-root) {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .actions :global(.MuiButton-root) {
+    width: 100%;
+  }
 }
